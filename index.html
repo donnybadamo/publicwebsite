@@ -1,1001 +1,385 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Donny Badamo</title>
-  <meta name="description" content="Personal portfolio and digital resume"/>
-  <link rel="icon" href="favicon.png" type="image/png">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
-  <style>
-    :root {
-      --background: #ffffff;
-      --foreground: #1e3a29; /* Dark forest green for text */
-      --primary: #0ea5e9;
-      --primary-foreground: #f8fafc;
-      --muted-foreground: #3c6e51; /* Lighter forest green for muted text */
-      --border: #e5e7eb;
-      --input: #e5e7eb;
-      --accent: #f3f4f6;
-      --accent-foreground: #1e3a29;
-      --ring: #0ea5e9;
-    }
+<div class="min-h-screen">
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">donnybadamo.com</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#templates">Templates</a>
+        <a href="#thoughts">Thoughts</a>
+        <a href="#contact">Contact</a>
+        <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+      </nav>
+      <button id="theme-toggle" class="theme-button" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+      <a href="https://pictureofmonkey.com" class="theme-button" aria-label="Monkey pictures">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="9" rx="7" ry="8"></ellipse>
+          <circle cx="9" cy="7" r="1"></circle>
+          <circle cx="15" cy="7" r="1"></circle>
+          <path d="M8 14h8"></path>
+          <path d="M12 14v5"></path>
+          <path d="M10 2c-.5 0-4 2-4 8"></path>
+          <path d="M14 2c.5 0 4 2 4 8"></path>
+        </svg>
+      </a>
+      <button class="menu-button" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
 
-    [data-theme="dark"] {
-      --background: #121212;
-      --foreground: #e0f2e9; /* Light green for dark mode text */
-      --primary: #0ea5e9;
-      --primary-foreground: #f8fafc;
-      --muted-foreground: #9cb5a9; /* Muted green for dark mode */
-      --border: #2d2d2d;
-      --input: #2d2d2d;
-      --accent: #2d2d2d;
-      --accent-foreground: #e0f2e9;
-      --ring: #0ea5e9;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: var(--background);
-      color: var(--foreground);
-      line-height: 1.6;
-      font-size: 16px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      width: 100%;
-      border-bottom: 1px solid var(--border);
-      background-color: var(--background);
-    }
-    
-    .header-content {
-      display: flex;
-      height: 4rem;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem;
-    }
-    
-    .logo {
-      font-size: 1.25rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: var(--foreground);
-    }
-    
-    nav {
-      display: none;
-    }
-    
-    @media (min-width: 768px) {
-      nav {
-        display: flex;
-        gap: 1.5rem;
-      }
-    }
-    
-    nav a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.2s;
-      color: var(--foreground);
-      text-decoration: none;
-    }
-    
-    nav a:hover {
-      color: var(--primary);
-    }
-
-    .theme-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.375rem;
-      background-color: transparent;
-      color: var(--foreground);
-      border: none;
-      cursor: pointer;
-      margin-right: 0.5rem;
-    }
-
-    .theme-button:hover {
-      background-color: var(--accent);
-    }
-
-    .theme-icon-light {
-      display: block;
-    }
-
-    .theme-icon-dark {
-      display: none;
-    }
-
-    [data-theme="dark"] .theme-icon-light {
-      display: none;
-    }
-
-    [data-theme="dark"] .theme-icon-dark {
-      display: block;
-    }
-    
-    .menu-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.375rem;
-      background-color: transparent;
-      color: var(--foreground);
-      border: none;
-      cursor: pointer;
-    }
-    
-    @media (min-width: 768px) {
-      .menu-button {
-        display: none;
-      }
-    }
-    
-    main {
-      padding: 2rem 1rem;
-    }
-    
-    section {
-      padding: 3rem 0;
-    }
-    
-    h1, h2, h3, h4 {
-      font-weight: bold;
-      line-height: 1.2;
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-    }
-    
-    h2 {
-      font-size: 1.875rem;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-    
-    h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    p {
-      margin-bottom: 1rem;
-    }
-    
-    .profile {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    
-    .profile-image {
-      position: relative;
-      width: 16rem;
-      height: 16rem;
-      margin-bottom: 2rem;
-      overflow: hidden;
-    }
-    
-    .profile-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-    
-    @media (min-width: 768px) {
-      .grid-cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .grid-cols-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .grid-cols-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-    
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      background-color: var(--background);
-      position: relative;
-    }
-    
-    .card-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      text-decoration: none;
-      color: inherit;
-      border-radius: 0.5rem;
-    }
-    
-    .card-content {
-      position: relative;
-      z-index: 2;
-      pointer-events: none;
-    }
-    
-    .clickable {
-      position: relative;
-      z-index: 3;
-      pointer-events: auto;
-    }
-    
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: background-color 0.2s;
-      padding: 0.5rem 0.75rem;
-      height: 2.25rem;
-      text-decoration: none;
-    }
-    
-    .button-primary {
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-    }
-    
-    .button-primary:hover {
-      background-color: rgba(14, 165, 233, 0.9);
-    }
-    
-    .button-outline {
-      border: 1px solid var(--input);
-      background-color: var(--background);
-      color: var(--foreground);
-    }
-    
-    .button-outline:hover {
-      background-color: var(--accent);
-      color: var(--accent-foreground);
-    }
-    
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 0;
-    }
-    
-    @media (min-width: 768px) {
-      footer {
-        padding: 2rem 0;
-      }
-    }
-    
-    .footer-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    
-    @media (min-width: 768px) {
-      .footer-content {
-        flex-direction: row;
-      }
-    }
-    
-    .copyright {
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      text-align: center;
-    }
-    
-    @media (min-width: 768px) {
-      .copyright {
-        text-align: left;
-      }
-    }
-    
-    .footer-nav {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-    }
-    
-    .footer-nav a {
-      color: var(--muted-foreground);
-      text-decoration: none;
-    }
-    
-    .footer-nav a:hover {
-      color: var(--foreground);
-    }
-    
-    .work-item {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
-    }
-    
-    .work-item:last-child {
-      border-bottom: none;
-    }
-    
-    .work-header {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    @media (min-width: 768px) {
-      .work-header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-    }
-    
-    .company {
-      color: var(--primary);
-      font-weight: 500;
-    }
-    
-    .date {
-      color: var(--muted-foreground);
-    }
-    
-    .badge {
-      display: inline-block;
-      border-radius: 9999px;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      background-color: var(--accent);
-      color: var(--accent-foreground);
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    label {
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    
-    input, textarea {
-      display: block;
-      width: 100%;
-      border-radius: 0.375rem;
-      border: 1px solid var(--input);
-      background-color: var(--background);
-      color: var(--foreground);
-      padding: 0.5rem 0.75rem;
-      font-size: 0.875rem;
-    }
-    
-    input {
-      height: 2.5rem;
-    }
-    
-    textarea {
-      min-height: 5rem;
-      resize: vertical;
-    }
-    
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--ring);
-      box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
-    }
-    
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-    
-    .contact-item-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      margin-top: 0.125rem;
-    }
-    
-    .contact-item-content h4 {
-      font-weight: 500;
-    }
-    
-    .contact-item-content p {
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-    }
-    
-    .social-links {
-      display: flex;
-      gap: 1rem;
-    }
-    
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.375rem;
-      border: 1px solid var(--input);
-      background-color: var(--background);
-      color: var(--foreground);
-      text-decoration: none;
-    }
-    
-    .social-link:hover {
-      background-color: var(--accent);
-      color: var(--accent-foreground);
-    }
-    
-    .social-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-    
-    .article-meta {
-      display: flex;
-      align-items: center;
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      margin-bottom: 0.75rem;
-    }
-    
-    .article-link {
-      color: var(--primary);
-      font-weight: 500;
-      text-decoration: none;
-      position: relative;
-      z-index: 3;
-      pointer-events: auto;
-    }
-    
-    .article-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Mobile navigation styles */
-    @media (max-width: 767px) {
-      nav {
-        display: none;
-        position: absolute;
-        top: 4rem;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background-color: var(--background);
-        padding: 1rem;
-        border-bottom: 1px solid var(--border);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        z-index: 50;
-      }
-
-      nav.mobile-nav-active {
-        display: flex;
-      }
-
-      nav a {
-        padding: 0.75rem 0;
-        border-bottom: 1px solid var(--border);
-      }
-
-      nav a:last-child {
-        border-bottom: none;
-      }
-    }
-
-    /* Responsive grid improvements */
-    @media (max-width: 767px) {
-      .grid-cols-2, .grid-cols-3, .grid-cols-4 {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        margin-bottom: 1rem;
-      }
-    }
-
-    @media (min-width: 768px) and (max-width: 1023px) {
-      .grid-cols-3, .grid-cols-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .template-icon {
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .icon-container {
-      text-align: center;
-      padding: 1.5rem 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="min-h-screen">
-    <header>
-      <div class="container header-content">
-        <a href="/" class="logo">donnybadamo.com</a>
-        <nav>
-          <a href="#about">About</a>
-          <a href="#work">Work</a>
-          <a href="#projects">Projects</a>
-          <a href="#templates">Templates</a>
-          <a href="#thoughts">Thoughts</a>
-          <a href="#contact">Contact</a>
-          <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
-        </nav>
-        <button id="theme-toggle" class="theme-button" aria-label="Toggle dark mode">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2"></path>
-            <path d="M12 20v2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-          </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-          </svg>
-        </button>
-        <a href="https://pictureofmonkey.com" class="theme-button" aria-label="Monkey pictures">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="9" rx="7" ry="8"></ellipse>
-            <circle cx="9" cy="7" r="1"></circle>
-            <circle cx="15" cy="7" r="1"></circle>
-            <path d="M8 14h8"></path>
-            <path d="M12 14v5"></path>
-            <path d="M10 2c-.5 0-4 2-4 8"></path>
-            <path d="M14 2c.5 0 4 2 4 8"></path>
-          </svg>
-        </a>
-        <button class="menu-button" aria-label="Menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" x2="20" y1="12" y2="12"></line>
-            <line x1="4" x2="20" y1="6" y2="6"></line>
-            <line x1="4" x2="20" y1="18" y2="18"></line>
-          </svg>
-        </button>
+  <main class="container">
+    <section id="about">
+      <div class="profile">
+        <div class="profile-image">
+          <img src="donny-profile.jpg" alt="Donny Badamo posing next to a window with the New York City skyline in the background, wearing a striped shirt with curly hair">
+        </div>
+        <h1>Hi, I'm Donny.</h1>
       </div>
-    </header>
+    </section>
 
-    <main class="container">
-      <section id="about">
-        <div class="profile">
-          <div class="profile-image">
-            <img src="donny-profile.jpg" alt="Donny Badamo posing next to a window with the New York City skyline in the background, wearing a striped shirt with curly hair"/>
+    <section id="work">
+      <h2>Work</h2>
+      <div class="max-w-3xl mx-auto space-y-6">
+        <div class="work-item">
+          <div class="work-header">
+            <div>
+              <h3>Project Manager</h3>
+              <p class="company">Microsoft | New York, NY</p>
+            </div>
+            <p class="date">Oct 2021 - Present</p>
           </div>
-          <h1>Hi, I'm Donny.</h1>
+          <p class="mt-2">Working with global teams to make custom apps.</p>
         </div>
-      </section>
-
-      <section id="work">
-        <h2>Work</h2>
-        <div class="max-w-3xl mx-auto space-y-6">
-          <div class="work-item">
-            <div class="work-header">
-              <div>
-                <h3>Project Manager</h3>
-                <p class="company">Microsoft | New York, NY</p>
-              </div>
-              <p class="date">Oct 2021 - Present</p>
+        <div class="work-item">
+          <div class="work-header">
+            <div>
+              <h3>Internet of Things Technical Business Manager</h3>
+              <p class="company">AT&amp;T | Atlanta, GA</p>
             </div>
-            <p class="mt-2">Working with global teams to make custom apps.</p>
-          </div>
-          <div class="work-item">
-            <div class="work-header">
-              <div>
-                <h3>Internet of Things Technical Business Manager</h3>
-                <p class="company">AT&T | Atlanta, GA</p>
-              </div>
-              <p class="date">May 2020 - Sept 2020</p>
-            </div>
-          </div>
-          <div class="work-item">
-            <div class="work-header">
-              <div>
-                <h3>Autonomous Vehicle Electrical Engineer</h3>
-                <p class="company">Roush | Livonia, MI</p>
-              </div>
-              <p class="date">May 2018 - Aug 2018</p>
-            </div>
+            <p class="date">May 2020 - Sept 2020</p>
           </div>
         </div>
-      </section>
+        <div class="work-item">
+          <div class="work-header">
+            <div>
+              <h3>Autonomous Vehicle Electrical Engineer</h3>
+              <p class="company">Roush | Livonia, MI</p>
+            </div>
+            <p class="date">May 2018 - Aug 2018</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="projects">
-        <h2>Projects</h2>
-        <div class="grid grid-cols-2 max-w-4xl mx-auto">
-          <div class="card">
-            <a href="http://aka.ms/fhl-chess" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="http://aka.ms/fhl-chess" style="text-decoration: none; color: inherit;">FHL AI Chess Tournament</a></h3>
-              <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, Claude, Gemini, and Deepseeq to explore how AI performs in strategic games.</p>
-              <div style="margin-bottom: 1rem;">
-                <span class="badge">AI</span>
-                <span class="badge">Chess</span>
-                <span class="badge">Tournament</span>
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid grid-cols-2 max-w-4xl mx-auto">
+        <div class="card">
+          <a href="https://aka.ms/fhl-chess" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://aka.ms/fhl-chess" style="text-decoration: none; color: inherit;">FHL AI Chess Tournament</a></h3>
+            <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, Claude, Gemini, and Deepseeq to explore how AI performs in strategic games.</p>
+            <div style="margin-bottom: 1rem;">
+              <span class="badge">AI</span>
+              <span class="badge">Chess</span>
+              <span class="badge">Tournament</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <a href="https://aka.ms/fhl-chess" class="button button-outline clickable">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+                Project Page
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <a href="https://github.com/donnybadamo/Lichess" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://github.com/donnybadamo/Lichess" style="text-decoration: none; color: inherit;">Lichess Opening Finder</a></h3>
+            <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
+            <div style="margin-bottom: 1rem;">
+              <span class="badge">Python</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Chess API</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <a href="https://github.com/donnybadamo/Lichess" class="button button-outline clickable">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="templates">
+      <h2>Templates</h2>
+      <div class="grid grid-cols-4">
+        <div class="card">
+          <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="card-link"></a>
+          <div class="card-content">
+            <div class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                <path d="M2 13h20"></path>
+                <path d="M21 19H7"></path>
+                <path d="M3 5v14a2 2 0 0 0 2 2h16"></path>
+                <path d="M3 5a2 2 0 0 1 2-2h10"></path>
+                <path d="m15 9 5-5"></path>
+                <path d="M18 3h2v2"></path>
+              </svg>
+            </div>
+            <h3><a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" style="text-decoration: none; color: inherit;">General Trip Template with Weather API</a></h3>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A versatile trip planning template featuring weather API integration for better travel preparation.</p>
+            <div>
+              <span class="badge">Google Sheets</span>
+              <span class="badge">Weather API</span>
+              <span class="badge">Travel</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+            </div>
+          </div>
+        </div>
+        
+      <div class="card">
+          <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="card-link"></a>
+          <div class="card-content">
+            <div class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                <path d="M2 22h20"></path>
+                <path d="M7 8v14"></path>
+                <path d="M12 2v20"></path>
+                <path d="M17 8v14"></path>
+                <path d="M22 12v10"></path>
+                <path d="M2 12v10"></path>
+                <path d="M7 12h5"></path>
+                <path d="M12 6h5"></path>
+              </svg>
+            </div>
+            <h3><a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" style="text-decoration: none; color: inherit;">NYC Trip Plan Template</a></h3>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for planning trips to New York City, including itinerary and budgeting tools.</p>
+            <div>
+              <span class="badge">Google Sheets</span>
+              <span class="badge">Travel</span>
+              <span class="badge">NYC</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+            </div>
+          </div>
+        </div><div class="card-content">
+            <div class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <circle cx="12" cy="14" r="3"></circle>
+                <path d="M2 10h20"></path>
+              </svg>
+            </div>
+            <h3><a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" style="text-decoration: none; color: inherit;">Personal Finance Template</a></h3>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A comprehensive spreadsheet template for tracking personal finances and budgeting.</p>
+            <div>
+              <span class="badge">Google Sheets</span>
+              <span class="badge">Finance</span>
+              <span class="badge">Budgeting</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+            </div>
+          </div><div class="card">
+          <div class="card-content">
+            <div class="icon-container">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h3>Coming Soon: More Templates</h3>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">More templates are in development. Check back soon for additional resources.</p>
+            <div>
+              <span class="badge">Google Sheets</span>
+              <span class="badge">Templates</span>
+              <span class="badge">Tools</span>
+            </div>
+          </div>
+        </div></div>
+    </section>
+
+    <section id="thoughts">
+      <h2>Thoughts</h2>
+      <div class="grid grid-cols-3 max-w-5xl mx-auto">
+        <div class="card">
+          <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" style="text-decoration: none; color: inherit;">Summing Demons or Making Noise</a></h3>
+            <div class="article-meta">
+              <span>March 15, 2023 · 5 min read</span>
+            </div>
+            <p>Exploring the concept of signal versus noise in our modern information landscape.</p>
+            <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="article-link">Read More</a>
+          </div>
+        </div>
+        <div class="card">
+          <a href="https://donnybad.substack.com/p/the-heavy-bag" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://donnybad.substack.com/p/the-heavy-bag" style="text-decoration: none; color: inherit;">The Heavy Bag</a></h3>
+            <div class="article-meta">
+              <span>February 22, 2023 · 8 min read</span>
+            </div>
+            <p>Reflections on boxing training and the lessons learned from working with a heavy bag.</p>
+            <a href="https://donnybad.substack.com/p/the-heavy-bag" class="article-link">Read More</a>
+          </div>
+        </div>
+        <div class="card">
+          <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://donnybad.substack.com/p/the-defensive-commuter" style="text-decoration: none; color: inherit;">The Defensive Commuter</a></h3>
+            <div class="article-meta">
+              <span>January 10, 2023 · 6 min read</span>
+            </div>
+            <p>Strategies and observations on navigating urban commuting with awareness and preparation.</p>
+            <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="article-link">Read More</a>
+          </div>
+        </div>
+        <div class="card">
+          <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://donnybad.substack.com/p/mj-the-musical-review" style="text-decoration: none; color: inherit;">MJ: The Musical Review</a></h3>
+            <div class="article-meta">
+              <span>December 5, 2022 · 7 min read</span>
+            </div>
+            <p>A critical look at the Broadway musical celebrating the life and music of Michael Jackson.</p>
+            <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="article-link">Read More</a>
+          </div>
+        </div>
+        <div class="card">
+          <a href="https://donnybad.substack.com/p/ten-slice-terry" class="card-link"></a>
+          <div class="card-content">
+            <h3><a href="https://donnybad.substack.com/p/ten-slice-terry" style="text-decoration: none; color: inherit;">Ten Slice Terry</a></h3>
+            <div class="article-meta">
+              <span>November 18, 2022 · 4 min read</span>
+            </div>
+            <p>The story of an unusual character and their relationship with pizza that teaches us about limits and indulgence.</p>
+            <a href="https://donnybad.substack.com/p/ten-slice-terry" class="article-link">Read More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="grid grid-cols-2 max-w-4xl mx-auto">
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required="">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your.email@example.com" required="">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Your message" rows="5" required=""></textarea>
+            </div>
+            <button type="submit" class="button button-primary" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <div class="contact-item-content">
+                <h4>Email</h4>
+                <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb9babfbab6b4bf9bbcb6bab2b7f5b8b4b6">[email&nbsp;protected]</a></p>
               </div>
-              <div style="display: flex; gap: 0.5rem;">
-                <a href="http://aka.ms/fhl-chess" class="button button-outline clickable">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+            </div>
+            <div class="contact-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <div class="contact-item-content">
+                <h4>Location</h4>
+                <p>New York, NY</p>
+              </div>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+              <h4 style="margin-bottom: 0.75rem;">Social Media</h4>
+              <div class="social-links">
+                <a href="https://github.com/donnybadamo" class="social-link" aria-label="GitHub">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
                     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                     <path d="M9 18c-4.51 2-5-2-7-2"></path>
                   </svg>
-                  Project Page
                 </a>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://github.com/donnybadamo/Lichess" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://github.com/donnybadamo/Lichess" style="text-decoration: none; color: inherit;">Lichess Opening Finder</a></h3>
-              <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
-              <div style="margin-bottom: 1rem;">
-                <span class="badge">Python</span>
-                <span class="badge">Flask</span>
-                <span class="badge">Chess API</span>
-              </div>
-              <div style="display: flex; gap: 0.5rem;">
-                <a href="https://github.com/donnybadamo/Lichess" class="button button-outline clickable">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                <a href="https://linkedin.com/in/donnybadamo/" class="social-link" aria-label="LinkedIn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect width="4" height="12" x="2" y="9"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
                   </svg>
-                  GitHub
+                </a>
+                <a href="http://donnybad.substack.com" class="social-link" aria-label="Substack">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="M6 8h12"></path>
+                    <path d="M6 12h12"></path>
+                    <path d="M6 16h8"></path>
+                  </svg>
                 </a>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="templates">
-        <h2>Templates</h2>
-        <div class="grid grid-cols-4">
-          <div class="card">
-            <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="card-link"></a>
-            <div class="card-content">
-              <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                  <path d="M2 13h20"></path>
-                  <path d="M21 19H7"></path>
-                  <path d="M3 5v14a2 2 0 0 0 2 2h16"></path>
-                  <path d="M3 5a2 2 0 0 1 2-2h10"></path>
-                  <path d="m15 9 5-5"></path>
-                  <path d="M18 3h2v2"></path>
-                </svg>
-              </div>
-              <h3><a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" style="text-decoration: none; color: inherit;">General Trip Template with Weather API</a></h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A versatile trip planning template featuring weather API integration for better travel preparation.</p>
-              <div>
-                <span class="badge">Google Sheets</span>
-                <span class="badge">Weather API</span>
-                <span class="badge">Travel</span>
-              </div>
-              <div style="margin-top: 1rem;">
-                <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="12"></line>
-                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-              </div>
-              <h3>Coming Soon: More Templates</h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">More templates are in development. Check back soon for additional resources.</p>
-              <div>
-                <span class="badge">Google Sheets</span>
-                <span class="badge">Templates</span>
-                <span class="badge">Tools</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="thoughts">
-        <h2>Thoughts</h2>
-        <div class="grid grid-cols-3 max-w-5xl mx-auto">
-          <div class="card">
-            <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" style="text-decoration: none; color: inherit;">Summing Demons or Making Noise</a></h3>
-              <div class="article-meta">
-                <span>March 15, 2023 · 5 min read</span>
-              </div>
-              <p>Exploring the concept of signal versus noise in our modern information landscape.</p>
-              <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="article-link">Read More</a>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://donnybad.substack.com/p/the-heavy-bag" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://donnybad.substack.com/p/the-heavy-bag" style="text-decoration: none; color: inherit;">The Heavy Bag</a></h3>
-              <div class="article-meta">
-                <span>February 22, 2023 · 8 min read</span>
-              </div>
-              <p>Reflections on boxing training and the lessons learned from working with a heavy bag.</p>
-              <a href="https://donnybad.substack.com/p/the-heavy-bag" class="article-link">Read More</a>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://donnybad.substack.com/p/the-defensive-commuter" style="text-decoration: none; color: inherit;">The Defensive Commuter</a></h3>
-              <div class="article-meta">
-                <span>January 10, 2023 · 6 min read</span>
-              </div>
-              <p>Strategies and observations on navigating urban commuting with awareness and preparation.</p>
-              <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="article-link">Read More</a>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://donnybad.substack.com/p/mj-the-musical-review" style="text-decoration: none; color: inherit;">MJ: The Musical Review</a></h3>
-              <div class="article-meta">
-                <span>December 5, 2022 · 7 min read</span>
-              </div>
-              <p>A critical look at the Broadway musical celebrating the life and music of Michael Jackson.</p>
-              <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="article-link">Read More</a>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://donnybad.substack.com/p/ten-slice-terry" class="card-link"></a>
-            <div class="card-content">
-              <h3><a href="https://donnybad.substack.com/p/ten-slice-terry" style="text-decoration: none; color: inherit;">Ten Slice Terry</a></h3>
-              <div class="article-meta">
-                <span>November 18, 2022 · 4 min read</span>
-              </div>
-              <p>The story of an unusual character and their relationship with pizza that teaches us about limits and indulgence.</p>
-              <a href="https://donnybad.substack.com/p/ten-slice-terry" class="article-link">Read More</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <h2>Contact</h2>
-        <div class="grid grid-cols-2 max-w-4xl mx-auto">
-          <div class="card">
-            <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
-            <form class="contact-form">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
-              </div>
-              <button type="submit" class="button button-primary" style="width: 100%;">Send Message</button>
-            </form>
-          </div>
-          <div class="card">
-            <h3 style="margin-bottom: 1rem;">Contact Information</h3>
-            <div class="contact-info">
-              <div class="contact-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
-                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </svg>
-                <div class="contact-item-content">
-                  <h4>Email</h4>
-                  <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb9babfbab6b4bf9bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a></p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
-                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <div class="contact-item-content">
-                  <h4>Location</h4>
-                  <p>New York, NY</p>
-                </div>
-              </div>
-              <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                <h4 style="margin-bottom: 0.75rem;">Social Media</h4>
-                <div class="social-links">
-                  <a href="https://github.com/donnybadamo" class="social-link" aria-label="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                      <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                    </svg>
-                  </a>
-                  <a href="https://linkedin.com/in/donnybadamo/" class="social-link" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                      <rect width="4" height="12" x="2" y="9"></rect>
-                      <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                  </a>
-                  <a href="http://donnybad.substack.com" class="social-link" aria-label="Substack">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <path d="M6 8h12" />
-                      <path d="M6 12h12" />
-                      <path d="M6 16h8" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container footer-content">
-        <p class="copyright">&copy; 2023 Donny Badamo. All rights reserved.</p>
-        <div class="footer-nav">
-          <a href="#about">About</a>
-          <a href="#work">Work</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-          <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
-        </div>
       </div>
-    </footer>
-  </div>
-  <script>
-  // Theme toggle functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Check for saved theme preference or use the system preference
-    const currentTheme = localStorage.getItem('theme') || 
-                         (prefersDarkScheme.matches ? 'dark' : 'light');
-    
-    // Set the initial theme
-    if (currentTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-    
-    // Toggle theme when button is clicked
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-  });
+    </section>
+  </main>
 
-  // Mobile menu functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuButton = document.querySelector('.menu-button');
-    const nav = document.querySelector('nav');
-    
-    menuButton.addEventListener('click', () => {
-      nav.classList.toggle('mobile-nav-active');
-    });
-  });
-</script>
-</body>
-</html>eets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="card-link"></a>
-            <div class="card-content">
-              <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                  <circle cx="12" cy="14" r="3"></circle>
-                  <path d="M2 10h20"></path>
-                </svg>
-              </div>
-              <h3><a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" style="text-decoration: none; color: inherit;">Personal Finance Template</a></h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A comprehensive spreadsheet template for tracking personal finances and budgeting.</p>
-              <div>
-                <span class="badge">Google Sheets</span>
-                <span class="badge">Finance</span>
-                <span class="badge">Budgeting</span>
-              </div>
-              <div style="margin-top: 1rem;">
-                <a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="card-link"></a>
-            <div class="card-content">
-              <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                  <path d="M2 22h20"></path>
-                  <path d="M7 8v14"></path>
-                  <path d="M12 2v20"></path>
-                  <path d="M17 8v14"></path>
-                  <path d="M22 12v10"></path>
-                  <path d="M2 12v10"></path>
-                  <path d="M7 12h5"></path>
-                  <path d="M12 6h5"></path>
-                </svg>
-              </div>
-              <h3><a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" style="text-decoration: none; color: inherit;">NYC Trip Plan Template</a></h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for planning trips to New York City, including itinerary and budgeting tools.</p>
-              <div>
-                <span class="badge">Google Sheets</span>
-                <span class="badge">Travel</span>
-                <span class="badge">NYC</span>
-              </div>
-              <div style="margin-top: 1rem;">
-                <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <a href="https://docs.google.com/spreadsh
+  <footer>
+    <div class="container footer-content">
+      <p class="copyright">© 2023 Donny Badamo. All rights reserved.</p>
+      <div class="footer-nav">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+      </div>
+    </div>
+  </footer>
+</div>
