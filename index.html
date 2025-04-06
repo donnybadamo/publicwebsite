@@ -235,6 +235,31 @@
       border-radius: 0.5rem;
       padding: 1.5rem;
       background-color: var(--background);
+      position: relative;
+    }
+    
+    .card-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 0.5rem;
+    }
+    
+    .card-content {
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    .clickable {
+      position: relative;
+      z-index: 3;
+      pointer-events: auto;
     }
     
     .button {
@@ -477,6 +502,9 @@
       color: var(--primary);
       font-weight: 500;
       text-decoration: none;
+      position: relative;
+      z-index: 3;
+      pointer-events: auto;
     }
     
     .article-link:hover {
@@ -629,39 +657,45 @@
         <h2>Projects</h2>
         <div class="grid grid-cols-2 max-w-4xl mx-auto">
           <div class="card">
-            <h3><a href="http://aka.ms/fhl-chess" style="text-decoration: none; color: inherit;">FHL AI Chess Tournament</a></h3>
-            <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, Claude, Gemini, and Deepseeq to explore how AI performs in strategic games.</p>
-            <div style="margin-bottom: 1rem;">
-              <span class="badge">AI</span>
-              <span class="badge">Chess</span>
-              <span class="badge">Tournament</span>
-            </div>
-            <div style="display: flex; gap: 0.5rem;">
-              <a href="http://aka.ms/fhl-chess" class="button button-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                </svg>
-                Project Page
-              </a>
+            <a href="http://aka.ms/fhl-chess" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="http://aka.ms/fhl-chess" style="text-decoration: none; color: inherit;">FHL AI Chess Tournament</a></h3>
+              <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, Claude, Gemini, and Deepseeq to explore how AI performs in strategic games.</p>
+              <div style="margin-bottom: 1rem;">
+                <span class="badge">AI</span>
+                <span class="badge">Chess</span>
+                <span class="badge">Tournament</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <a href="http://aka.ms/fhl-chess" class="button button-outline clickable">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                  </svg>
+                  Project Page
+                </a>
+              </div>
             </div>
           </div>
           <div class="card">
-            <h3><a href="https://github.com/donnybadamo/Lichess" style="text-decoration: none; color: inherit;">Lichess Opening Finder</a></h3>
-            <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
-            <div style="margin-bottom: 1rem;">
-              <span class="badge">Python</span>
-              <span class="badge">Flask</span>
-              <span class="badge">Chess API</span>
-            </div>
-            <div style="display: flex; gap: 0.5rem;">
-              <a href="https://github.com/donnybadamo/Lichess" class="button button-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                </svg>
-                GitHub
-              </a>
+            <a href="https://github.com/donnybadamo/Lichess" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://github.com/donnybadamo/Lichess" style="text-decoration: none; color: inherit;">Lichess Opening Finder</a></h3>
+              <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
+              <div style="margin-bottom: 1rem;">
+                <span class="badge">Python</span>
+                <span class="badge">Flask</span>
+                <span class="badge">Chess API</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <a href="https://github.com/donnybadamo/Lichess" class="button button-outline clickable">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                  </svg>
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -671,78 +705,286 @@
         <h2>Templates</h2>
         <div class="grid grid-cols-4">
           <div class="card">
-            <div class="icon-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <circle cx="12" cy="14" r="3"></circle>
-                <path d="M2 10h20"></path>
-              </svg>
-            </div>
-            <h3><a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" style="text-decoration: none; color: inherit;">Personal Finance Template</a></h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A comprehensive spreadsheet template for tracking personal finances and budgeting.</p>
-            <div>
-              <span class="badge">Google Sheets</span>
-              <span class="badge">Finance</span>
-              <span class="badge">Budgeting</span>
-            </div>
-            <div style="margin-top: 1rem;">
-              <a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="button button-outline" style="width: 100%; text-align: center;">View Template</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="icon-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                <path d="M2 22h20"></path>
-                <path d="M7 8v14"></path>
-                <path d="M12 2v20"></path>
-                <path d="M17 8v14"></path>
-                <path d="M22 12v10"></path>
-                <path d="M2 12v10"></path>
-                <path d="M7 12h5"></path>
-                <path d="M12 6h5"></path>
-              </svg>
-            </div>
-            <h3><a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" style="text-decoration: none; color: inherit;">NYC Trip Plan Template</a></h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for planning trips to New York City, including itinerary and budgeting tools.</p>
-            <div>
-              <span class="badge">Google Sheets</span>
-              <span class="badge">Travel</span>
-              <span class="badge">NYC</span>
-            </div>
-            <div style="margin-top: 1rem;">
-              <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="button button-outline" style="width: 100%; text-align: center;">View Template</a>
+            <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="card-link"></a>
+            <div class="card-content">
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                  <path d="M2 13h20"></path>
+                  <path d="M21 19H7"></path>
+                  <path d="M3 5v14a2 2 0 0 0 2 2h16"></path>
+                  <path d="M3 5a2 2 0 0 1 2-2h10"></path>
+                  <path d="m15 9 5-5"></path>
+                  <path d="M18 3h2v2"></path>
+                </svg>
+              </div>
+              <h3><a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" style="text-decoration: none; color: inherit;">General Trip Template with Weather API</a></h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A versatile trip planning template featuring weather API integration for better travel preparation.</p>
+              <div>
+                <span class="badge">Google Sheets</span>
+                <span class="badge">Weather API</span>
+                <span class="badge">Travel</span>
+              </div>
+              <div style="margin-top: 1rem;">
+                <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+              </div>
             </div>
           </div>
           <div class="card">
-            <div class="icon-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                <path d="M17 18a5 5 0 0 0-10 0"></path>
-                <line x1="12" y1="9" x2="12" y2="2"></line>
-                <line x1="4.22" y1="10.22" x2="5.64" y2="11.64"></line>
-                <line x1="1" y1="18" x2="3" y2="18"></line>
-                <line x1="21" y1="18" x2="23" y2="18"></line>
-                <line x1="18.36" y1="11.64" x2="19.78" y2="10.22"></line>
-                <line x1="23" y1="22" x2="1" y2="22"></line>
-                <polyline points="8 6 12 2 16 6"></polyline>
-              </svg>
+            <div class="card-content">
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <h3>Coming Soon: More Templates</h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">More templates are in development. Check back soon for additional resources.</p>
+              <div>
+                <span class="badge">Google Sheets</span>
+                <span class="badge">Templates</span>
+                <span class="badge">Tools</span>
+              </div>
             </div>
-            <h3><a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" style="text-decoration: none; color: inherit;">General Trip Template with Weather API</a></h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A versatile trip planning template featuring weather API integration for better travel preparation.</p>
-            <div>
-              <span class="badge">Google Sheets</span>
-              <span class="badge">Weather API</span>
-              <span class="badge">Travel</span>
-            </div>
-            <div style="margin-top: 1rem;">
-              <a href="https://docs.google.com/spreadsheets/d/1nNtBqcv4p9do1NbTN1Wv9Gzfi9m-jKmLz_AibWeIgTU/edit?usp=sharing" class="button button-outline" style="width: 100%; text-align: center;">View Template</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="thoughts">
+        <h2>Thoughts</h2>
+        <div class="grid grid-cols-3 max-w-5xl mx-auto">
+          <div class="card">
+            <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" style="text-decoration: none; color: inherit;">Summing Demons or Making Noise</a></h3>
+              <div class="article-meta">
+                <span>March 15, 2023 · 5 min read</span>
+              </div>
+              <p>Exploring the concept of signal versus noise in our modern information landscape.</p>
+              <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="article-link">Read More</a>
             </div>
           </div>
           <div class="card">
-            <div class="icon-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
+            <a href="https://donnybad.substack.com/p/the-heavy-bag" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://donnybad.substack.com/p/the-heavy-bag" style="text-decoration: none; color: inherit;">The Heavy Bag</a></h3>
+              <div class="article-meta">
+                <span>February 22, 2023 · 8 min read</span>
+              </div>
+              <p>Reflections on boxing training and the lessons learned from working with a heavy bag.</p>
+              <a href="https://donnybad.substack.com/p/the-heavy-bag" class="article-link">Read More</a>
             </div>
-            <h3>Coming Soon: More Templates</h3>
-            <p style="font-size: 0.875rem; color: var(--
+          </div>
+          <div class="card">
+            <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://donnybad.substack.com/p/the-defensive-commuter" style="text-decoration: none; color: inherit;">The Defensive Commuter</a></h3>
+              <div class="article-meta">
+                <span>January 10, 2023 · 6 min read</span>
+              </div>
+              <p>Strategies and observations on navigating urban commuting with awareness and preparation.</p>
+              <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="article-link">Read More</a>
+            </div>
+          </div>
+          <div class="card">
+            <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://donnybad.substack.com/p/mj-the-musical-review" style="text-decoration: none; color: inherit;">MJ: The Musical Review</a></h3>
+              <div class="article-meta">
+                <span>December 5, 2022 · 7 min read</span>
+              </div>
+              <p>A critical look at the Broadway musical celebrating the life and music of Michael Jackson.</p>
+              <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="article-link">Read More</a>
+            </div>
+          </div>
+          <div class="card">
+            <a href="https://donnybad.substack.com/p/ten-slice-terry" class="card-link"></a>
+            <div class="card-content">
+              <h3><a href="https://donnybad.substack.com/p/ten-slice-terry" style="text-decoration: none; color: inherit;">Ten Slice Terry</a></h3>
+              <div class="article-meta">
+                <span>November 18, 2022 · 4 min read</span>
+              </div>
+              <p>The story of an unusual character and their relationship with pizza that teaches us about limits and indulgence.</p>
+              <a href="https://donnybad.substack.com/p/ten-slice-terry" class="article-link">Read More</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <div class="grid grid-cols-2 max-w-4xl mx-auto">
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
+            <form class="contact-form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="button button-primary" style="width: 100%;">Send Message</button>
+            </form>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <div class="contact-item-content">
+                  <h4>Email</h4>
+                  <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb9babfbab6b4bf9bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a></p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div class="contact-item-content">
+                  <h4>Location</h4>
+                  <p>New York, NY</p>
+                </div>
+              </div>
+              <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                <h4 style="margin-bottom: 0.75rem;">Social Media</h4>
+                <div class="social-links">
+                  <a href="https://github.com/donnybadamo" class="social-link" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                      <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                    </svg>
+                  </a>
+                  <a href="https://linkedin.com/in/donnybadamo/" class="social-link" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect width="4" height="12" x="2" y="9"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </a>
+                  <a href="http://donnybad.substack.com" class="social-link" aria-label="Substack">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M6 8h12" />
+                      <path d="M6 12h12" />
+                      <path d="M6 16h8" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <p class="copyright">&copy; 2023 Donny Badamo. All rights reserved.</p>
+        <div class="footer-nav">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+  // Theme toggle functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check for saved theme preference or use the system preference
+    const currentTheme = localStorage.getItem('theme') || 
+                         (prefersDarkScheme.matches ? 'dark' : 'light');
+    
+    // Set the initial theme
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+    
+    // Toggle theme when button is clicked
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  });
+
+  // Mobile menu functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.querySelector('.menu-button');
+    const nav = document.querySelector('nav');
+    
+    menuButton.addEventListener('click', () => {
+      nav.classList.toggle('mobile-nav-active');
+    });
+  });
+</script>
+</body>
+</html>eets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="card-link"></a>
+            <div class="card-content">
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <circle cx="12" cy="14" r="3"></circle>
+                  <path d="M2 10h20"></path>
+                </svg>
+              </div>
+              <h3><a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" style="text-decoration: none; color: inherit;">Personal Finance Template</a></h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A comprehensive spreadsheet template for tracking personal finances and budgeting.</p>
+              <div>
+                <span class="badge">Google Sheets</span>
+                <span class="badge">Finance</span>
+                <span class="badge">Budgeting</span>
+              </div>
+              <div style="margin-top: 1rem;">
+                <a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="card-link"></a>
+            <div class="card-content">
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="template-icon">
+                  <path d="M2 22h20"></path>
+                  <path d="M7 8v14"></path>
+                  <path d="M12 2v20"></path>
+                  <path d="M17 8v14"></path>
+                  <path d="M22 12v10"></path>
+                  <path d="M2 12v10"></path>
+                  <path d="M7 12h5"></path>
+                  <path d="M12 6h5"></path>
+                </svg>
+              </div>
+              <h3><a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" style="text-decoration: none; color: inherit;">NYC Trip Plan Template</a></h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for planning trips to New York City, including itinerary and budgeting tools.</p>
+              <div>
+                <span class="badge">Google Sheets</span>
+                <span class="badge">Travel</span>
+                <span class="badge">NYC</span>
+              </div>
+              <div style="margin-top: 1rem;">
+                <a href="https://docs.google.com/spreadsheets/d/1XT7qHaJkZ7cLYvqR4IqON_1RJOkAhV-M26_nm4vDE9M/edit?usp=sharing" class="button button-outline clickable" style="width: 100%; text-align: center;">View Template</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <a href="https://docs.google.com/spreadsh
