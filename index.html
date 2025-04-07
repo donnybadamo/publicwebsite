@@ -654,6 +654,64 @@
         justify-content: center;
       }
     }
+    /* Dropdown menu styles */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      min-width: 160px;
+      z-index: 50;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .dropdown-icon {
+      transition: transform 0.2s;
+    }
+
+    .dropdown:hover .dropdown-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Mobile dropdown adjustments */
+    @media (max-width: 767px) {
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        border: none;
+        margin-left: 1rem;
+      }
+      
+      .dropdown-content a {
+        padding: 0.5rem 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -669,7 +727,18 @@
           <a href="#templates">Templates</a>
           <a href="#thoughts">Thoughts</a>
           <a href="#contact">Contact</a>
-          <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+              Fun Stuff
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+              <a href="https://galaga.donnybadamo.com" target="_blank">Galaga</a>
+            </div>
+          </div>
         </nav>
         <button id="theme-toggle" class="theme-button" aria-label="Toggle dark mode">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light">
@@ -1060,14 +1129,25 @@
 
     <footer>
       <div class="container footer-content">
-        <p class="copyright">&copy; 2023 Donny Badamo. All rights reserved.</p>
+        <p class="copyright">&copy; 1999 Donny Badamo. Some rights reserved.</p>
         <div class="footer-nav">
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#education">Education</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
-          <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+              Fun Stuff
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="https://paint.donnybadamo.com" target="_blank">Paint</a>
+              <a href="https://galaga.donnybadamo.com" target="_blank">Galaga</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
