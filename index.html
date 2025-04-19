@@ -379,7 +379,7 @@
       display: flex;
       gap: 1rem;
       font-size: 0.875rem;
-      color: var(--muted-foreground);
+      color: var (--muted-foreground);
     }
     
     .footer-nav a {
@@ -421,7 +421,7 @@
     }
     
     .date {
-      color: var(--muted-foreground);
+      color: var (--muted-foreground);
     }
     
     .badge {
@@ -1155,6 +1155,32 @@
                       <path d="M10 12l-1 3"></path>
                       <path d="M14 12l1 3"></path>
                     </svg>
+                  </a>
+                </div>
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0 12px 0;">
+                <div style="margin-bottom: 12px; color: var(--muted-foreground); font-size: 0.95rem;">
+                </div>
+                <div style="margin-top: 0;">
+                  <a 
+                    href="https://outlook.office365.com/book/DonnysDynamicDatebook@bookings.microsoft.com/?" 
+                    target="_blank" 
+                    rel="noopener" 
+                    style="
+                      display: inline-block;
+                      background-color: #0078d4;
+                      color: #fff;
+                      padding: 12px 24px;
+                      border-radius: 6px;
+                      text-decoration: none;
+                      font-weight: 600;
+                      font-size: 16px;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+                      transition: background 0.2s;
+                    "
+                    onmouseover="this.style.backgroundColor='#005a9e'"
+                    onmouseout="this.style.backgroundColor='#0078d4'"
+                  >
+                    Book a Meeting with Me
                   </a>
                 </div>
               </div>
