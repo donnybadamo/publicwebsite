@@ -79,6 +79,10 @@
       line-height: 1.6;
       font-size: 16px;
     }
+
+    html {
+      scroll-padding-top: 4.5rem;
+    }
     
     .container {
       max-width: 1200px;
@@ -758,6 +762,24 @@
         height: 100%;
       }
     }
+
+    /* Add this style to make the footer dropdown open upwards */
+    footer .dropdown {
+      position: relative;
+    }
+    footer .dropdown-content {
+      bottom: 2.5rem; /* Adjust as needed to position above the trigger */
+      top: auto !important;
+      left: 0;
+      right: auto;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+      /* Ensure it appears above */
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    footer .dropdown:hover .dropdown-content {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -766,23 +788,23 @@
       <div class="container header-content">
         <a href="https://donnybadamo.com/" class="logo">donnybadamo.com</a>
         <nav>
-          <a href="https://donnybadamo.com/#about">About</a>
-          <a href="https://donnybadamo.com/#work">Work</a>
-          <a href="https://donnybadamo.com/#education">Education</a>
-          <a href="https://donnybadamo.com/#projects">Projects</a>
-          <a href="https://donnybadamo.com/#templates">Templates</a>
-          <a href="https://donnybadamo.com/#thoughts">Thoughts</a>
-          <a href="https://donnybadamo.com/#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#education">Education</a>
+          <a href="#projects">Projects</a>
+          <a href="#templates">Templates</a>
+          <a href="#thoughts">Thoughts</a>
+          <a href="#contact">Contact</a>
           <div class="dropdown">
-            <a href="https://donnybadamo.com/#" class="dropdown-trigger">
+            <a href="https://donnybadamo.com/#" class="dropdown-trigger" target="_blank" rel="noopener noreferrer">
               Fun Stuff
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
                 <path d="m6 9 6 6 6-6"></path>
               </svg>
             </a>
             <div class="dropdown-content">
-              <a href="https://paint.donnybadamo.com/" target="_blank">Paint</a>
-              <a href="https://galaga.donnybadamo.com/" target="_blank">Galaga</a>
+              <a href="https://paint.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Paint</a>
+              <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
             </div>
           </div>
         </nav>
@@ -1215,21 +1237,21 @@
       <div class="container footer-content">
         <p class="copyright">© 1999 Donny Badamo. Some rights reserved.</p>
         <div class="footer-nav">
-          <a href="https://donnybadamo.com/#about">About</a>
-          <a href="https://donnybadamo.com/#work">Work</a>
-          <a href="https://donnybadamo.com/#education">Education</a>
-          <a href="https://donnybadamo.com/#projects">Projects</a>
-          <a href="https://donnybadamo.com/#contact">Contact</a>
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#education">Education</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
           <div class="dropdown">
-            <a href="https://donnybadamo.com/#" class="dropdown-trigger">
+            <a href="https://donnybadamo.com/#" class="dropdown-trigger" target="_blank" rel="noopener noreferrer">
               Fun Stuff
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
                 <path d="m6 9 6 6 6-6"></path>
               </svg>
             </a>
             <div class="dropdown-content">
-              <a href="https://paint.donnybadamo.com/" target="_blank">Paint</a>
-              <a href="https://galaga.donnybadamo.com/" target="_blank">Galaga</a>
+              <a href="https://paint.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Paint</a>
+              <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
             </div>
           </div>
         </div>
@@ -1302,16 +1324,6 @@
     
     menuButton.addEventListener('click', () => {
       nav.classList.toggle('mobile-nav-active');
-    });
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('a');
-    links.forEach(link => {
-      link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener noreferrer');
     });
   });
 </script>
