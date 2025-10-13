@@ -806,6 +806,35 @@
     footer .dropdown:hover .dropdown-content {
       display: block;
     }
+
+    /* Prevent horizontal overflow on small screens */
+    html, body { overflow-x: hidden; }
+
+    /* Give all containers comfortable, responsive side padding */
+    .container {
+      /* 16px → 32px based on viewport width */
+      padding-inline: clamp(16px, 4vw, 32px);
+    }
+
+    /* Also pad main and sections for cases without .container */
+    main, section {
+      padding-inline: clamp(16px, 4vw, 32px);
+    }
+
+    /* Respect iOS safe areas (notch) */
+    body {
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+    }
+
+    /* Keep header content aligned with the same rhythm */
+    .header-content {
+      padding-inline: clamp(16px, 4vw, 32px);
+    }
+
+    /* Fix minor typos that might break colors */
+    .footer-nav { color: var(--muted-foreground); }
+    .date { color: var(--muted-foreground); }
   </style>
 </head>
 <body>
