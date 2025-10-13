@@ -67,10 +67,10 @@
   <style>
     :root {
       --background: #ffffff;
-      --foreground: #1e3a29; /* Dark forest green for text */
+      --foreground: #1e3a29;
       --primary: #0ea5e9;
       --primary-foreground: #f8fafc;
-      --muted-foreground: #3c6e51; /* Lighter forest green for muted text */
+      --muted-foreground: #3c6e51;
       --border: #e5e7eb;
       --input: #e5e7eb;
       --accent: #f3f4f6;
@@ -80,10 +80,10 @@
 
     [data-theme="dark"] {
       --background: #121212;
-      --foreground: #e0f2e9; /* Light green for dark mode text */
+      --foreground: #e0f2e9;
       --primary: #0ea5e9;
       --primary-foreground: #f8fafc;
-      --muted-foreground: #9cb5a9; /* Muted green for dark mode */
+      --muted-foreground: #9cb5a9;
       --border: #2d2d2d;
       --input: #2d2d2d;
       --accent: #2d2d2d;
@@ -107,18 +107,19 @@
 
     html {
       scroll-padding-top: 4.5rem;
+      overflow-x: hidden;
+    }
+    
+    body {
+      overflow-x: hidden;
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
     }
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .container {
-        padding: 0 3rem;
-      }
+      padding-inline: clamp(16px, 4vw, 32px);
     }
     
     header {
@@ -131,7 +132,7 @@
     }
 
     .work-item p {
-    margin-bottom: 1.0rem; /* Adjust this value as needed */
+      margin-bottom: 1.0rem;
     }
     
     .header-content {
@@ -139,13 +140,7 @@
       height: 4rem;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      .header-content {
-        padding: 0 3rem;
-      }
+      padding-inline: clamp(16px, 4vw, 32px);
     }
     
     .logo {
@@ -189,7 +184,7 @@
       color: var(--foreground);
       border: none;
       cursor: pointer;
-      margin-right: 0; /* Remove margin so spacing is handled by gap */
+      margin-right: 0;
     }
 
     .theme-button:hover {
@@ -209,8 +204,8 @@
     }
 
     [data-theme="dark"] a[href^="mailto:"] {
-      color: #0ea5e9; /* Bright blue for better contrast */
-      text-decoration: underline; /* Optional for better visibility */
+      color: #0ea5e9;
+      text-decoration: underline;
     }
 
     [data-theme="dark"] .theme-icon-dark {
@@ -237,13 +232,8 @@
     }
     
     main {
-      padding: 2rem;
-    }
-    
-    @media (min-width: 768px) {
-      main {
-        padding: 3rem 2rem;
-      }
+      padding-inline: clamp(16px, 4vw, 32px);
+      padding-block: 2rem;
     }
     
     section {
@@ -426,7 +416,7 @@
       display: flex;
       gap: 1rem;
       font-size: 0.875rem;
-      color: var (--muted-foreground);
+      color: var(--muted-foreground);
     }
     
     .footer-nav a {
@@ -468,7 +458,7 @@
     }
     
     .date {
-      color: var (--muted-foreground);
+      color: var(--muted-foreground);
     }
     
     .badge {
@@ -599,7 +589,6 @@
       text-decoration: underline;
     }
 
-    /* Mobile navigation styles */
     @media (max-width: 767px) {
       nav {
         display: none;
@@ -629,7 +618,6 @@
       }
     }
 
-    /* Responsive grid improvements */
     @media (max-width: 767px) {
       .grid-cols-2, .grid-cols-3, .grid-cols-4 {
         grid-template-columns: 1fr;
@@ -671,7 +659,6 @@
       line-height: 1.7;
     }
 
-    /* Add this to the style section */
     .profile .social-links {
       display: flex;
       gap: 0.75rem;
@@ -698,7 +685,7 @@
         justify-content: center;
       }
     }
-    /* Dropdown menu styles */
+
     .dropdown {
       position: relative;
       display: inline-block;
@@ -743,7 +730,6 @@
       transform: rotate(180deg);
     }
 
-    /* Mobile dropdown adjustments */
     @media (max-width: 767px) {
       .dropdown-content {
         position: static;
@@ -775,11 +761,13 @@
       font-weight: 500;
       box-sizing: border-box;
     }
+
     .contact-action-btn:hover {
       background-color: rgba(14, 165, 233, 0.9);
       color: var(--primary-foreground);
       text-decoration: none;
     }
+
     @media (min-width: 768px) {
       .grid-cols-2 {
         align-items: end;
@@ -789,52 +777,23 @@
       }
     }
 
-    /* Add this style to make the footer dropdown open upwards */
     footer .dropdown {
       position: relative;
     }
+
     footer .dropdown-content {
-      bottom: 2.5rem; /* Adjust as needed to position above the trigger */
+      bottom: 2.5rem;
       top: auto !important;
       left: 0;
       right: auto;
       margin-bottom: 0.5rem;
       margin-top: 0;
-      /* Ensure it appears above */
       box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     }
+
     footer .dropdown:hover .dropdown-content {
       display: block;
     }
-
-    /* Prevent horizontal overflow on small screens */
-    html, body { overflow-x: hidden; }
-
-    /* Give all containers comfortable, responsive side padding */
-    .container {
-      /* 16px → 32px based on viewport width */
-      padding-inline: clamp(16px, 4vw, 32px);
-    }
-
-    /* Also pad main and sections for cases without .container */
-    main, section {
-      padding-inline: clamp(16px, 4vw, 32px);
-    }
-
-    /* Respect iOS safe areas (notch) */
-    body {
-      padding-left: max(0px, env(safe-area-inset-left));
-      padding-right: max(0px, env(safe-area-inset-right));
-    }
-
-    /* Keep header content aligned with the same rhythm */
-    .header-content {
-      padding-inline: clamp(16px, 4vw, 32px);
-    }
-
-    /* Fix minor typos that might break colors */
-    .footer-nav { color: var(--muted-foreground); }
-    .date { color: var(--muted-foreground); }
   </style>
 </head>
 <body>
@@ -849,7 +808,7 @@
           <a href="#thoughts">Thoughts</a>
           <a href="#contact">Contact</a>
           <div class="dropdown">
-            <a href="#" class="dropdown-trigger" target="_blank" rel="noopener noreferrer">
+            <a href="#" class="dropdown-trigger">
               Fun Stuff
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
                 <path d="m6 9 6 6 6-6"></path>
@@ -934,142 +893,102 @@
             </div>
           </div>
         </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Schema.org structured data for better SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Donny Badamo",
-    "url": "https://donnybadamo.com",
-    "image": "https://donnybadamo.com/donny-profile.jpg",
-    "jobTitle": "AI Solutions Program Manager",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Velocity Advisors",
-      "url": "https://www.velocityadvisors.ai"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/donnybadamo/",
-      "https://github.com/donnybadamo",
-      "http://donnybad.substack.com",
-      "https://lichess.org/@/IIOhManII"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "New York",
-      "addressRegion": "NY",
-      "postalCode": "10001",
-      "addressCountry": "US"
-    },
-    "email": "mailto:things@donnybadamo.com",
-    "telephone": "+1-555-555-5555"
-  }
-  </script>
-</body>
-</html>
       </section>
 
       <section id="experience">
-  <h2>Experience</h2>
-  <h3 style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">Work</h3>
-  <div class="max-w-3xl mx-auto space-y-6">
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>Principal</h3>
-          <p class="company">Badamo Business | New York, NY</p>
+        <h2>Experience</h2>
+        <h3 style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">Work</h3>
+        <div class="max-w-3xl mx-auto space-y-6">
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>Principal</h3>
+                <p class="company">Badamo Business | New York, NY</p>
+              </div>
+              <p class="date">Jun 2025 - Present</p>
+            </div>
+            <p class="mt-2">Building stuff, taking names (what does that even mean, anyway?).</p>
+          </a>
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>AI Solutions Program Manager</h3>
+                <p class="company">Velocity Advisors | New York, NY</p>
+              </div>
+              <p class="date">Jun 2025 - Present</p>
+            </div>
+            <p class="mt-2">Automating workflows, changing organizations.</p>
+          </a>
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>Project Manager II</h3>
+                <p class="company">Microsoft | New York, NY</p>
+              </div>
+              <p class="date">Oct 2021 - Jul 2025</p>
+            </div>
+            <p class="mt-2">Leading global teams to make custom apps.</p>
+          </a>
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>Internet of Things Technical Business Manager</h3>
+                <p class="company">AT&T | Atlanta, GA</p>
+              </div>
+              <p class="date">May 2020 - Sep 2020</p>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>Autonomous Vehicle Electrical Engineer</h3>
+                <p class="company">Roush | Livonia, MI</p>
+              </div>
+              <p class="date">May 2018 - Aug 2018</p>
+            </div>
+          </a>
         </div>
-        <p class="date">Jun 2025 - Present</p>
-      </div>
-      <p class="mt-2">Building stuff, taking names (what does that even mean, anyway?).</p>
-    </a>
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>AI Solutions Program Manager</h3>
-          <p class="company">Velocity Advisors | New York, NY</p>
-        </div>
-        <p class="date">Jun 2025 - Present</p>
-      </div>
-      <p class="mt-2">Automating workflows, changing organizations.</p>
-    </a>
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>Project Manager II</h3>
-          <p class="company">Microsoft | New York, NY</p>
-        </div>
-        <p class="date">Oct 2021 - Jul 2025</p>
-      </div>
-      <p class="mt-2">Leading global teams to make custom apps.</p>
-    </a>
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>Internet of Things Technical Business Manager</h3>
-          <p class="company">AT&T | Atlanta, GA</p>
-        </div>
-        <p class="date">May 2020 - Sep 2020</p>
-      </div>
-    </a>
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>Autonomous Vehicle Electrical Engineer</h3>
-          <p class="company">Roush | Livonia, MI</p>
-        </div>
-        <p class="date">May 2018 - Aug 2018</p>
-      </div>
-    </a>
-  </div>
-</div>
-</section>
 
-<div style="max-width: 48rem; margin: 0 auto;">
-<h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1rem;">Education</h3>
-  <div class="max-w-3xl mx-auto space-y-6">
-    <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
-      <div class="work-header">
-        <div>
-          <h3>Bachelor of Science - BS, Engineering Management</h3>
-          <p class="company">Missouri University of Science and Technology</p>
+        <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1rem;">Education</h3>
+        <div class="max-w-3xl mx-auto space-y-6">
+          <a href="https://linkedin.com/in/donnybadamo/" class="work-item template-card" style="display: block; text-decoration: none; color: inherit; padding-bottom: 1.5rem;">
+            <div class="work-header">
+              <div>
+                <h3>Bachelor of Science - BS, Engineering Management</h3>
+                <p class="company">Missouri University of Science and Technology</p>
+              </div>
+              <p class="date">Aug 2017 - May 2021</p>
+            </div>
+            <p class="mt-2">Graduated with a degree combining engineering principles with business management, preparing for leadership roles in technical organizations.</p>
+          </a>
         </div>
-        <p class="date">Aug 2017 - May 2021</p>
-      </div>
-      <p>Graduated with a degree combining engineering principles with business management, preparing for leadership roles in technical organizations.</p>
-    </a>
-  </div>
-</section>
+      </section>
 
-<section id="projects">
-  <h2>Projects & Templates</h2>
-  <h3 style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">Projects</h3>
-  <div class="grid grid-cols-2 max-w-4xl mx-auto">
-    <a href="https://aka.ms/fhl-chess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-      <h3>FHL AI Chess Tournament</h3>
-      <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, 4o mini, 4, o1, o1 mini, deepseek to explore how AI performs in strategic games.</p>
-      <div style="margin-bottom: 1rem;">
-        <span class="badge">AI</span>
-        <span class="badge">Chess</span>
-        <span class="badge">Tournament</span>
-      </div>
-    </a>
-    <a href="https://github.com/donnybadamo/Lichess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-      <h3>Lichess Opening Finder</h3>
-      <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
-      <div style="margin-bottom: 1rem;">
-        <span class="badge">Python</span>
-        <span class="badge">Flask</span>
-        <span class="badge">Chess API</span>
-      </div>
-    </a>
-  </div>
+      <section id="projects">
+        <h2>Projects & Templates</h2>
+        <h3 style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">Projects</h3>
+        <div class="grid grid-cols-2 max-w-4xl mx-auto">
+          <a href="https://aka.ms/fhl-chess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+            <h3>FHL AI Chess Tournament</h3>
+            <p>Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, 4o mini, 4, o1, o1 mini, deepseek to explore how AI performs in strategic games.</p>
+            <div style="margin-bottom: 1rem;">
+              <span class="badge">AI</span>
+              <span class="badge">Chess</span>
+              <span class="badge">Tournament</span>
+            </div>
+          </a>
+          <a href="https://github.com/donnybadamo/Lichess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+            <h3>Lichess Opening Finder</h3>
+            <p>A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
+            <div style="margin-bottom: 1rem;">
+              <span class="badge">Python</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Chess API</span>
+            </div>
+          </a>
+        </div>
 
-      <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1rem;">Templates</h3>
+        <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1rem;">Templates</h3>
         <div class="grid grid-cols-4">
           <a href="https://docs.google.com/spreadsheets/d/11TBqaZbW17KPhWf4uEf5Nb77iAD-zdlCjhCDaOmOsS4/edit?usp=sharing" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
             <div class="template-icon">
@@ -1099,7 +1018,7 @@
               </svg>
             </div>
             <h3>NYC Trip Planning - Hosting</h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for hosting your loved ones in New York City, including itinerary, budgeting, and an intake form..</p>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A detailed template for hosting your loved ones in New York City, including itinerary, budgeting, and an intake form.</p>
             <div>
               <span class="badge">Google Sheets</span>
               <span class="badge">Travel</span>
@@ -1220,99 +1139,98 @@
       </section>
 
       <section id="contact">
-  <h2>Contact</h2>
-  <div class="grid grid-cols-2 max-w-4xl mx-auto" style="align-items: end;">
-    <div class="card" style="display: flex; flex-direction: column; justify-content: flex-end;">
-      <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
-      <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" style="margin-bottom: 0;">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="button button-primary contact-action-btn">
-          Send Message
-        </button>
-      </form>
-    </div>
-    <div class="card" style="display: flex; flex-direction: column; justify-content: flex-end;">
-      <h3 style="margin-bottom: 1rem;">Contact Information</h3>
-      <div class="contact-info" style="gap: 1.25rem;">
-        <div class="contact-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
-            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-          </svg>
-          <div class="contact-item-content">
-            <h4>Email</h4>
-            <p><a href="mailto:things@donnybadamo.com">things@donnybadamo.com</a></p>
+        <h2>Contact</h2>
+        <div class="grid grid-cols-2 max-w-4xl mx-auto" style="align-items: end;">
+          <div class="card" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
+            <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" style="margin-bottom: 0;">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="button button-primary contact-action-btn">
+                Send Message
+              </button>
+            </form>
+          </div>
+          <div class="card" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+            <div class="contact-info" style="gap: 1.25rem;">
+              <div class="contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <div class="contact-item-content">
+                  <h4>Email</h4>
+                  <p><a href="mailto:things@donnybadamo.com">things@donnybadamo.com</a></p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
+                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div class="contact-item-content">
+                  <h4>Location</h4>
+                  <p>New York, NY</p>
+                </div>
+              </div>
+              <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                <h4 style="margin-bottom: 0.75rem;">Social Media</h4>
+                <div class="social-links">
+                  <a href="https://github.com/donnybadamo" class="social-link" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                      <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                    </svg>
+                  </a>
+                  <a href="https://linkedin.com/in/donnybadamo/" class="social-link" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect width="4" height="12" x="2" y="9"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </a>
+                  <a href="http://donnybad.substack.com/" class="social-link" aria-label="Substack">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <path d="M5 7h14"></path>
+                      <path d="M5 12h14"></path>
+                      <path d="M5 17h14"></path>
+                      <path d="M5 7v10l7 -5 7 5v-10" fill="none"></path>
+                    </svg>
+                  </a>
+                  <a href="https://lichess.org/@/IIOhManII" class="social-link" aria-label="Lichess">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                      <circle cx="12" cy="7" r="2.5"></circle>
+                      <path d="M12 9.5v3"></path>
+                      <path d="M9 15h6"></path>
+                      <path d="M8 18h8"></path>
+                      <path d="M10 12l-1 3"></path>
+                      <path d="M14 12l1 3"></path>
+                    </svg>
+                  </a>
+                </div>
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0 12px 0;">
+                <div style="margin-bottom: 12px; color: var(--muted-foreground); font-size: 0.95rem;">
+                  Or schedule a time to chat:
+                </div>
+                <a href="https://calendly.com/donny-badamo-velocityadvisors/quick-connect?" class="button button-primary contact-action-btn" target="_blank" rel="noopener">
+                  Book a Meeting with Me
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="contact-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-item-icon">
-            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-          <div class="contact-item-content">
-            <h4>Location</h4>
-            <p>New York, NY</p>
-          </div>
-        </div>
-        <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-          <h4 style="margin-bottom: 0.75rem;">Social Media</h4>
-          <div class="social-links">
-            <a href="https://github.com/donnybadamo" class="social-link" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                <path d="M9 18c-4.51 2-5-2-7-2"></path>
-              </svg>
-            </a>
-            <a href="https://linkedin.com/in/donnybadamo/" class="social-link" aria-label="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect width="4" height="12" x="2" y="9"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a href="http://donnybad.substack.com/" class="social-link" aria-label="Substack">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                <path d="M5 7h14"></path>
-                <path d="M5 12h14"></path>
-                <path d="M5 17h14"></path>
-                <path d="M5 7v10l7 -5 7 5v-10" fill="none"></path>
-              </svg>
-            </a>
-            <a href="https://lichess.org/@/IIOhManII" class="social-link" aria-label="Lichess">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                <circle cx="12" cy="7" r="2.5"></circle>
-                <path d="M12 9.5v3"></path>
-                <path d="M9 15h6"></path>
-                <path d="M8 18h8"></path>
-                <path d="M10 12l-1 3"></path>
-                <path d="M14 12l1 3"></path>
-              </svg>
-            </a>
-          </div>
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 24px 0 12px 0;">
-          <div style="margin-bottom: 12px; color: var(--muted-foreground); font-size: 0.95rem;">
-            Or schedule a time to chat:
-          </div>
-          <a href="https://calendly.com/donny-badamo-velocityadvisors/quick-connect?" class="button button-primary contact-action-btn" target="_blank" rel="noopener">
-            Book a Meeting with Me
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
     </main>
 
     <footer>
@@ -1323,7 +1241,6 @@
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
-
           <div class="dropdown">
             <a href="#" class="dropdown-trigger">
               Fun Stuff
@@ -1337,3 +1254,40 @@
               <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
             </div>
           </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Donny Badamo",
+    "url": "https://donnybadamo.com",
+    "image": "https://donnybadamo.com/donny-profile.jpg",
+    "jobTitle": "AI Solutions Program Manager",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Velocity Advisors",
+      "url": "https://www.velocityadvisors.ai"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/donnybadamo/",
+      "https://github.com/donnybadamo",
+      "http://donnybad.substack.com",
+      "https://lichess.org/@/IIOhManII"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10001",
+      "addressCountry": "US"
+    },
+    "email": "mailto:things@donnybadamo.com",
+    "telephone": "+1-555-555-5555"
+  }
+  </script>
+</body>
+</html>
