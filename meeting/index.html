@@ -1,39 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet with Donny Badamo</title>
-    <meta name="description" content="Schedule time to discuss AI, product, or chess">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Meeting - Donny Badamo</title>
+  <meta name="description" content="Schedule time to discuss AI, product, or chess with Donny Badamo">
+  
+  <meta property="og:title" content="Meet with Donny Badamo">
+  <meta property="og:description" content="AI Solutions PM | Building at product × chess">
+  <meta property="og:image" content="https://donnybadamo.com/donny-profile.jpg">
+  <meta property="og:url" content="https://donnybadamo.com/meeting">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Meet with Donny Badamo">
+  <meta name="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
+  
+  <link rel="icon" href="https://donnybadamo.com/favicon.png" type="image/png">
+  <link rel="canonical" href="https://donnybadamo.com/meeting">
+  
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  
+  <script>
+    (function() {
+      const root = document.documentElement;
+      const themeToggle = () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      };
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        root.setAttribute('data-theme', saved);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      }
+      window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('theme-toggle');
+        if (btn) btn.onclick = themeToggle;
+      });
+    })();
+  </script>
+  
+  <style>
+    :root {
+      --background: #ffffff;
+      --foreground: #1e3a29;
+      --primary: #0ea5e9;
+      --primary-foreground: #f8fafc;
+      --muted-foreground: #3c6e51;
+      --border: #e5e7eb;
+      --input: #e5e7eb;
+      --accent: #f3f4f6;
+      --accent-foreground: #1e3a29;
+      --ring: #0ea5e9;
+    }
+
+    [data-theme="dark"] {
+      --background: #121212;
+      --foreground: #e0f2e9;
+      --primary: #0ea5e9;
+      --primary-foreground: #f8fafc;
+      --muted-foreground: #9cb5a9;
+      --border: #2d2d2d;
+      --input: #2d2d2d;
+      --accent: #2d2d2d;
+      --accent-foreground: #e0f2e9;
+      --ring: #0ea5e9;
+    }
     
-    <!-- Rich preview tags -->
-    <meta property="og:title" content="Meet with Donny Badamo">
-    <meta property="og:description" content="AI Solutions PM | Building at product × chess">
-    <meta property="og:image" content="https://donnybadamo.com/donny-profile.jpg">
-    <meta property="og:url" content="https://donnybadamo.com/meeting">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Meet with Donny Badamo">
-    <meta name="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    html {
+      scroll-padding-top: 4.5rem;
+      overflow-x: hidden;
+    }
     
-    <link rel="icon" href="https://donnybadamo.com/favicon.png" type="image/png">
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-inline: clamp(16px, 4vw, 32px);
+    }
     
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: var(--background);
+    }
+    
+    .header-content {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+      padding-inline: clamp(16px, 4vw, 32px);
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--foreground);
+    }
+    
+    .theme-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      color: var(--foreground);
+      border: none;
+      cursor: pointer;
+    }
+
+    .theme-button:hover {
+      background-color: var(--accent);
+    }
+
+    .theme-icon-light {
+      display: block;
+    }
+
+    .theme-icon-dark {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-icon-light {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-icon-dark {
+      display: block;
+    }
+    
+    main {
+      padding-inline: clamp(16px, 4vw, 32px);
+      padding-block: 2rem;
+      min-height: calc(100vh - 8rem);
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: var(--muted-foreground);
+      margin-bottom: 2rem;
+    }
+    
+    .meeting-container {
+      max-width: 900px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background-color: var(--background);
+    }
+    
+    .meeting-iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .meeting-iframe {
+        height: 600px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+    
+    .footer-nav {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .footer-nav a {
+      color: var(--muted-foreground);
+      text-decoration: none;
+    }
+    
+    .footer-nav a:hover {
+      color: var(--foreground);
+    }
+  </style>
 </head>
 <body>
-    <iframe src="https://app.usemotion.com/meet/donny-badamo/meeting" allow="camera; microphone"></iframe>
+  <header>
+    <div class="container header-content">
+      <a href="/" class="logo">donnybadamo.com</a>
+      <button id="theme-toggle" class="theme-button" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Book a Meeting</h1>
+    <p class="subtitle">Let's chat about AI, product, chess, or anything else</p>
+    
+    <div class="meeting-container">
+      <iframe 
+        src="https://app.usemotion.com/meet/donny-badamo/meeting" 
+        class="meeting-iframe"
+        allow="camera; microphone"
+        loading="lazy">
+      </iframe>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p class="copyright">© 1999 Donny Badamo. Some rights reserved.</p>
+      <div class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
