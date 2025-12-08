@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta property="og:title" content="Donny Badamo | Personal Website">
-  <meta property="og:description" content="Welcome to my life - Projects, Stories and More">
-  <meta property="og:image" content="https://donnybadamo.com/donny-profile.jpg">
-  <meta property="og:url" content="https://donnybadamo.com">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY79YGEFYG"></script>
   <script>
@@ -16,40 +12,42 @@
   </script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>donnybadamo.com</title>
+  <title>Donny Badamo — Projects, Resume, Templates</title>
   <meta name="description" content="View my portfolio, professional experience, projects, templates, and contact me.">
   <meta name="keywords" content="Donny Badamo, Donny, Badamo, Microsoft, Project Manager, Engineer, Developer, Portfolio, Resume, New York">
   <meta name="author" content="Donny Badamo">
   <link rel="icon" href="https://donnybadamo.com/favicon.png" type="image/png">
   <link rel="canonical" href="https://donnybadamo.com/">
-  <meta name="theme-color" content="#1a2318">
+  <meta name="theme-color" content="#324639">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://donnybadamo.com/">
-  <meta property="og:title" content="my website: donnybadamo.com">
+  <meta property="og:title" content="Donny Badamo — Projects, Resume, Templates">
   <meta property="og:description" content="View my portfolio, professional experience, projects, templates, and contact me.">
   <meta property="og:image" content="https://donnybadamo.com/donny-profile.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://donnybadamo.com/">
-  <meta property="twitter:title" content="Donny Badamo">
+  <meta property="twitter:title" content="Donny Badamo — Projects, Resume, Templates">
   <meta property="twitter:description" content="View my portfolio, professional experience, projects, templates, and contact me.">
   <meta property="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
   
   <style>
     :root {
-      --background: #1a2318;
-      --foreground: #e8dcc8;
-      --primary: #6b8e5f;
-      --primary-foreground: #1a2318;
-      --muted-foreground: #a8b89f;
-      --border: #2d3a2b;
-      --input: #2d3a2b;
-      --accent: #2d3a2b;
-      --accent-foreground: #e8dcc8;
-      --ring: #6b8e5f;
+      --background: #324639;
+      --foreground: #f0e6d6;
+      --primary: #e67a28;
+      --primary-hover: rgba(230, 122, 40, 0.9);
+      --primary-foreground: #ffffff;
+      --muted-foreground: #b8c4b8;
+      --secondary-neutral: #8a9589;
+      --border: #425249;
+      --input: #425249;
+      --accent: #425249;
+      --accent-foreground: #f0e6d6;
+      --ring: #e67a28;
     }
     
     * {
@@ -66,6 +64,14 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: var(--background);
+      background-image: 
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.01) 2px,
+          rgba(255, 255, 255, 0.01) 4px
+        );
       color: var(--foreground);
       line-height: 1.6;
       font-size: 16px;
@@ -182,6 +188,7 @@
       font-size: 1.875rem;
       margin-bottom: 2rem;
       text-align: center;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
     
     h3 {
@@ -292,7 +299,7 @@
     }
     
     .button-primary:hover {
-      background-color: rgba(107, 142, 95, 0.9);
+      background-color: var(--primary-hover);
     }
     
     .button-outline {
@@ -361,12 +368,15 @@
     
     .work-item {
       border-bottom: 2px solid var(--border);
-      padding-bottom: 0.5rem;
-      margin-top: 1.0rem;
+      padding: 1.5rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
     }
     
     .work-item:last-child {
       border-bottom: none;
+      margin-bottom: 0;
     }
     
     .work-header {
@@ -444,7 +454,7 @@
     input:focus, textarea:focus {
       outline: none;
       border-color: var(--ring);
-      box-shadow: 0 0 0 2px rgba(107, 142, 95, 0.2);
+      box-shadow: 0 0 0 2px rgba(230, 122, 40, 0.2);
     }
     
     .contact-info {
@@ -547,15 +557,28 @@
       nav a:last-child {
         border-bottom: none;
       }
-    }
-
-    @media (max-width: 767px) {
+      
       .grid-cols-2, .grid-cols-3, .grid-cols-4 {
         grid-template-columns: 1fr;
       }
 
       .card {
         margin-bottom: 1rem;
+      }
+      
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        border: none;
+        margin-left: 1rem;
+      }
+      
+      .dropdown-content a {
+        padding: 0.5rem 0;
+      }
+      
+      .profile .social-links {
+        justify-content: center;
       }
     }
 
@@ -661,19 +684,6 @@
       transform: rotate(180deg);
     }
 
-    @media (max-width: 767px) {
-      .dropdown-content {
-        position: static;
-        box-shadow: none;
-        border: none;
-        margin-left: 1rem;
-      }
-      
-      .dropdown-content a {
-        padding: 0.5rem 0;
-      }
-    }
-
     .contact-action-btn {
       width: 100%;
       font-family: inherit;
@@ -694,7 +704,7 @@
     }
 
     .contact-action-btn:hover {
-      background-color: rgba(107, 142, 95, 0.9);
+      background-color: var(--primary-hover);
       color: var(--primary-foreground);
       text-decoration: none;
     }
@@ -768,7 +778,7 @@
       <section id="about">
         <div class="profile">
           <div class="profile-image">
-            <img src="https://donnybadamo.com/donny-profile.jpg" alt="Donny Badamo - Professional headshot of Donny posing next to a window with the New York City skyline in the background, wearing a striped shirt with curly hair">
+            <img src="https://donnybadamo.com/donny-profile.jpg" alt="Donny Badamo - Professional headshot of Donny posing next to a window with the New York City skyline in the background, wearing a striped shirt with curly hair" width="256" height="256" loading="lazy">
           </div>
           <div class="profile-content">
             <h1>Hi, I'm Donny Badamo.</h1>
@@ -1030,11 +1040,11 @@
         <h2>Donny's Thoughts</h2>
         <div class="grid grid-cols-3 max-w-5xl mx-auto">
           <a href="https://substack.com/home/post/p-180463816" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-            <h3>Building vs Building</h3>
+            <h3>Cookie Dough Ice Cream</h3>
             <div class="article-meta">
-              <span>December 7, 2024 · 3 min read</span>
+              <span>December 1, 2025 · 4 min read</span>
             </div>
-            <p>Exploring the distinction between constructing something and truly building something meaningful.</p>
+            <p>Just a Monday. A late-night bodega run for ice cream, soup for dinner, and why I love New York.</p>
           </a>
           <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
             <h3>Summing Demons or Making Noise</h3>
