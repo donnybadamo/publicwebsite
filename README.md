@@ -315,6 +315,179 @@ export async function onRequest(context) {
 
 ---
 
+## 🎨 Branding Guide (Copy-Paste Ready)
+
+Use this to replicate the donnybadamo.com aesthetic on other sites.
+
+### Color Palette
+
+```css
+:root {
+  /* Core Colors */
+  --background: #324639;           /* Deep forest green */
+  --foreground: #f0e6d6;           /* Warm cream/parchment */
+  --primary: #e67a28;              /* Burnt orange accent */
+  --primary-hover: rgba(230, 122, 40, 0.9);
+  --primary-foreground: #ffffff;   /* White text on primary */
+  
+  /* Supporting Colors */
+  --muted-foreground: #b8c4b8;     /* Sage green for secondary text */
+  --secondary-neutral: #8a9589;    /* Neutral green-gray */
+  --border: #425249;               /* Darker green for borders */
+  --input: #425249;                /* Form input borders */
+  --accent: #425249;               /* Hover states */
+  --accent-foreground: #f0e6d6;    /* Text on accent */
+  --ring: #e67a28;                 /* Focus ring color */
+}
+```
+
+### The Texture Effect
+
+This creates the subtle horizontal scanline/film grain texture:
+
+```css
+body {
+  background-color: var(--background);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.01) 2px,
+      rgba(255, 255, 255, 0.01) 4px
+    );
+}
+```
+
+**How it works**: Creates barely-visible 2px horizontal lines with 1% white opacity. The effect is subtle but adds organic depth—like looking at an old CRT or film grain.
+
+**Variations**:
+```css
+/* More visible texture */
+rgba(255, 255, 255, 0.03) /* 3% instead of 1% */
+
+/* Vertical lines instead */
+90deg /* instead of 0deg */
+
+/* Diagonal texture */
+45deg
+
+/* Denser lines */
+transparent 1px, rgba(255, 255, 255, 0.01) 1px, rgba(255, 255, 255, 0.01) 2px
+```
+
+### Typography
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.25rem; }
+```
+
+### Component Styling
+
+```css
+/* Cards */
+.card {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: var(--background);
+}
+
+/* Buttons */
+.button {
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  height: 2.25rem;
+  transition: background-color 0.2s;
+}
+
+.button-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.button-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Badges */
+.badge {
+  border-radius: 9999px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Form Inputs */
+input, textarea {
+  border-radius: 0.375rem;
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 0.5rem 0.75rem;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px rgba(230, 122, 40, 0.2);
+}
+```
+
+### Quick Start Snippet
+
+Drop this entire block into your `<style>` tag for instant theming:
+
+```css
+:root {
+  --background: #324639;
+  --foreground: #f0e6d6;
+  --primary: #e67a28;
+  --primary-hover: rgba(230, 122, 40, 0.9);
+  --muted-foreground: #b8c4b8;
+  --border: #425249;
+  --ring: #e67a28;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--background);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.01) 2px, rgba(255, 255, 255, 0.01) 4px);
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+a { color: var(--primary); }
+a:hover { opacity: 0.9; }
+```
+
+### Theme Color for Mobile
+
+```html
+<meta name="theme-color" content="#324639">
+```
+
+---
+
 🎯 **Built for Speed**  
 Zero dependencies. Maximum performance. Professional results.
 
