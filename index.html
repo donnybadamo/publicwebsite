@@ -742,6 +742,17 @@
     footer .dropdown-content a {
       white-space: nowrap;
     }
+
+    .thought-card {
+      position: relative;
+    }
+
+    .thought-card .card-icon {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      color: var(--primary);
+    }
   </style>
 </head>
 <body>
@@ -829,8 +840,8 @@
       <section id="experience">
         <h2>Experience</h2>
         <div class="grid grid-cols-2 max-w-4xl mx-auto" style="margin-top: 2rem;">
-          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: flex; gap: 1rem; text-decoration: none; color: inherit; align-items: flex-start;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.25rem;">
+          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: block; text-decoration: none; color: inherit; position: relative;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 0.75rem; right: 0.75rem;">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
@@ -841,8 +852,8 @@
               <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0;">Building consumer automation products; managing end-to-end development and go-to-market.</p>
             </div>
           </a>
-          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: flex; gap: 1rem; text-decoration: none; color: inherit; align-items: flex-start;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.25rem;">
+          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: block; text-decoration: none; color: inherit; position: relative;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 0.75rem; right: 0.75rem;">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
@@ -853,8 +864,8 @@
               <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0;">Managing program-level governance for large-scale D365 deployment.</p>
             </div>
           </a>
-          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: flex; gap: 1rem; text-decoration: none; color: inherit; align-items: flex-start;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.25rem;">
+          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: block; text-decoration: none; color: inherit; position: relative;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 0.75rem; right: 0.75rem;">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
@@ -865,8 +876,8 @@
               <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0;">Leading global teams to make custom apps.</p>
             </div>
           </a>
-          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: flex; gap: 1rem; text-decoration: none; color: inherit; align-items: flex-start;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.25rem;">
+          <a href="https://linkedin.com/in/donnybadamo/" class="card template-card" style="display: block; text-decoration: none; color: inherit; position: relative;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; top: 0.75rem; right: 0.75rem;">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
@@ -1080,42 +1091,74 @@
       <section id="thoughts">
         <h2>Donny's Thoughts</h2>
         <div class="grid grid-cols-3 max-w-5xl mx-auto">
-          <a href="https://substack.com/home/post/p-180463816" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://substack.com/home/post/p-180463816" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 12a4 4 0 0 1 8 0"></path>
+              <line x1="12" y1="8" x2="12" y2="8.01"></line>
+            </svg>
             <h3>Cookie Dough Ice Cream</h3>
             <div class="article-meta">
               <span>December 1, 2025 · 4 min read</span>
             </div>
             <p>Just a Monday. A late-night bodega run for ice cream, soup for dinner, and why I love New York.</p>
           </a>
-          <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://donnybad.substack.com/p/summing-demons-or-making-noise" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
             <h3>Summing Demons or Making Noise</h3>
             <div class="article-meta">
               <span>March 14, 2025 · 5 min read</span>
             </div>
             <p>Exploring the concept of signal versus noise in our modern information landscape.</p>
           </a>
-          <a href="https://donnybad.substack.com/p/the-heavy-bag" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://donnybad.substack.com/p/the-heavy-bag" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <path d="M9 3h6v2H9z"></path>
+              <path d="M7 5h10l1 17H6z"></path>
+              <line x1="12" y1="8" x2="12" y2="19"></line>
+            </svg>
             <h3>The Heavy Bag</h3>
             <div class="article-meta">
               <span>February 20, 2025 · 8 min read</span>
             </div>
             <p>Reflections on boxing training and the lessons learned from working with a heavy bag.</p>
           </a>
-          <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://donnybad.substack.com/p/the-defensive-commuter" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+              <path d="M4 11h16"></path>
+              <path d="M12 3v8"></path>
+            </svg>
             <h3>The Defensive Commuter</h3>
             <div class="article-meta">
               <span>February 14, 2025 · 6 min read</span>
             </div>
             <p>Strategies and observations on navigating urban commuting with awareness and preparation.</p>
           </a>
-          <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://donnybad.substack.com/p/mj-the-musical-review" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
             <h3>MJ: The Musical Review</h3>
             <div class="article-meta">
               <span>February 14, 2025 · 7 min read</span>
             </div>
             <p>A critical look at the Broadway musical celebrating the life and music of Michael Jackson.</p>
           </a>
-          <a href="https://donnybad.substack.com/p/ten-slice-terry" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+          <a href="https://donnybad.substack.com/p/ten-slice-terry" class="card template-card thought-card" style="display: block; text-decoration: none; color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="card-icon">
+              <path d="M15 11h.01"></path>
+              <path d="M11 15h.01"></path>
+              <path d="M16 16h.01"></path>
+              <path d="m2 16 20 6-6-20A20 20 0 0 0 2 16"></path>
+              <path d="M5.71 17.11a17.04 17.04 0 0 1 11.4-11.4"></path>
+            </svg>
             <h3>Ten Slice Terry</h3>
             <div class="article-meta">
               <span>February 14, 2025 · 4 min read</span>
