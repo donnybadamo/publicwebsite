@@ -838,10 +838,9 @@
           return;
         }
         
-        // Scene setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x1a1f1c); // Match --background color #1a1f1c
-        scene.backgroundAlpha = 1.0;
+                // Scene setup
+                const scene = new THREE.Scene();
+                scene.background = null; // Transparent background
         
         // Camera
         const camera = new THREE.PerspectiveCamera(
@@ -855,12 +854,12 @@
         // Renderer
         const renderer = new THREE.WebGLRenderer({ 
           antialias: true,
-          alpha: false,
+          alpha: true,
           powerPreference: "high-performance"
         });
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
-        renderer.setClearColor(0x1a1f1c, 1); // Match background color
+        renderer.setClearColor(0x000000, 0); // Transparent background
         container.appendChild(renderer.domElement);
         
         // Store renderer and camera for later use
@@ -957,7 +956,7 @@
           const size = new THREE.Vector3();
           geometry.boundingBox.getSize(size);
           const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 12.0 / maxDim; // Increased to 12.0 to make model much larger
+          const scale = 11.4 / maxDim; // 5% smaller (12.0 * 0.95)
           mesh.scale.multiplyScalar(scale);
           
           // Set mesh position to origin (0, 0, 0) so rotation happens around center
