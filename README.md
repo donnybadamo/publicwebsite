@@ -89,10 +89,13 @@ PMP Study Plan → Project management certification tracker
 
 **3D Prints Gallery**:
 - Interactive STL model viewer with Three.js
-- Rotatable 3D models with auto-rotation
+- Horizontal auto-rotation with centered pivot point
+- Side-by-side layout: description and image on left, 3D model on right
+- Square image containers optimized for square photos
 - Time-lapse videos of print process
-- Museum-style gallery layout
+- Museum-style single-item focus display
 - Touch and mouse controls for model interaction
+- Proper model centering and scaling for optimal viewing
 
 ## 🏗️ Architecture
 
@@ -303,19 +306,31 @@ Interactive 3D model viewer using Three.js for STL file rendering:
 ```
 
 **Features**:
-- **STL File Support**: Custom STLLoader implementation for reliable rendering
-- **Interactive Controls**: Mouse drag to rotate, auto-rotate when idle
-- **Touch Support**: Mobile-friendly touch controls
-- **Gallery Layout**: Museum-style single-item focus display
-- **Media Integration**: Time-lapse videos and photo galleries
+- **STL File Support**: Custom STLLoader implementation for reliable rendering (compatible with Three.js r128)
+- **Interactive Controls**: Mouse drag to rotate, horizontal auto-rotate when idle
+- **Centered Rotation**: Models rotate around their geometric center for smooth viewing
+- **Touch Support**: Mobile-friendly touch controls with gesture recognition
+- **Layout Design**: 
+  - Left column: Title, description, and square image (500x500px)
+  - Right column: 3D model viewer (500x500px)
+  - Bottom sections: Time-lapse video and additional gallery images
+- **Image Optimization**: Square containers with `object-fit: cover` for consistent presentation
+- **Model Scaling**: Dynamic scaling to fill container while maintaining aspect ratio
+- **Media Integration**: Time-lapse videos and photo galleries with lightbox functionality
 
 **File Structure**:
 ```
 prints/
-├── models/benchy.stl      # 3D model files
-├── videos/benchy-print.mp4 # Time-lapse videos
-└── images/benchy-print-bed.jpg # Print photos
+├── models/benchy.stl      # 3D model files (STL format)
+├── videos/benchy-print.mp4 # Time-lapse videos (MP4 format)
+└── images/benchy-print-bed.jpg # Print photos (square format recommended)
 ```
+
+**Technical Details**:
+- Geometry is centered at origin (0, 0, 0) for proper rotation pivot
+- Camera automatically adjusts to fit model with minimal padding
+- Auto-rotation pauses on user interaction and resumes after 3 seconds
+- Model scale dynamically calculated based on bounding box dimensions
 
 ### 📊 Analytics Integration
 ```html

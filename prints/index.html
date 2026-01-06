@@ -220,9 +220,10 @@
       overflow: visible;
       display: flex;
       gap: 3rem;
-      align-items: flex-end;
+      align-items: flex-start;
       margin-bottom: 4rem;
       flex-wrap: wrap;
+      height: 500px;
     }
     
     .print-media {
@@ -241,6 +242,7 @@
       display: flex;
       flex-direction: column;
       height: 500px;
+      justify-content: space-between;
     }
     
     .print-image {
@@ -311,7 +313,7 @@
     .print-title {
       font-size: 2.5rem;
       font-weight: 300;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       letter-spacing: -0.02em;
       color: var(--foreground);
       text-align: left;
@@ -320,7 +322,7 @@
     .print-meta {
       font-size: 0.875rem;
       color: var(--muted-foreground);
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
       text-align: left;
@@ -330,19 +332,59 @@
       font-size: 1rem;
       line-height: 1.8;
       color: var(--muted-foreground);
-      margin-bottom: 2rem;
+      margin-bottom: 0;
       text-align: left;
     }
     
-    .print-image-section {
-      margin-top: auto;
+    .print-media-row {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem auto 0;
       width: 500px;
-      height: 500px;
       max-width: 100%;
+      height: 240px;
+      align-items: flex-start;
+    }
+    
+    .print-image-section {
+      flex: 0 0 240px;
+      width: 240px;
+      height: 240px;
       overflow: hidden;
       border-radius: 0.5rem;
       border: 1px solid var(--border);
       background: var(--background);
+    }
+    
+    .print-main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .print-main-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .print-video-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 240px;
+    }
+    
+    .print-video-section .video-container {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+    }
+    
+    .print-video-section .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
     .print-main-image {
@@ -696,8 +738,19 @@
             <div class="print-meta">PLA • Test Print</div>
             <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
             
-            <div class="print-image-section">
-              <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
+            <div class="print-media-row">
+              <div class="print-image-section">
+                <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
+              </div>
+              
+              <div class="print-video-section">
+                <div class="video-container">
+                  <video controls autoplay loop muted>
+                    <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
             </div>
           </div>
           <div class="print-media">
@@ -708,16 +761,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="media-section">
-          <div class="media-section-title">Print Process</div>
-          <div class="video-container">
-            <video controls>
-              <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
           </div>
         </div>
         
