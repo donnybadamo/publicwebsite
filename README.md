@@ -310,13 +310,17 @@ Interactive 3D model viewer using Three.js for STL file rendering:
 - **Interactive Controls**: Mouse drag to rotate, horizontal auto-rotate when idle
 - **Centered Rotation**: Models rotate around their geometric center for smooth viewing
 - **Touch Support**: Mobile-friendly touch controls with gesture recognition
+- **Transparent Background**: Model renders with transparent background for seamless integration
 - **Layout Design**: 
-  - Left column: Title, description, and square image (500x500px)
-  - Right column: 3D model viewer (500x500px)
-  - Bottom sections: Time-lapse video and additional gallery images
+  - Left column: Title, description, square image (240x240px), and time-lapse video (240px height) arranged horizontally
+  - Right column: 3D model viewer (500x500px) - determines total entry height
+  - Compact layout with minimal white space, all content fits within model height
 - **Image Optimization**: Square containers with `object-fit: cover` for consistent presentation
-- **Model Scaling**: Dynamic scaling to fill container while maintaining aspect ratio
-- **Media Integration**: Time-lapse videos and photo galleries with lightbox functionality
+- **Model Scaling**: Dynamic scaling with precise size control (currently 11.4x scale factor)
+- **Media Integration**: 
+  - Time-lapse videos with autoplay, loop, and muted by default
+  - Photo galleries with lightbox functionality
+  - All media aligned to match model container height
 
 **File Structure**:
 ```
