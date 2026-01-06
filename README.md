@@ -60,6 +60,14 @@ netlify init
 
 ## 🎨 Live Experience
 
+**Navigation Structure**:
+- **About** (dropdown): Experience, Projects
+- **Templates**: Separate section for Google Sheets templates
+- **Thoughts**: Blog posts and articles
+- **3D Prints**: Interactive gallery with STL models
+- **Fun Stuff** (dropdown): Chess, Hotline, Paint, Galaga games
+- **Contact**: Far right positioning, separate from main nav
+
 **Responsive Design**:
 - Mobile: Hamburger menu, stacked cards, touch-friendly
 - Desktop: Full navigation, grid layouts, hover effects
@@ -67,8 +75,9 @@ netlify init
 
 **Contact Integration**:
 - Netlify Forms: Zero-config contact handling
-- Cloudflare Function: Backup form processor
-- Calendly: Direct meeting scheduling
+- JavaScript form handling with user feedback
+- Success/error message display
+- Form validation and spam protection
 
 **Template Gallery**:
 ```
@@ -77,6 +86,13 @@ NYC Trip Planning → Hosting template with intake form
 Weather API Travel → Dynamic trip schedules
 PMP Study Plan → Project management certification tracker
 ```
+
+**3D Prints Gallery**:
+- Interactive STL model viewer with Three.js
+- Rotatable 3D models with auto-rotation
+- Time-lapse videos of print process
+- Museum-style gallery layout
+- Touch and mouse controls for model interaction
 
 ## 🏗️ Architecture
 
@@ -159,6 +175,13 @@ publicwebsite/
 ├── index.html              # Main portfolio page
 ├── create/
 │   └── index.html         # Coming soon page
+├── meeting/
+│   └── index.html         # Meeting booking page
+├── prints/
+│   ├── index.html         # 3D prints gallery page
+│   ├── models/            # STL 3D model files
+│   ├── videos/            # Time-lapse videos
+│   └── images/            # Print photos
 ├── functions/
 │   ├── contact.js         # Cloudflare form handler  
 │   └── placeholder.js     # Dynamic image service
@@ -270,6 +293,30 @@ Branch: main, folder: / (root)
 
 ## 🚀 Advanced Features
 
+### 🎨 3D Prints Gallery
+
+Interactive 3D model viewer using Three.js for STL file rendering:
+
+```html
+<!-- Three.js for STL rendering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+```
+
+**Features**:
+- **STL File Support**: Custom STLLoader implementation for reliable rendering
+- **Interactive Controls**: Mouse drag to rotate, auto-rotate when idle
+- **Touch Support**: Mobile-friendly touch controls
+- **Gallery Layout**: Museum-style single-item focus display
+- **Media Integration**: Time-lapse videos and photo galleries
+
+**File Structure**:
+```
+prints/
+├── models/benchy.stl      # 3D model files
+├── videos/benchy-print.mp4 # Time-lapse videos
+└── images/benchy-print-bed.jpg # Print photos
+```
+
 ### 📊 Analytics Integration
 ```html
 <!-- Google Analytics 4 -->
@@ -280,6 +327,8 @@ Branch: main, folder: / (root)
 - Netlify: Built-in spam filtering
 - Honeypot fields for bot detection
 - Rate limiting via Cloudflare
+- JavaScript form handling with loading states
+- User feedback with success/error messages
 
 ### 🔄 Dynamic Content
 ```javascript

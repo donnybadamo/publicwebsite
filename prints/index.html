@@ -34,8 +34,76 @@
   <meta property="twitter:description" content="A curated collection of 3D printing projects featuring time-lapse videos and detailed photography.">
   <meta property="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
   
-  <!-- Model Viewer for 3D STL files -->
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+  <!-- Three.js for 3D STL files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Reliable STLLoader implementation for Three.js r128 (standalone, no inheritance)
+    if (typeof THREE !== 'undefined' && !THREE.STLLoader) {
+      THREE.STLLoader = function (manager) {
+        this.manager = manager || THREE.DefaultLoadingManager;
+        this.path = '';
+        this.requestHeader = {};
+        this.withCredentials = false;
+      };
+      
+      THREE.STLLoader.prototype.load = function (url, onLoad, onProgress, onError) {
+        const scope = this;
+        const loader = new THREE.FileLoader(scope.manager);
+        if (scope.path) loader.setPath(scope.path);
+        loader.setResponseType('arraybuffer');
+        if (scope.requestHeader) {
+          Object.keys(scope.requestHeader).forEach(function(key) {
+            loader.setRequestHeader(key, scope.requestHeader[key]);
+          });
+        }
+        loader.setWithCredentials(scope.withCredentials);
+        loader.load(url, function (buffer) {
+          try {
+            onLoad(scope.parse(buffer));
+          } catch (e) {
+            if (onError) {
+              onError(e);
+            } else {
+              console.error('STL Loader error:', e);
+            }
+            if (scope.manager && scope.manager.itemError) {
+              scope.manager.itemError(url);
+            }
+          }
+        }, onProgress, onError);
+      };
+      
+      THREE.STLLoader.prototype.parse = function (data) {
+        const geometry = new THREE.BufferGeometry();
+        const reader = new DataView(data);
+        let faces = reader.getUint32(80, true);
+        const dataOffset = 84;
+        const faceLength = 12 * 4 + 2;
+        const vertices = [];
+        const normals = [];
+        
+        for (let face = 0; face < faces; face++) {
+          const start = dataOffset + face * faceLength;
+          const normalX = reader.getFloat32(start, true);
+          const normalY = reader.getFloat32(start + 4, true);
+          const normalZ = reader.getFloat32(start + 8, true);
+          
+          for (let i = 1; i <= 3; i++) {
+            const vertexstart = start + i * 12;
+            vertices.push(reader.getFloat32(vertexstart, true));
+            vertices.push(reader.getFloat32(vertexstart + 4, true));
+            vertices.push(reader.getFloat32(vertexstart + 8, true));
+            normals.push(normalX, normalY, normalZ);
+          }
+        }
+        
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+        
+        return geometry;
+      };
+    }
+  </script>
   
   <style>
     :root {
@@ -52,7 +120,6 @@
       --accent-foreground: #f0e6d6;
       --ring: #e67a28;
       --tech-glow: rgba(230, 122, 40, 0.15);
-      --gallery-bg: #0f1411;
     }
     
     * {
@@ -111,6 +178,7 @@
       align-items: center;
       justify-content: space-between;
       padding-inline: clamp(16px, 4vw, 48px);
+      position: relative;
     }
     
     .logo {
@@ -125,87 +193,54 @@
       color: var(--primary);
     }
     
+    .page-title-header {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--foreground);
+      pointer-events: none;
+    }
+    
     main {
-      padding-block: 4rem 6rem;
+      padding-block: 1rem 6rem;
     }
     
-    .page-header {
-      text-align: center;
-      margin-bottom: 4rem;
-      padding-top: 2rem;
-    }
-    
-    .page-title {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--foreground) 0%, var(--muted-foreground) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .page-subtitle {
-      font-size: 1.125rem;
-      color: var(--muted-foreground);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    
-    .prints-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 3rem;
-      margin-top: 4rem;
-    }
-    
-    @media (max-width: 768px) {
-      .prints-grid {
-        grid-template-columns: 1fr;
-        gap: 4rem;
-      }
+    .print-gallery {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      padding: 0;
     }
     
     .print-item {
       position: relative;
-      background: var(--gallery-bg);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
-    
-    .print-item:hover {
-      transform: translateY(-4px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--primary);
-    }
-    
-    .print-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .print-item:hover::before {
-      opacity: 1;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      display: flex;
+      gap: 3rem;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
     }
     
     .print-media {
       position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3;
+      flex: 0 0 500px;
+      max-width: 500px;
+      aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
+    }
+    
+    .print-info {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      height: 500px;
     }
     
     .print-image {
@@ -273,76 +308,78 @@
       display: none;
     }
     
-    .print-info {
-      padding: 2rem;
-      background: var(--gallery-bg);
-    }
-    
     .print-title {
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
       color: var(--foreground);
+      text-align: left;
     }
     
     .print-meta {
       font-size: 0.875rem;
       color: var(--muted-foreground);
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
+      text-align: left;
     }
     
     .print-description {
-      font-size: 0.9375rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.8;
       color: var(--muted-foreground);
-      margin-top: 1rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    
+    .print-image-section {
+      margin-top: auto;
+      width: 500px;
+      height: 500px;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--background);
+    }
+    
+    .print-main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .print-main-image:hover {
+      transform: scale(1.05);
     }
     
     .print-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
+      gap: 0.75rem;
+      margin-top: 3rem;
+      justify-content: center;
     }
     
     .print-tag {
       font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      background: var(--accent);
+      padding: 0.5rem 1rem;
+      background: transparent;
       border: 1px solid var(--border);
       color: var(--muted-foreground);
-      border-radius: 2px;
+      border-radius: 0;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    
-    .image-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    
-    .gallery-thumb {
-      aspect-ratio: 1;
-      object-fit: cover;
-      border: 1px solid var(--border);
-      cursor: pointer;
+      letter-spacing: 0.1em;
       transition: all 0.3s ease;
-      opacity: 0.7;
     }
     
-    .gallery-thumb:hover {
-      opacity: 1;
+    .print-tag:hover {
       border-color: var(--primary);
-    }
-    
-    .gallery-thumb.active {
-      opacity: 1;
-      border-color: var(--primary);
+      color: var(--foreground);
     }
     
     footer {
@@ -393,6 +430,75 @@
       color: var(--foreground);
     }
     
+    /* Dropdown styles for footer */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      min-width: 160px;
+      z-index: 50;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dropdown-content a {
+      display: block;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .dropdown-icon {
+      transition: transform 0.2s;
+    }
+    
+    .dropdown:hover .dropdown-icon {
+      transform: rotate(180deg);
+    }
+    
+    footer .dropdown {
+      position: relative;
+    }
+    
+    footer .dropdown-content {
+      position: absolute;
+      bottom: 100%;
+      top: auto !important;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+      z-index: 100;
+      min-width: 120px;
+    }
+    
+    footer .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    footer .dropdown-content a {
+      white-space: nowrap;
+    }
     
     /* Lightbox for full-size images */
     .lightbox {
@@ -461,19 +567,42 @@
     }
     
     /* 3D Model Viewer Styles */
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      background-color: var(--background);
-      --poster-color: transparent;
-    }
-    
     .model-viewer-container {
       position: relative;
       width: 100%;
       aspect-ratio: 1;
-      background: var(--gallery-bg);
+      background: var(--background);
       border: 1px solid var(--border);
+      max-height: 500px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    #stl-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: var(--background);
+    }
+    
+    #stl-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      background: var(--background) !important;
+      border-radius: 0.5rem;
+    }
+    
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
     
     .print-media-3d {
@@ -482,18 +611,23 @@
       aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
+      border: none;
     }
     
     .media-section {
-      margin-bottom: 2rem;
+      margin-bottom: 4rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .media-section-title {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: var(--muted-foreground);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
     
     .video-container {
@@ -501,14 +635,47 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      background: var(--gallery-bg);
+      background: var(--background);
       border: 1px solid var(--border);
+      border-radius: 0.5rem;
+    }
+    
+    /* Ensure no green backgrounds anywhere */
+    .model-viewer-container,
+    #stl-container,
+    .print-media,
+    .print-media-3d {
+      background: var(--background) !important;
     }
     
     .video-container video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 0.5rem;
+    }
+    
+    .image-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .gallery-thumb {
+      max-width: 300px;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .gallery-thumb:hover {
+      border-color: var(--primary);
+      transform: scale(1.02);
     }
   </style>
 </head>
@@ -517,58 +684,44 @@
     <header>
       <div class="container header-content">
         <a href="/" class="logo">donnybadamo.com</a>
+        <div class="page-title-header">3D Prints Gallery</div>
       </div>
     </header>
 
     <main class="container">
-      <div class="page-header">
-        <h1 class="page-title">3D Prints Collection</h1>
-        <p class="page-subtitle">Curated Works</p>
-      </div>
-
-      <div class="prints-grid" id="prints-grid">
+      <div class="print-gallery" id="print-gallery">
         <div class="print-item" data-print-id="benchy">
-          <div class="print-media">
-            <div class="print-media-3d">
-              <div class="model-viewer-container">
-                <model-viewer 
-                  src="/prints/models/benchy.stl" 
-                  alt="3D Benchy Model"
-                  camera-controls
-                  auto-rotate
-                  auto-rotate-delay="1000"
-                  interaction-policy="allow-when-focused"
-                  style="width: 100%; height: 100%;"
-                  environment-image="neutral"
-                  shadow-intensity="1"
-                  exposure="1">
-                </model-viewer>
-              </div>
-            </div>
-          </div>
           <div class="print-info">
             <h2 class="print-title">3D Benchy</h2>
             <div class="print-meta">PLA • Test Print</div>
             <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
             
-            <div class="media-section">
-              <div class="media-section-title">Print Process</div>
-              <div class="video-container">
-                <video controls>
-                  <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+            <div class="print-image-section">
+              <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
+            </div>
+          </div>
+          <div class="print-media">
+            <div class="print-media-3d">
+              <div class="model-viewer-container">
+                <div id="stl-container">
+                  <div class="loading-indicator">Loading Model...</div>
+                </div>
               </div>
             </div>
-            
-            <div class="media-section">
-              <div class="media-section-title">Gallery</div>
-              <div class="image-gallery">
-                <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="gallery-thumb" onclick="openLightbox(this.src)">
-              </div>
-            </div>
-            
-            <div class="print-tags">
+          </div>
+        </div>
+        
+        <div class="media-section">
+          <div class="media-section-title">Print Process</div>
+          <div class="video-container">
+            <video controls>
+              <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        
+        <div class="print-tags">
               <span class="print-tag">PLA</span>
               <span class="print-tag">Test Print</span>
               <span class="print-tag">Benchmark</span>
@@ -582,10 +735,35 @@
       <div class="container footer-content">
         <p class="copyright">© 1999 Donny Badamo. Some rights reserved.</p>
         <div class="footer-nav">
-          <a href="/">Home</a>
-          <a href="/#about">About</a>
-          <a href="/#projects">Projects</a>
-          <a href="/#contact">Contact</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+              About
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="/#experience">Experience</a>
+              <a href="/#projects">Projects</a>
+            </div>
+          </div>
+          <a href="/#templates">Templates</a>
+          <a href="/#thoughts">Thoughts</a>
+          <a href="/prints/">3D Prints</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+              Fun Stuff
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="https://chess.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Chess</a>
+              <a href="https://content.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Content</a>
+              <a href="https://paint.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Paint</a>
+              <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -598,6 +776,303 @@
   </div>
 
   <script>
+    // Load and render STL file with Three.js
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById('stl-container');
+      if (!container) {
+        console.error('STL container not found');
+        return;
+      }
+      
+      // Wait for container to have dimensions
+      const initRenderer = () => {
+        const width = container.clientWidth || 800;
+        const height = container.clientHeight || 800;
+        
+        if (width === 0 || height === 0) {
+          console.warn('Container has no dimensions, retrying...');
+          setTimeout(initRenderer, 100);
+          return;
+        }
+        
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1f1c); // Match --background color #1a1f1c
+        scene.backgroundAlpha = 1.0;
+        
+        // Camera
+        const camera = new THREE.PerspectiveCamera(
+          45,
+          width / height,
+          0.1,
+          1000
+        );
+        camera.position.set(0, 0, 3);
+        
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ 
+          antialias: true,
+          alpha: false,
+          powerPreference: "high-performance"
+        });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+        renderer.setClearColor(0x1a1f1c, 1); // Match background color
+        container.appendChild(renderer.domElement);
+        
+        // Store renderer and camera for later use
+        window.stlRenderer = renderer;
+        window.stlCamera = camera;
+        window.stlScene = scene;
+        
+        loadSTLModel(scene, camera, renderer, container);
+      };
+      
+      const loadSTLModel = (scene, camera, renderer, container) => {
+        // Check if STLLoader is available
+        if (!THREE.STLLoader) {
+          const loadingIndicator = container.querySelector('.loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.textContent = 'Error: STL Loader not available';
+            loadingIndicator.style.color = 'var(--primary)';
+          }
+          console.error('THREE.STLLoader is not defined');
+          return;
+        }
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight1.position.set(5, 5, 5);
+        scene.add(directionalLight1);
+        
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+        directionalLight2.position.set(-5, -5, -5);
+        scene.add(directionalLight2);
+        
+        // Load STL
+        const loader = new THREE.STLLoader();
+        
+        // Show loading state
+        const loadingIndicator = container.querySelector('.loading-indicator');
+        if (loadingIndicator) {
+          loadingIndicator.textContent = 'Loading Model...';
+        }
+        
+        console.log('Starting STL load from /prints/models/benchy.stl');
+        console.log('Container dimensions:', container.clientWidth, 'x', container.clientHeight);
+        console.log('THREE.STLLoader available:', typeof THREE.STLLoader !== 'undefined');
+        
+        // Test if file is accessible
+        fetch('/prints/models/benchy.stl', { method: 'HEAD' })
+          .then(response => {
+            console.log('File check - Status:', response.status, 'Size:', response.headers.get('content-length'));
+            if (!response.ok) {
+              throw new Error(`File not found: ${response.status}`);
+            }
+          })
+          .catch(err => {
+            console.error('File accessibility check failed:', err);
+            const loadingIndicator = container.querySelector('.loading-indicator');
+            if (loadingIndicator) {
+              loadingIndicator.textContent = 'File not accessible. Check file path.';
+              loadingIndicator.style.color = 'var(--primary)';
+            }
+          });
+        
+        loader.load(
+          '/prints/models/benchy.stl',
+          function(geometry) {
+            console.log('STL loaded successfully, vertices:', geometry.attributes.position.count);
+          // Remove loading indicator
+          const loadingIndicator = container.querySelector('.loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          
+          // Create material
+          const material = new THREE.MeshPhongMaterial({
+            color: 0xe67a28,
+            shininess: 100,
+            specular: 0x222222
+          });
+          
+          // Create mesh
+          const mesh = new THREE.Mesh(geometry, material);
+          
+          // Center the model geometry
+          geometry.computeBoundingBox();
+          const modelCenter = new THREE.Vector3();
+          geometry.boundingBox.getCenter(modelCenter);
+          
+          // Translate geometry to center it at origin
+          geometry.translate(-modelCenter.x, -modelCenter.y, -modelCenter.z);
+          
+          // Scale to fit - make it larger to fill the container
+          const size = new THREE.Vector3();
+          geometry.boundingBox.getSize(size);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 12.0 / maxDim; // Increased to 12.0 to make model much larger
+          mesh.scale.multiplyScalar(scale);
+          
+          // Set mesh position to origin (0, 0, 0) so rotation happens around center
+          mesh.position.set(0, 0, 0);
+          
+          // Set initial rotation for correct orientation and cool angle
+          mesh.rotation.x = -0.3; // Tilt slightly forward
+          mesh.rotation.y = 0.4; // Rotate to show a nice 3/4 view
+          mesh.rotation.z = 0; // Keep it level
+          
+          // Adjust camera to fit the model better
+          const box = new THREE.Box3().setFromObject(mesh);
+          const boxCenter = box.getCenter(new THREE.Vector3());
+          const boxSize = box.getSize(new THREE.Vector3());
+          const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
+          const fov = camera.fov * (Math.PI / 180);
+          let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
+          cameraZ *= 0.95; // Reduced padding even more so model appears larger
+          camera.position.set(0, 0, cameraZ);
+          camera.lookAt(0, 0, 0);
+          
+          scene.add(mesh);
+          
+          // Auto-rotate horizontally (y-axis for horizontal spin around vertical axis)
+          let rotationSpeed = 0.005;
+          let isRotating = true;
+          
+          function animate() {
+            requestAnimationFrame(animate);
+            
+            if (isRotating) {
+              mesh.rotation.y += rotationSpeed;
+            }
+            
+            renderer.render(scene, camera);
+          }
+          
+          animate();
+          
+          // Mouse controls
+          let isDragging = false;
+          let previousMousePosition = { x: 0, y: 0 };
+          
+          container.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            isRotating = false;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+          });
+          
+                        container.addEventListener('mousemove', function(e) {
+                          if (isDragging) {
+                            const deltaX = e.clientX - previousMousePosition.x;
+                            const deltaY = e.clientY - previousMousePosition.y;
+
+                            mesh.rotation.x += deltaX * 0.01;
+                            mesh.rotation.y += deltaY * 0.01;
+              
+              previousMousePosition = { x: e.clientX, y: e.clientY };
+            }
+          });
+          
+          container.addEventListener('mouseup', function() {
+            isDragging = false;
+            // Resume auto-rotate after 3 seconds of inactivity
+            setTimeout(() => {
+              if (!isDragging) {
+                isRotating = true;
+              }
+            }, 3000);
+          });
+          
+          container.addEventListener('mouseleave', function() {
+            isDragging = false;
+            isRotating = true;
+          });
+          
+          // Touch controls for mobile
+          let touchStart = null;
+          
+          container.addEventListener('touchstart', function(e) {
+            isRotating = false;
+            if (e.touches.length === 1) {
+              touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+          });
+          
+                        container.addEventListener('touchmove', function(e) {
+                          if (e.touches.length === 1 && touchStart) {
+                            const deltaX = e.touches[0].clientX - touchStart.x;
+                            const deltaY = e.touches[0].clientY - touchStart.y;
+
+                            mesh.rotation.x += deltaX * 0.01;
+                            mesh.rotation.y += deltaY * 0.01;
+              
+              touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+          });
+          
+          container.addEventListener('touchend', function() {
+            touchStart = null;
+            setTimeout(() => {
+              isRotating = true;
+            }, 3000);
+          });
+          
+          // Handle window resize
+          const handleResize = () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            if (width > 0 && height > 0) {
+              camera.aspect = width / height;
+              camera.updateProjectionMatrix();
+              renderer.setSize(width, height);
+            }
+          };
+          window.addEventListener('resize', handleResize);
+        },
+        function(xhr) {
+          // Progress
+          if (xhr.lengthComputable) {
+            const percentComplete = (xhr.loaded / xhr.total) * 100;
+            const loadingIndicator = container.querySelector('.loading-indicator');
+            if (loadingIndicator) {
+              loadingIndicator.textContent = `Loading Model... ${Math.round(percentComplete)}%`;
+            }
+          }
+        },
+        function(error) {
+          console.error('Error loading STL:', error);
+          const loadingIndicator = container.querySelector('.loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.textContent = 'Error loading model. Check console for details.';
+            loadingIndicator.style.color = 'var(--primary)';
+          }
+          // Try to show more details
+          if (error && error.message) {
+            console.error('Error details:', error.message);
+          }
+          if (error && error.target) {
+            console.error('HTTP Status:', error.target.status, error.target.statusText);
+          }
+        }
+      );
+      
+      // Add timeout to detect if loading is stuck
+      setTimeout(() => {
+        const loadingIndicator = container.querySelector('.loading-indicator');
+        if (loadingIndicator && loadingIndicator.style.display !== 'none') {
+          console.warn('STL loading taking longer than expected...');
+          loadingIndicator.textContent = 'Loading taking longer than expected...';
+        }
+      }, 10000); // 10 second timeout
+      };
+      
+      // Initialize
+      initRenderer();
+    });
+    
     // Video toggle functionality
     function toggleVideo(button) {
       const printItem = button.closest('.print-item');
