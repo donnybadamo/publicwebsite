@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY79YGEFYG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CY79YGEFYG');
+  </script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Prints Collection — Donny Badamo</title>
+  <meta name="description" content="A curated collection of 3D printing projects featuring time-lapse videos and detailed photography.">
+  <meta name="keywords" content="3D printing, 3D prints, Donny Badamo, collection, gallery">
+  <meta name="author" content="Donny Badamo">
+  <link rel="icon" href="https://donnybadamo.com/favicon.png" type="image/png">
+  <link rel="canonical" href="https://donnybadamo.com/prints/">
+  <meta name="theme-color" content="#324639">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://donnybadamo.com/prints/">
+  <meta property="og:title" content="3D Prints Collection — Donny Badamo">
+  <meta property="og:description" content="A curated collection of 3D printing projects featuring time-lapse videos and detailed photography.">
+  <meta property="og:image" content="https://donnybadamo.com/donny-profile.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://donnybadamo.com/prints/">
+  <meta property="twitter:title" content="3D Prints Collection — Donny Badamo">
+  <meta property="twitter:description" content="A curated collection of 3D printing projects featuring time-lapse videos and detailed photography.">
+  <meta property="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
+  
+  <!-- Model Viewer for 3D STL files -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+  
+  <style>
+    :root {
+      --background: #1a1f1c;
+      --foreground: #f0e6d6;
+      --primary: #e67a28;
+      --primary-hover: rgba(230, 122, 40, 0.9);
+      --primary-foreground: #ffffff;
+      --muted-foreground: #b8c4b8;
+      --secondary-neutral: #8a9589;
+      --border: #2a3530;
+      --input: #425249;
+      --accent: #2a3530;
+      --accent-foreground: #f0e6d6;
+      --ring: #e67a28;
+      --tech-glow: rgba(230, 122, 40, 0.15);
+      --gallery-bg: #0f1411;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-padding-top: 5rem;
+      overflow-x: hidden;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--background);
+      background-image: 
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.005) 2px,
+          rgba(255, 255, 255, 0.005) 4px
+        ),
+        radial-gradient(circle at 20% 50%, var(--tech-glow) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, var(--tech-glow) 0%, transparent 50%);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+      padding-top: 4rem;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-inline: clamp(16px, 4vw, 48px);
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(26, 31, 28, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    .header-content {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+      padding-inline: clamp(16px, 4vw, 48px);
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--foreground);
+      transition: color 0.3s ease;
+    }
+    
+    .logo:hover {
+      color: var(--primary);
+    }
+    
+    main {
+      padding-block: 4rem 6rem;
+    }
+    
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding-top: 2rem;
+    }
+    
+    .page-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--foreground) 0%, var(--muted-foreground) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .page-subtitle {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    
+    .prints-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+    
+    @media (max-width: 768px) {
+      .prints-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+    }
+    
+    .print-item {
+      position: relative;
+      background: var(--gallery-bg);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    
+    .print-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--primary);
+    }
+    
+    .print-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .print-item:hover::before {
+      opacity: 1;
+    }
+    
+    .print-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--background);
+    }
+    
+    .print-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .print-item:hover .print-image {
+      transform: scale(1.05);
+    }
+    
+    .print-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    
+    .print-item.video-active .print-image {
+      display: none;
+    }
+    
+    .print-item.video-active .print-video {
+      display: block;
+    }
+    
+    .video-play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(26, 31, 28, 0.9);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .video-play-button:hover {
+      background: var(--primary);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .video-play-button svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--primary);
+      margin-left: 4px;
+      transition: fill 0.3s ease;
+    }
+    
+    .video-play-button:hover svg {
+      fill: var(--foreground);
+    }
+    
+    .print-item.video-active .video-play-button {
+      display: none;
+    }
+    
+    .print-info {
+      padding: 2rem;
+      background: var(--gallery-bg);
+    }
+    
+    .print-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      color: var(--foreground);
+    }
+    
+    .print-meta {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .print-description {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--muted-foreground);
+      margin-top: 1rem;
+    }
+    
+    .print-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .print-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      background: var(--accent);
+      border: 1px solid var(--border);
+      color: var(--muted-foreground);
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .gallery-thumb {
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+    
+    .gallery-thumb:hover {
+      opacity: 1;
+      border-color: var(--primary);
+    }
+    
+    .gallery-thumb.active {
+      opacity: 1;
+      border-color: var(--primary);
+    }
+    
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 6rem;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-content {
+        flex-direction: row;
+      }
+    }
+    
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+    
+    @media (min-width: 768px) {
+      .copyright {
+        text-align: left;
+      }
+    }
+    
+    .footer-nav {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+    
+    .footer-nav a {
+      color: var(--muted-foreground);
+      text-decoration: none;
+    }
+    
+    .footer-nav a:hover {
+      color: var(--foreground);
+    }
+    
+    
+    /* Lightbox for full-size images */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--foreground);
+      background: transparent;
+      color: var(--foreground);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .lightbox-close:hover {
+      background: var(--foreground);
+      color: var(--background);
+    }
+    
+    /* Loading state */
+    .print-item.loading {
+      opacity: 0.6;
+    }
+    
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 6rem 2rem;
+      color: var(--muted-foreground);
+    }
+    
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--foreground);
+    }
+    
+    /* 3D Model Viewer Styles */
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-color: var(--background);
+      --poster-color: transparent;
+    }
+    
+    .model-viewer-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gallery-bg);
+      border: 1px solid var(--border);
+    }
+    
+    .print-media-3d {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--background);
+    }
+    
+    .media-section {
+      margin-bottom: 2rem;
+    }
+    
+    .media-section-title {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--gallery-bg);
+      border: 1px solid var(--border);
+    }
+    
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen">
+    <header>
+      <div class="container header-content">
+        <a href="/" class="logo">donnybadamo.com</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="page-header">
+        <h1 class="page-title">3D Prints Collection</h1>
+        <p class="page-subtitle">Curated Works</p>
+      </div>
+
+      <div class="prints-grid" id="prints-grid">
+        <div class="print-item" data-print-id="benchy">
+          <div class="print-media">
+            <div class="print-media-3d">
+              <div class="model-viewer-container">
+                <model-viewer 
+                  src="/prints/models/benchy.stl" 
+                  alt="3D Benchy Model"
+                  camera-controls
+                  auto-rotate
+                  auto-rotate-delay="1000"
+                  interaction-policy="allow-when-focused"
+                  style="width: 100%; height: 100%;"
+                  environment-image="neutral"
+                  shadow-intensity="1"
+                  exposure="1">
+                </model-viewer>
+              </div>
+            </div>
+          </div>
+          <div class="print-info">
+            <h2 class="print-title">3D Benchy</h2>
+            <div class="print-meta">PLA • Test Print</div>
+            <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
+            
+            <div class="media-section">
+              <div class="media-section-title">Print Process</div>
+              <div class="video-container">
+                <video controls>
+                  <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <div class="media-section">
+              <div class="media-section-title">Gallery</div>
+              <div class="image-gallery">
+                <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="gallery-thumb" onclick="openLightbox(this.src)">
+              </div>
+            </div>
+            
+            <div class="print-tags">
+              <span class="print-tag">PLA</span>
+              <span class="print-tag">Test Print</span>
+              <span class="print-tag">Benchmark</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <p class="copyright">© 1999 Donny Badamo. Some rights reserved.</p>
+        <div class="footer-nav">
+          <a href="/">Home</a>
+          <a href="/#about">About</a>
+          <a href="/#projects">Projects</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">×</button>
+    <img src="" alt="" class="lightbox-content" id="lightbox-image">
+  </div>
+
+  <script>
+    // Video toggle functionality
+    function toggleVideo(button) {
+      const printItem = button.closest('.print-item');
+      const video = printItem.querySelector('.print-video');
+      
+      printItem.classList.add('video-active');
+      video.play();
+      
+      // Pause video when clicking outside or on the video itself
+      video.addEventListener('click', function() {
+        video.pause();
+        printItem.classList.remove('video-active');
+      });
+    }
+
+    // Lightbox functionality
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      lightboxImage.src = imageSrc;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event && event.target.id !== 'lightbox' && event.target.id !== 'lightbox-image') {
+        return;
+      }
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Gallery thumbnail click handler
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('gallery-thumb')) {
+        e.target.classList.add('active');
+        const siblings = Array.from(e.target.parentElement.children);
+        siblings.forEach(sibling => {
+          if (sibling !== e.target) {
+            sibling.classList.remove('active');
+          }
+        });
+      }
+    });
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -110,6 +110,31 @@
       align-items: center;
       justify-content: space-between;
       padding-inline: clamp(16px, 4vw, 32px);
+      gap: 2rem;
+    }
+    
+    .header-nav-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .header-contact {
+      display: block;
+    }
+    
+    .header-contact a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      color: var(--foreground);
+      text-decoration: none;
+    }
+    
+    .header-contact a:hover {
+      color: var(--primary);
     }
     
     .logo {
@@ -420,6 +445,27 @@
       gap: 1rem;
     }
     
+    #form-message {
+      transition: all 0.3s ease;
+    }
+    
+    #form-message.success {
+      background-color: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--foreground);
+    }
+    
+    #form-message.error {
+      background-color: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--foreground);
+    }
+    
+    .contact-action-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
     .form-group {
       display: flex;
       flex-direction: column;
@@ -531,6 +577,10 @@
     }
 
     @media (max-width: 767px) {
+      .header-nav-wrapper {
+        flex: 0;
+      }
+      
       nav {
         display: none;
         position: absolute;
@@ -556,6 +606,10 @@
 
       nav a:last-child {
         border-bottom: none;
+      }
+      
+      .header-contact {
+        display: none;
       }
       
       .grid-cols-2, .grid-cols-3, .grid-cols-4 {
@@ -760,35 +814,52 @@
     <header>
       <div class="container header-content">
         <a href="#" class="logo">donnybadamo.com</a>
-        <nav>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects & Templates</a>
-          <a href="#thoughts">Thoughts</a>
-          <a href="#contact">Contact</a>
-          <div class="dropdown">
-            <a href="#" class="dropdown-trigger">
-              Fun Stuff
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
-                <path d="m6 9 6 6 6-6"></path>
-              </svg>
-            </a>
-            <div class="dropdown-content">
-              <a href="https://chess.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Chess</a>
-              <a href="https://hotline.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Hotline</a>
-              <a href="https://paint.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Paint</a>
-              <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
+        <div class="header-nav-wrapper">
+          <nav>
+            <div class="dropdown">
+              <a href="#" class="dropdown-trigger">
+                About
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </a>
+              <div class="dropdown-content">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+              </div>
             </div>
+            <a href="#templates">Templates</a>
+            <a href="#thoughts">Thoughts</a>
+            <a href="/prints/">3D Prints</a>
+            <div class="dropdown">
+              <a href="#" class="dropdown-trigger">
+                Fun Stuff
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </a>
+              <div class="dropdown-content">
+                <a href="https://chess.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Chess</a>
+                <a href="https://hotline.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Hotline</a>
+                <a href="https://paint.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Paint</a>
+                <a href="https://galaga.donnybadamo.com/" target="_blank" rel="noopener noreferrer">Galaga</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <div class="header-contact">
+            <a href="#contact">Contact</a>
           </div>
-        </nav>
-        <div class="header-actions">
-          <button class="menu-button" aria-label="Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"></line>
-              <line x1="4" x2="20" y1="6" y2="6"></line>
-              <line x1="4" x2="20" y1="18" y2="18"></line>
-            </svg>
-          </button>
+          <div class="header-actions">
+            <button class="menu-button" aria-label="Menu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12"></line>
+                <line x1="4" x2="20" y1="6" y2="6"></line>
+                <line x1="4" x2="20" y1="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -910,8 +981,7 @@
       </section>
 
       <section id="projects">
-        <h2>Projects & Templates</h2>
-        <h3 style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">Projects</h3>
+        <h2>Projects</h2>
         <div class="grid grid-cols-2 max-w-4xl mx-auto">
           <a href="https://aka.ms/fhl-chess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
             <div class="template-icon">
@@ -948,8 +1018,10 @@
             </div>
           </a>
         </div>
+      </section>
 
-        <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1rem;">Templates</h3>
+      <section id="templates">
+        <h2>Templates</h2>
         <div class="grid grid-cols-4">
           <a href="https://docs.google.com/document/d/1eX9TiOZnXMeucUowDvAQ-u-B5Z7AzxwC/edit?usp=sharing&ouid=118018984881979380720&rtpof=true&sd=true" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
             <div class="template-icon">
@@ -1175,7 +1247,13 @@
         <div class="grid grid-cols-2 max-w-4xl mx-auto" style="align-items: end;">
           <div class="card" style="display: flex; flex-direction: column; justify-content: flex-end;">
             <h3 style="margin-bottom: 1rem;">Get In Touch</h3>
-            <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" style="margin-bottom: 0;">
+            <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="margin-bottom: 0;">
+              <input type="hidden" name="form-name" value="contact">
+              <p style="display: none;">
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </p>
               <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -1188,7 +1266,8 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
               </div>
-              <button type="submit" class="button button-primary contact-action-btn">
+              <div id="form-message" style="display: none; margin-bottom: 1rem; padding: 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;"></div>
+              <button type="submit" class="button button-primary contact-action-btn" id="submit-btn">
                 Send Message
               </button>
             </form>
@@ -1267,10 +1346,21 @@
       <div class="container footer-content">
         <p class="copyright">© 1999 Donny Badamo. Some rights reserved.</p>
         <div class="footer-nav">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-trigger">
+              About
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-icon">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </a>
+            <div class="dropdown-content">
+              <a href="#experience">Experience</a>
+              <a href="#projects">Projects</a>
+            </div>
+          </div>
+          <a href="#templates">Templates</a>
+          <a href="#thoughts">Thoughts</a>
+          <a href="/prints/">3D Prints</a>
           <div class="dropdown">
             <a href="#" class="dropdown-trigger">
               Fun Stuff
@@ -1346,6 +1436,73 @@
             nav.classList.remove('mobile-nav-active');
           }
         });
+      }
+      
+      // Contact form handling
+      const contactForm = document.getElementById('contact-form');
+      const formMessage = document.getElementById('form-message');
+      const submitBtn = document.getElementById('submit-btn');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Disable submit button
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+          formMessage.style.display = 'none';
+          
+          // Get form data
+          const formData = new FormData(contactForm);
+          const name = formData.get('name');
+          const email = formData.get('email');
+          const message = formData.get('message');
+          
+          try {
+            // Check if we're on Netlify (has data-netlify attribute)
+            if (contactForm.hasAttribute('data-netlify')) {
+              // Submit to Netlify
+              const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+              });
+              
+              if (response.ok) {
+                showMessage('Thank you for your message! I\'ll get back to you soon.', 'success');
+                contactForm.reset();
+              } else {
+                throw new Error('Form submission failed');
+              }
+            } else {
+              // Fallback: Use mailto or show success message
+              showMessage('Thank you for your message! I\'ll get back to you soon.', 'success');
+              contactForm.reset();
+              
+              // Optionally open mailto as backup
+              const mailtoLink = `mailto:things@donnybadamo.com?subject=Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + email)}`;
+              // Uncomment the line below if you want to open mailto as backup
+              // window.location.href = mailtoLink;
+            }
+          } catch (error) {
+            showMessage('Sorry, there was an error sending your message. Please try emailing me directly at things@donnybadamo.com', 'error');
+            console.error('Form error:', error);
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }
+        });
+      }
+      
+      function showMessage(text, type) {
+        formMessage.textContent = text;
+        formMessage.style.display = 'block';
+        formMessage.style.backgroundColor = type === 'success' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+        formMessage.style.border = `1px solid ${type === 'success' ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`;
+        formMessage.style.color = type === 'success' ? 'var(--foreground)' : 'var(--foreground)';
+        
+        // Scroll to message
+        formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
   </script>
