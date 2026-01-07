@@ -727,6 +727,38 @@
       transform: scale(1.02);
     }
     
+    /* Video selector buttons */
+    .video-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      justify-content: center;
+    }
+    
+    .video-selector-btn {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+    
+    .video-selector-btn:hover {
+      border-color: var(--primary);
+      color: var(--foreground);
+    }
+    
+    .video-selector-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+    
     /* Mobile Optimization */
     @media (max-width: 768px) {
       body {
@@ -868,6 +900,50 @@
 
     <main class="container">
       <div class="print-gallery" id="print-gallery">
+        <div class="print-item" data-print-id="fidget-ball">
+          <div class="print-info">
+            <h2 class="print-title">Transforming Fidget Ball Mini</h2>
+            <div class="print-meta">PLA • Mechanical • Fidget</div>
+            <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+            
+            <div class="print-media-row">
+              <div class="print-image-section">
+                <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+              </div>
+              
+              <div class="print-video-section">
+                <div class="video-selector">
+                  <button class="video-selector-btn active" data-video="1" onclick="switchFidgetBallVideo(1)">1</button>
+                  <button class="video-selector-btn" data-video="2" onclick="switchFidgetBallVideo(2)">2</button>
+                  <button class="video-selector-btn" data-video="3" onclick="switchFidgetBallVideo(3)">3</button>
+                </div>
+                <div class="video-container">
+                  <video id="fidget-ball-video" controls autoplay loop muted>
+                    <source src="/prints/videos/fidget-ball-printed.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="print-media">
+            <div class="print-media-3d">
+              <div class="model-viewer-container">
+                <div class="stl-container" data-model="fidget-ball">
+                  <div class="loading-indicator">Loading Model...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="print-tags">
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Mechanical</span>
+          <span class="print-tag">Fidget</span>
+          <span class="print-tag">Transforming</span>
+        </div>
+        
         <div class="print-item" data-print-id="benchy">
           <div class="print-info">
             <h2 class="print-title">3D Benchy</h2>
@@ -892,7 +968,7 @@
           <div class="print-media">
             <div class="print-media-3d">
               <div class="model-viewer-container">
-                <div id="stl-container">
+                <div class="stl-container" data-model="benchy">
                   <div class="loading-indicator">Loading Model...</div>
                 </div>
               </div>
@@ -901,11 +977,9 @@
         </div>
         
         <div class="print-tags">
-              <span class="print-tag">PLA</span>
-              <span class="print-tag">Test Print</span>
-              <span class="print-tag">Benchmark</span>
-            </div>
-          </div>
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Test Print</span>
+          <span class="print-tag">Benchmark</span>
         </div>
       </div>
     </main>
@@ -955,58 +1029,73 @@
   </div>
 
   <script>
-    // Load and render STL file with Three.js
+    // Load and render STL files with Three.js - supports multiple models
     document.addEventListener('DOMContentLoaded', function() {
-      const container = document.getElementById('stl-container');
-      if (!container) {
-        console.error('STL container not found');
+      const containers = document.querySelectorAll('.stl-container');
+      if (containers.length === 0) {
+        console.log('No STL containers found');
         return;
       }
       
-      // Wait for container to have dimensions
-      const initRenderer = () => {
-        const width = container.clientWidth || 800;
-        const height = container.clientHeight || 800;
-        
-        if (width === 0 || height === 0) {
-          console.warn('Container has no dimensions, retrying...');
-          setTimeout(initRenderer, 100);
+      // Model configuration - maps model IDs to their STL file paths
+      const modelConfig = {
+        'benchy': '/prints/models/benchy.stl',
+        'fidget-ball': '/prints/models/fidget-ball.stl'
+      };
+      
+      containers.forEach(container => {
+        const modelId = container.getAttribute('data-model');
+        if (!modelId || !modelConfig[modelId]) {
+          console.warn(`No model config found for: ${modelId}`);
           return;
         }
         
-                // Scene setup
-                const scene = new THREE.Scene();
-                scene.background = null; // Transparent background
-        
-        // Camera
-        const camera = new THREE.PerspectiveCamera(
-          45,
-          width / height,
-          0.1,
-          1000
-        );
-        camera.position.set(0, 0, 3);
-        
-        // Renderer
-        const renderer = new THREE.WebGLRenderer({ 
-          antialias: true,
-          alpha: true,
-          powerPreference: "high-performance"
-        });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
-        renderer.setClearColor(0x000000, 0); // Transparent background
-        container.appendChild(renderer.domElement);
-        
-        // Store renderer and camera for later use
-        window.stlRenderer = renderer;
-        window.stlCamera = camera;
-        window.stlScene = scene;
-        
-        loadSTLModel(scene, camera, renderer, container);
-      };
+        initModelViewer(container, modelConfig[modelId], modelId);
+      });
       
-      const loadSTLModel = (scene, camera, renderer, container) => {
+      function initModelViewer(container, stlPath, modelId) {
+        // Wait for container to have dimensions
+        const initRenderer = () => {
+          const width = container.clientWidth || 800;
+          const height = container.clientHeight || 800;
+          
+          if (width === 0 || height === 0) {
+            console.warn('Container has no dimensions, retrying...');
+            setTimeout(initRenderer, 100);
+            return;
+          }
+          
+          // Scene setup
+          const scene = new THREE.Scene();
+          scene.background = null; // Transparent background
+          
+          // Camera
+          const camera = new THREE.PerspectiveCamera(
+            45,
+            width / height,
+            0.1,
+            1000
+          );
+          camera.position.set(0, 0, 3);
+          
+          // Renderer
+          const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance"
+          });
+          renderer.setSize(width, height);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          renderer.setClearColor(0x000000, 0); // Transparent background
+          container.appendChild(renderer.domElement);
+          
+          loadSTLModel(scene, camera, renderer, container, stlPath, modelId);
+        };
+        
+        initRenderer();
+      }
+      
+      function loadSTLModel(scene, camera, renderer, container, stlPath, modelId) {
         // Check if STLLoader is available
         if (!THREE.STLLoader) {
           const loadingIndicator = container.querySelector('.loading-indicator');
@@ -1039,216 +1128,182 @@
           loadingIndicator.textContent = 'Loading Model...';
         }
         
-        console.log('Starting STL load from /prints/models/benchy.stl');
-        console.log('Container dimensions:', container.clientWidth, 'x', container.clientHeight);
-        console.log('THREE.STLLoader available:', typeof THREE.STLLoader !== 'undefined');
-        
-        // Test if file is accessible
-        fetch('/prints/models/benchy.stl', { method: 'HEAD' })
-          .then(response => {
-            console.log('File check - Status:', response.status, 'Size:', response.headers.get('content-length'));
-            if (!response.ok) {
-              throw new Error(`File not found: ${response.status}`);
-            }
-          })
-          .catch(err => {
-            console.error('File accessibility check failed:', err);
-            const loadingIndicator = container.querySelector('.loading-indicator');
-            if (loadingIndicator) {
-              loadingIndicator.textContent = 'File not accessible. Check file path.';
-              loadingIndicator.style.color = 'var(--primary)';
-            }
-          });
+        console.log(`Starting STL load from ${stlPath} for model: ${modelId}`);
         
         loader.load(
-          '/prints/models/benchy.stl',
+          stlPath,
           function(geometry) {
-            console.log('STL loaded successfully, vertices:', geometry.attributes.position.count);
-          // Remove loading indicator
-          const loadingIndicator = container.querySelector('.loading-indicator');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          
-          // Create material
-          const material = new THREE.MeshPhongMaterial({
-            color: 0xe67a28,
-            shininess: 100,
-            specular: 0x222222
-          });
-          
-          // Create mesh
-          const mesh = new THREE.Mesh(geometry, material);
-          
-          // Center the model geometry
-          geometry.computeBoundingBox();
-          const modelCenter = new THREE.Vector3();
-          geometry.boundingBox.getCenter(modelCenter);
-          
-          // Translate geometry to center it at origin
-          geometry.translate(-modelCenter.x, -modelCenter.y, -modelCenter.z);
-          
-          // Scale to fit - make it larger to fill the container
-          const size = new THREE.Vector3();
-          geometry.boundingBox.getSize(size);
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 11.4 / maxDim; // 5% smaller (12.0 * 0.95)
-          mesh.scale.multiplyScalar(scale);
-          
-          // Set mesh position to origin (0, 0, 0) so rotation happens around center
-          mesh.position.set(0, 0, 0);
-          
-          // Set initial rotation for correct orientation and cool angle
-          mesh.rotation.x = -0.3; // Tilt slightly forward
-          mesh.rotation.y = 0.4; // Rotate to show a nice 3/4 view
-          mesh.rotation.z = 0; // Keep it level
-          
-          // Adjust camera to fit the model better
-          const box = new THREE.Box3().setFromObject(mesh);
-          const boxCenter = box.getCenter(new THREE.Vector3());
-          const boxSize = box.getSize(new THREE.Vector3());
-          const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
-          const fov = camera.fov * (Math.PI / 180);
-          let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
-          cameraZ *= 0.95; // Reduced padding even more so model appears larger
-          camera.position.set(0, 0, cameraZ);
-          camera.lookAt(0, 0, 0);
-          
-          scene.add(mesh);
-          
-          // Auto-rotate horizontally (y-axis for horizontal spin around vertical axis)
-          let rotationSpeed = 0.005;
-          let isRotating = true;
-          
-          function animate() {
-            requestAnimationFrame(animate);
+            console.log(`STL loaded successfully for ${modelId}, vertices:`, geometry.attributes.position.count);
             
-            if (isRotating) {
-              mesh.rotation.y += rotationSpeed;
-            }
-            
-            renderer.render(scene, camera);
-          }
-          
-          animate();
-          
-          // Mouse controls
-          let isDragging = false;
-          let previousMousePosition = { x: 0, y: 0 };
-          
-          container.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            isRotating = false;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-          });
-          
-                        container.addEventListener('mousemove', function(e) {
-                          if (isDragging) {
-                            const deltaX = e.clientX - previousMousePosition.x;
-                            const deltaY = e.clientY - previousMousePosition.y;
-
-                            mesh.rotation.x += deltaX * 0.01;
-                            mesh.rotation.y += deltaY * 0.01;
-              
-              previousMousePosition = { x: e.clientX, y: e.clientY };
-            }
-          });
-          
-          container.addEventListener('mouseup', function() {
-            isDragging = false;
-            // Resume auto-rotate after 3 seconds of inactivity
-            setTimeout(() => {
-              if (!isDragging) {
-                isRotating = true;
-              }
-            }, 3000);
-          });
-          
-          container.addEventListener('mouseleave', function() {
-            isDragging = false;
-            isRotating = true;
-          });
-          
-          // Touch controls for mobile
-          let touchStart = null;
-          
-          container.addEventListener('touchstart', function(e) {
-            isRotating = false;
-            if (e.touches.length === 1) {
-              touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }
-          });
-          
-                        container.addEventListener('touchmove', function(e) {
-                          if (e.touches.length === 1 && touchStart) {
-                            const deltaX = e.touches[0].clientX - touchStart.x;
-                            const deltaY = e.touches[0].clientY - touchStart.y;
-
-                            mesh.rotation.x += deltaX * 0.01;
-                            mesh.rotation.y += deltaY * 0.01;
-              
-              touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }
-          });
-          
-          container.addEventListener('touchend', function() {
-            touchStart = null;
-            setTimeout(() => {
-              isRotating = true;
-            }, 3000);
-          });
-          
-          // Handle window resize
-          const handleResize = () => {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            if (width > 0 && height > 0) {
-              camera.aspect = width / height;
-              camera.updateProjectionMatrix();
-              renderer.setSize(width, height);
-            }
-          };
-          window.addEventListener('resize', handleResize);
-        },
-        function(xhr) {
-          // Progress
-          if (xhr.lengthComputable) {
-            const percentComplete = (xhr.loaded / xhr.total) * 100;
-            const loadingIndicator = container.querySelector('.loading-indicator');
+            // Remove loading indicator
             if (loadingIndicator) {
-              loadingIndicator.textContent = `Loading Model... ${Math.round(percentComplete)}%`;
+              loadingIndicator.style.display = 'none';
+            }
+            
+            // Create material
+            const material = new THREE.MeshPhongMaterial({
+              color: 0xe67a28,
+              shininess: 100,
+              specular: 0x222222
+            });
+            
+            // Create mesh
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            // Center the model geometry
+            geometry.computeBoundingBox();
+            const modelCenter = new THREE.Vector3();
+            geometry.boundingBox.getCenter(modelCenter);
+            
+            // Translate geometry to center it at origin
+            geometry.translate(-modelCenter.x, -modelCenter.y, -modelCenter.z);
+            
+            // Scale to fit
+            const size = new THREE.Vector3();
+            geometry.boundingBox.getSize(size);
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 11.4 / maxDim;
+            mesh.scale.multiplyScalar(scale);
+            
+            // Set mesh position to origin
+            mesh.position.set(0, 0, 0);
+            
+            // Set initial rotation
+            mesh.rotation.x = -0.3;
+            mesh.rotation.y = 0.4;
+            mesh.rotation.z = 0;
+            
+            // Adjust camera to fit the model
+            const box = new THREE.Box3().setFromObject(mesh);
+            const boxSize = box.getSize(new THREE.Vector3());
+            const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
+            cameraZ *= 0.95;
+            camera.position.set(0, 0, cameraZ);
+            camera.lookAt(0, 0, 0);
+            
+            scene.add(mesh);
+            
+            // Auto-rotate
+            let rotationSpeed = 0.005;
+            let isRotating = true;
+            
+            function animate() {
+              requestAnimationFrame(animate);
+              
+              if (isRotating) {
+                mesh.rotation.y += rotationSpeed;
+              }
+              
+              renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Mouse controls
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            
+            container.addEventListener('mousedown', function(e) {
+              isDragging = true;
+              isRotating = false;
+              previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+            
+            container.addEventListener('mousemove', function(e) {
+              if (isDragging) {
+                const deltaX = e.clientX - previousMousePosition.x;
+                const deltaY = e.clientY - previousMousePosition.y;
+                
+                mesh.rotation.x += deltaX * 0.01;
+                mesh.rotation.y += deltaY * 0.01;
+                
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+              }
+            });
+            
+            container.addEventListener('mouseup', function() {
+              isDragging = false;
+              setTimeout(() => {
+                if (!isDragging) {
+                  isRotating = true;
+                }
+              }, 3000);
+            });
+            
+            container.addEventListener('mouseleave', function() {
+              isDragging = false;
+              isRotating = true;
+            });
+            
+            // Touch controls for mobile
+            let touchStart = null;
+            
+            container.addEventListener('touchstart', function(e) {
+              isRotating = false;
+              if (e.touches.length === 1) {
+                touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+              }
+            });
+            
+            container.addEventListener('touchmove', function(e) {
+              if (e.touches.length === 1 && touchStart) {
+                const deltaX = e.touches[0].clientX - touchStart.x;
+                const deltaY = e.touches[0].clientY - touchStart.y;
+                
+                mesh.rotation.x += deltaX * 0.01;
+                mesh.rotation.y += deltaY * 0.01;
+                
+                touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+              }
+            });
+            
+            container.addEventListener('touchend', function() {
+              touchStart = null;
+              setTimeout(() => {
+                isRotating = true;
+              }, 3000);
+            });
+            
+            // Handle window resize
+            const handleResize = () => {
+              const width = container.clientWidth;
+              const height = container.clientHeight;
+              if (width > 0 && height > 0) {
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+              }
+            };
+            window.addEventListener('resize', handleResize);
+          },
+          function(xhr) {
+            // Progress
+            if (xhr.lengthComputable) {
+              const percentComplete = (xhr.loaded / xhr.total) * 100;
+              if (loadingIndicator) {
+                loadingIndicator.textContent = `Loading Model... ${Math.round(percentComplete)}%`;
+              }
+            }
+          },
+          function(error) {
+            console.error(`Error loading STL for ${modelId}:`, error);
+            if (loadingIndicator) {
+              loadingIndicator.textContent = 'Model file not found. Add STL file to /prints/models/';
+              loadingIndicator.style.color = 'var(--muted-foreground)';
             }
           }
-        },
-        function(error) {
-          console.error('Error loading STL:', error);
-          const loadingIndicator = container.querySelector('.loading-indicator');
-          if (loadingIndicator) {
-            loadingIndicator.textContent = 'Error loading model. Check console for details.';
-            loadingIndicator.style.color = 'var(--primary)';
+        );
+        
+        // Add timeout to detect if loading is stuck
+        setTimeout(() => {
+          if (loadingIndicator && loadingIndicator.style.display !== 'none') {
+            console.warn(`STL loading taking longer than expected for ${modelId}...`);
+            loadingIndicator.textContent = 'Loading taking longer than expected...';
           }
-          // Try to show more details
-          if (error && error.message) {
-            console.error('Error details:', error.message);
-          }
-          if (error && error.target) {
-            console.error('HTTP Status:', error.target.status, error.target.statusText);
-          }
-        }
-      );
-      
-      // Add timeout to detect if loading is stuck
-      setTimeout(() => {
-        const loadingIndicator = container.querySelector('.loading-indicator');
-        if (loadingIndicator && loadingIndicator.style.display !== 'none') {
-          console.warn('STL loading taking longer than expected...');
-          loadingIndicator.textContent = 'Loading taking longer than expected...';
-        }
-      }, 10000); // 10 second timeout
-      };
-      
-      // Initialize
-      initRenderer();
+        }, 10000);
+      }
     });
     
     // Video toggle functionality
@@ -1264,6 +1319,39 @@
         video.pause();
         printItem.classList.remove('video-active');
       });
+    }
+
+    // Fidget ball video selector
+    function switchFidgetBallVideo(videoNumber) {
+      const video = document.getElementById('fidget-ball-video');
+      const buttons = document.querySelectorAll('.video-selector-btn');
+      const videoSources = {
+        1: '/prints/videos/fidget-ball-printed.mp4',
+        2: '/prints/videos/fidget-ball-printed-2.mp4',
+        3: '/prints/videos/fidget-ball-printed-3.mp4'
+      };
+      
+      // Update active button
+      buttons.forEach(btn => {
+        if (parseInt(btn.getAttribute('data-video')) === videoNumber) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // Update video source
+      if (video && videoSources[videoNumber]) {
+        const wasPlaying = !video.paused;
+        const currentTime = video.currentTime;
+        video.src = videoSources[videoNumber];
+        video.load();
+        
+        // Restore playback state
+        if (wasPlaying) {
+          video.play().catch(e => console.log('Video autoplay prevented:', e));
+        }
+      }
     }
 
     // Lightbox functionality
