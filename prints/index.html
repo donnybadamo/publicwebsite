@@ -235,8 +235,8 @@
     
     .print-media {
       position: relative;
-      flex: 0 0 220px;
-      max-width: 220px;
+      flex: 0 0 500px;
+      max-width: 500px;
       aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
@@ -351,6 +351,35 @@
       max-width: 100%;
       height: 240px;
       align-items: flex-start;
+      position: relative;
+    }
+    
+    .print-media-row-carousel {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .print-media-row-slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      gap: 1rem;
+    }
+    
+    .print-media-row-slide.active {
+      display: flex;
+    }
+    
+    .print-media-row-slide.centered {
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .print-media-row-slide.centered video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
     
     .image-carousel-container {
@@ -416,8 +445,12 @@
       display: flex;
       justify-content: center;
       gap: 0.5rem;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
       flex-shrink: 0;
+      width: 500px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .carousel-dot {
@@ -854,7 +887,7 @@
         max-width: 100%;
         width: 100%;
         aspect-ratio: 1;
-        max-width: 200px;
+        max-width: 500px;
         margin: 0 auto;
       }
       
@@ -867,6 +900,14 @@
         margin: 1rem 0 0;
       }
       
+      .print-media-row-slide {
+        flex-direction: column;
+      }
+      
+      .print-media-row-slide.centered {
+        width: 100%;
+      }
+      
       .print-image-section {
         width: 100%;
         max-width: 100%;
@@ -875,9 +916,16 @@
         flex: none;
       }
       
-      .image-carousel {
+      .print-video-section {
+        width: 100%;
+        max-width: 100%;
         height: auto;
-        aspect-ratio: 1;
+        flex: none;
+      }
+      
+      .print-video-section .video-container {
+        aspect-ratio: 16 / 9;
+        height: auto;
       }
       
       .print-video-section {
@@ -975,36 +1023,31 @@
             <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
             
             <div class="print-media-row">
-              <div class="print-image-section">
-                <div class="image-carousel-container">
-                  <div class="image-carousel">
-                    <div class="image-carousel-slides">
-                      <div class="image-carousel-slide active">
-                        <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini - Print" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
-                      </div>
-                      <div class="image-carousel-slide">
-                        <video controls autoplay loop muted>
-                          <source src="/prints/videos/fidget-ball-printed.mp4" type="video/mp4">
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
+              <div class="print-media-row-carousel">
+                <div class="print-media-row-slide active">
+                  <div class="print-image-section">
+                    <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini - Print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                  </div>
+                  <div class="print-video-section">
+                    <div class="video-container">
+                      <video controls autoplay loop muted>
+                        <source src="/prints/videos/fidget-ball-print.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                   </div>
-                  <div class="carousel-dots">
-                    <button class="carousel-dot active" onclick="switchFidgetBallImage(0)" aria-label="Print Photo"></button>
-                    <button class="carousel-dot" onclick="switchFidgetBallImage(1)" aria-label="Video"></button>
-                  </div>
                 </div>
-              </div>
-              
-              <div class="print-video-section">
-                <div class="video-container">
-                  <video id="fidget-ball-video" controls autoplay loop muted>
-                    <source src="/prints/videos/fidget-ball-printed.mp4" type="video/mp4">
+                <div class="print-media-row-slide centered">
+                  <video controls autoplay loop muted>
+                    <source src="/prints/videos/fidget-ball-display.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
                 </div>
               </div>
+            </div>
+            <div class="carousel-dots">
+              <button class="carousel-dot active" onclick="switchFidgetBallMedia(0)" aria-label="Page 1"></button>
+              <button class="carousel-dot" onclick="switchFidgetBallMedia(1)" aria-label="Page 2"></button>
             </div>
           </div>
           <div class="print-media">
@@ -1404,30 +1447,30 @@
       });
     }
 
-    // Fidget ball image carousel
-    function switchFidgetBallImage(index) {
-      const carousel = document.querySelector('[data-print-id="fidget-ball"] .image-carousel-slides');
-      const slides = carousel ? carousel.querySelectorAll('.image-carousel-slide') : [];
+    // Fidget ball media row carousel
+    function switchFidgetBallMedia(index) {
+      const mediaRow = document.querySelector('[data-print-id="fidget-ball"] .print-media-row');
+      const slides = mediaRow ? mediaRow.querySelectorAll('.print-media-row-slide') : [];
       const dots = document.querySelectorAll('[data-print-id="fidget-ball"] .carousel-dot');
       
-      if (!carousel || slides.length === 0) return;
+      if (!mediaRow || slides.length === 0) return;
       
       // Update slides
       slides.forEach((slide, i) => {
         if (i === index) {
           slide.classList.add('active');
-          // Play video if it's the video slide
-          const video = slide.querySelector('video');
-          if (video) {
+          // Play videos in the active slide
+          const videos = slide.querySelectorAll('video');
+          videos.forEach(video => {
             video.play().catch(e => console.log('Video autoplay prevented:', e));
-          }
+          });
         } else {
           slide.classList.remove('active');
-          // Pause video if it's not the active slide
-          const video = slide.querySelector('video');
-          if (video) {
+          // Pause videos in inactive slides
+          const videos = slide.querySelectorAll('video');
+          videos.forEach(video => {
             video.pause();
-          }
+          });
         }
       });
       
