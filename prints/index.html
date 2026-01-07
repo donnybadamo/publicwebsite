@@ -1187,6 +1187,29 @@
         'fidget-ball': '/prints/models/fidget-ball.stl',
         'elephant': '/prints/models/elephant.stl'
       };
+
+      // Per-model behavior settings (orientation & interaction)
+      const modelSettings = {
+        benchy: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          initialRotation: { x: -0.3, y: 0.4, z: 0 }
+        },
+        'fidget-ball': {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          initialRotation: { x: -0.3, y: 0.4, z: 0 }
+        },
+        elephant: {
+          // Keep feet pointing down and spin horizontally around the body
+          autoRotateAxis: 'y',
+          allowXRotation: false,
+          allowYRotation: true,
+          initialRotation: { x: 0, y: 0.6, z: 0 }
+        }
+      };
       
       containers.forEach(container => {
         const modelId = container.getAttribute('data-model');
@@ -1195,10 +1218,10 @@
           return;
         }
         
-        initModelViewer(container, modelConfig[modelId], modelId);
+        initModelViewer(container, modelConfig[modelId], modelId, modelSettings[modelId] || modelSettings['benchy']);
       });
       
-      function initModelViewer(container, stlPath, modelId) {
+      function initModelViewer(container, stlPath, modelId, settings) {
         // Wait for container to have dimensions
         const initRenderer = () => {
           const width = container.clientWidth || 800;
@@ -1234,13 +1257,13 @@
           renderer.setClearColor(0x000000, 0); // Transparent background
           container.appendChild(renderer.domElement);
           
-          loadSTLModel(scene, camera, renderer, container, stlPath, modelId);
+          loadSTLModel(scene, camera, renderer, container, stlPath, modelId, settings);
         };
         
         initRenderer();
       }
       
-      function loadSTLModel(scene, camera, renderer, container, stlPath, modelId) {
+      function loadSTLModel(scene, camera, renderer, container, stlPath, modelId, settings) {
         // Check if STLLoader is available
         if (!THREE.STLLoader) {
           const loadingIndicator = container.querySelector('.loading-indicator');
@@ -1313,10 +1336,9 @@
             // Set mesh position to origin
             mesh.position.set(0, 0, 0);
             
-            // Set initial rotation to zero - models start in their natural orientation
-            mesh.rotation.x = 0;
-            mesh.rotation.y = 0;
-            mesh.rotation.z = 0;
+            // Set initial rotation (per-model where needed)
+            const rotation = (settings && settings.initialRotation) || { x: -0.3, y: 0.4, z: 0 };
+            mesh.rotation.set(rotation.x, rotation.y, rotation.z);
             
             // Adjust camera to fit the model and center it vertically
             const box = new THREE.Box3().setFromObject(mesh);
@@ -1335,12 +1357,13 @@
             // Auto-rotate
             let rotationSpeed = 0.005;
             let isRotating = true;
+            const autoAxis = (settings && settings.autoRotateAxis) || 'y';
             
             function animate() {
               requestAnimationFrame(animate);
               
               if (isRotating) {
-                mesh.rotation.y += rotationSpeed;
+                mesh.rotation[autoAxis] += rotationSpeed;
               }
               
               renderer.render(scene, camera);
@@ -1363,8 +1386,14 @@
                 const deltaX = e.clientX - previousMousePosition.x;
                 const deltaY = e.clientY - previousMousePosition.y;
                 
-                mesh.rotation.x += deltaX * 0.01;
-                mesh.rotation.y += deltaY * 0.01;
+                // Horizontal drag → spin around vertical axis (y)
+                if (!settings || settings.allowYRotation !== false) {
+                  mesh.rotation.y += deltaX * 0.01;
+                }
+                // Vertical drag → tilt only when allowed (keeps elephant feet down)
+                if (settings && settings.allowXRotation) {
+                  mesh.rotation.x += deltaY * 0.01;
+                }
                 
                 previousMousePosition = { x: e.clientX, y: e.clientY };
               }
@@ -1399,8 +1428,12 @@
                 const deltaX = e.touches[0].clientX - touchStart.x;
                 const deltaY = e.touches[0].clientY - touchStart.y;
                 
-                mesh.rotation.x += deltaX * 0.01;
-                mesh.rotation.y += deltaY * 0.01;
+                if (!settings || settings.allowYRotation !== false) {
+                  mesh.rotation.y += deltaX * 0.01;
+                }
+                if (settings && settings.allowXRotation) {
+                  mesh.rotation.x += deltaY * 0.01;
+                }
                 
                 touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
               }
