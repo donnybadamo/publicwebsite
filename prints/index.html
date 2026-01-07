@@ -235,8 +235,8 @@
     
     .print-media {
       position: relative;
-      flex: 0 0 500px;
-      max-width: 500px;
+      flex: 0 0 280px;
+      max-width: 280px;
       aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
@@ -351,6 +351,90 @@
       max-width: 100%;
       height: 240px;
       align-items: flex-start;
+    }
+    
+    .image-carousel-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    
+    .image-carousel {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--background);
+    }
+    
+    .image-carousel-slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+    
+    .image-carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      display: none;
+      position: relative;
+    }
+    
+    .image-carousel-slide.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .image-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .image-carousel-slide img:hover {
+      transform: scale(1.05);
+    }
+    
+    .image-carousel-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: var(--background);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot:hover {
+      background: var(--muted-foreground);
+    }
+    
+    .carousel-dot.active {
+      background: var(--primary);
+      width: 24px;
+      border-radius: 4px;
     }
     
     .print-image-section {
@@ -727,38 +811,6 @@
       transform: scale(1.02);
     }
     
-    /* Video selector buttons */
-    .video-selector {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      justify-content: center;
-    }
-    
-    .video-selector-btn {
-      padding: 0.5rem 1rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted-foreground);
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 0;
-    }
-    
-    .video-selector-btn:hover {
-      border-color: var(--primary);
-      color: var(--foreground);
-    }
-    
-    .video-selector-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: var(--primary-foreground);
-    }
-    
     /* Mobile Optimization */
     @media (max-width: 768px) {
       body {
@@ -793,6 +845,8 @@
         max-width: 100%;
         width: 100%;
         aspect-ratio: 1;
+        max-width: 250px;
+        margin: 0 auto;
       }
       
       .print-media-row {
@@ -810,6 +864,11 @@
         height: auto;
         aspect-ratio: 1;
         flex: none;
+      }
+      
+      .image-carousel {
+        height: auto;
+        aspect-ratio: 1;
       }
       
       .print-video-section {
@@ -834,7 +893,7 @@
       }
       
       .model-viewer-container {
-        max-height: 300px;
+        max-height: 250px;
         width: 100%;
         aspect-ratio: 1;
       }
@@ -908,15 +967,28 @@
             
             <div class="print-media-row">
               <div class="print-image-section">
-                <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                <div class="image-carousel-container">
+                  <div class="image-carousel">
+                    <div class="image-carousel-slides">
+                      <div class="image-carousel-slide active">
+                        <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini - Print" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                      </div>
+                      <div class="image-carousel-slide">
+                        <video controls autoplay loop muted>
+                          <source src="/prints/videos/fidget-ball-printed.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-dots">
+                    <button class="carousel-dot active" onclick="switchFidgetBallImage(0)" aria-label="Print Photo"></button>
+                    <button class="carousel-dot" onclick="switchFidgetBallImage(1)" aria-label="Video"></button>
+                  </div>
+                </div>
               </div>
               
               <div class="print-video-section">
-                <div class="video-selector">
-                  <button class="video-selector-btn active" data-video="1" onclick="switchFidgetBallVideo(1)">1</button>
-                  <button class="video-selector-btn" data-video="2" onclick="switchFidgetBallVideo(2)">2</button>
-                  <button class="video-selector-btn" data-video="3" onclick="switchFidgetBallVideo(3)">3</button>
-                </div>
                 <div class="video-container">
                   <video id="fidget-ball-video" controls autoplay loop muted>
                     <source src="/prints/videos/fidget-ball-printed.mp4" type="video/mp4">
@@ -943,6 +1015,8 @@
           <span class="print-tag">Fidget</span>
           <span class="print-tag">Transforming</span>
         </div>
+        
+        <div style="margin-bottom: 6rem;"></div>
         
         <div class="print-item" data-print-id="benchy">
           <div class="print-info">
@@ -1321,37 +1395,41 @@
       });
     }
 
-    // Fidget ball video selector
-    function switchFidgetBallVideo(videoNumber) {
-      const video = document.getElementById('fidget-ball-video');
-      const buttons = document.querySelectorAll('.video-selector-btn');
-      const videoSources = {
-        1: '/prints/videos/fidget-ball-printed.mp4',
-        2: '/prints/videos/fidget-ball-printed-2.mp4',
-        3: '/prints/videos/fidget-ball-printed-3.mp4'
-      };
+    // Fidget ball image carousel
+    function switchFidgetBallImage(index) {
+      const carousel = document.querySelector('[data-print-id="fidget-ball"] .image-carousel-slides');
+      const slides = carousel ? carousel.querySelectorAll('.image-carousel-slide') : [];
+      const dots = document.querySelectorAll('[data-print-id="fidget-ball"] .carousel-dot');
       
-      // Update active button
-      buttons.forEach(btn => {
-        if (parseInt(btn.getAttribute('data-video')) === videoNumber) {
-          btn.classList.add('active');
+      if (!carousel || slides.length === 0) return;
+      
+      // Update slides
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+          // Play video if it's the video slide
+          const video = slide.querySelector('video');
+          if (video) {
+            video.play().catch(e => console.log('Video autoplay prevented:', e));
+          }
         } else {
-          btn.classList.remove('active');
+          slide.classList.remove('active');
+          // Pause video if it's not the active slide
+          const video = slide.querySelector('video');
+          if (video) {
+            video.pause();
+          }
         }
       });
       
-      // Update video source
-      if (video && videoSources[videoNumber]) {
-        const wasPlaying = !video.paused;
-        const currentTime = video.currentTime;
-        video.src = videoSources[videoNumber];
-        video.load();
-        
-        // Restore playback state
-        if (wasPlaying) {
-          video.play().catch(e => console.log('Video autoplay prevented:', e));
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (i === index) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
         }
-      }
+      });
     }
 
     // Lightbox functionality
