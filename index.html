@@ -20,6 +20,9 @@
   <link rel="canonical" href="https://donnybadamo.com/">
   <meta name="theme-color" content="#324639">
   
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://donnybadamo.com/">
@@ -982,72 +985,82 @@
 
       <section id="projects">
         <h2>Projects</h2>
-        <div class="grid grid-cols-2 max-w-4xl mx-auto">
-          <a href="https://github.com/donnybadamo/printcam" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-            <div class="template-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <circle cx="12" cy="13" r="3"></circle>
-                <path d="M17 8h.01"></path>
-              </svg>
+        <div class="container">
+          <div class="row g-3 justify-content-center">
+            <div class="col-12 col-md-6 col-lg-6">
+              <a href="https://github.com/donnybadamo/printcam" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+                <div class="template-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <circle cx="12" cy="13" r="3"></circle>
+                    <path d="M17 8h.01"></path>
+                  </svg>
+                </div>
+                <h3>PrintCam</h3>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A lightweight web interface to view your Bambu Lab P1S camera feed from any device on your local network. Access your printer's live camera stream through a modern, responsive web interface without needing to keep Bambu Studio open.</p>
+                <div>
+                  <span class="badge">Node.js</span>
+                  <span class="badge">3D Printing</span>
+                  <span class="badge">Web Interface</span>
+                </div>
+              </a>
             </div>
-            <h3>PrintCam</h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A lightweight web interface to view your Bambu Lab P1S camera feed from any device on your local network. Access your printer's live camera stream through a modern, responsive web interface without needing to keep Bambu Studio open.</p>
-            <div>
-              <span class="badge">Node.js</span>
-              <span class="badge">3D Printing</span>
-              <span class="badge">Web Interface</span>
+            <div class="col-12 col-md-6 col-lg-6">
+              <a href="https://github.com/donnybadamo/Lichess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+                <div class="template-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <h3>Lichess Opening Finder</h3>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
+                <div>
+                  <span class="badge">Python</span>
+                  <span class="badge">Flask</span>
+                  <span class="badge">Chess API</span>
+                </div>
+              </a>
             </div>
-          </a>
-          <a href="https://github.com/donnybadamo/Lichess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-            <div class="template-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-              </svg>
+            <div class="col-12 col-md-6 col-lg-6">
+              <a href="https://github.com/donnybadamo/dexy" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+                <div class="template-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                  </svg>
+                </div>
+                <h3>Dexy</h3>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A lightweight web interface and automation tool for managing and monitoring your projects and workflows.</p>
+                <div>
+                  <span class="badge">Web</span>
+                  <span class="badge">Automation</span>
+                  <span class="badge">Open Source</span>
+                </div>
+              </a>
             </div>
-            <h3>Lichess Opening Finder</h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A collection of projects utilizing the Lichess API to analyze chess openings, including a tool that determines the best opening to play against an opponent by analyzing their lost games and a simple web app using Flask.</p>
-            <div>
-              <span class="badge">Python</span>
-              <span class="badge">Flask</span>
-              <span class="badge">Chess API</span>
+            <div class="col-12 col-md-6 col-lg-6">
+              <a href="https://aka.ms/fhl-chess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
+                <div class="template-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="2.5"></circle>
+                    <path d="M12 9.5v3"></path>
+                    <path d="M9 15h6"></path>
+                    <path d="M8 18h8"></path>
+                    <path d="M10 12l-1 3"></path>
+                    <path d="M14 12l1 3"></path>
+                  </svg>
+                </div>
+                <h3>FHL AI Chess Tournament</h3>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, 4o mini, 4, o1, o1 mini, deepseek to explore how AI performs in strategic games.</p>
+                <div>
+                  <span class="badge">AI</span>
+                  <span class="badge">Chess</span>
+                  <span class="badge">Tournament</span>
+                </div>
+              </a>
             </div>
-          </a>
-          <a href="https://github.com/donnybadamo/dexy" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-            <div class="template-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                <path d="M9 18c-4.51 2-5-2-7-2"></path>
-              </svg>
-            </div>
-            <h3>Dexy</h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">A lightweight web interface and automation tool for managing and monitoring your projects and workflows.</p>
-            <div>
-              <span class="badge">Web</span>
-              <span class="badge">Automation</span>
-              <span class="badge">Open Source</span>
-            </div>
-          </a>
-          <a href="https://aka.ms/fhl-chess" class="card template-card" style="display: block; text-decoration: none; color: inherit;">
-            <div class="template-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="7" r="2.5"></circle>
-                <path d="M12 9.5v3"></path>
-                <path d="M9 15h6"></path>
-                <path d="M8 18h8"></path>
-                <path d="M10 12l-1 3"></path>
-                <path d="M14 12l1 3"></path>
-              </svg>
-            </div>
-            <h3>FHL AI Chess Tournament</h3>
-            <p style="font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 0.75rem;">Organized a competition with 400 different AI agents using custom prompts to compete against each other, testing models like GPT-4o, 4o mini, 4, o1, o1 mini, deepseek to explore how AI performs in strategic games.</p>
-            <div>
-              <span class="badge">AI</span>
-              <span class="badge">Chess</span>
-              <span class="badge">Tournament</span>
-            </div>
-          </a>
+          </div>
         </div>
       </section>
 
