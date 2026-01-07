@@ -20,6 +20,9 @@
   <link rel="canonical" href="https://donnybadamo.com/prints/">
   <meta name="theme-color" content="#324639">
   
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://donnybadamo.com/prints/">
@@ -225,31 +228,19 @@
       background: transparent;
       border: none;
       overflow: visible;
-      display: flex;
-      gap: 3rem;
-      align-items: flex-start;
-      margin-bottom: 4rem;
-      flex-wrap: wrap;
-      height: 360px;
     }
     
     .print-media {
       position: relative;
-      flex: 0 0 360px;
-      max-width: 360px;
       aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
     }
     
     .print-info {
-      flex: 1;
-      min-width: 300px;
-      max-width: 600px;
       display: flex;
       flex-direction: column;
-      height: 360px;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
     
     .print-image {
@@ -349,7 +340,7 @@
       margin: 1rem auto 0;
       width: 500px;
       max-width: 100%;
-      height: 360px;
+      height: 240px;
       align-items: flex-start;
       position: relative;
     }
@@ -536,7 +527,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
       justify-content: center;
     }
     
@@ -748,20 +740,27 @@
       aspect-ratio: 1;
       background: var(--background);
       border: 1px solid var(--border);
-      max-height: 500px;
       border-radius: 0.5rem;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    #stl-container {
+    #stl-container,
+    .stl-container {
       width: 100%;
       height: 100%;
       position: relative;
       overflow: hidden;
       background: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    #stl-container canvas {
+    #stl-container canvas,
+    .stl-container canvas {
       display: block;
       width: 100% !important;
       height: 100% !important;
@@ -867,27 +866,8 @@
         margin-top: 2rem;
       }
       
-      .print-item {
-        flex-direction: column;
-        height: auto;
-        gap: 2rem;
-        align-items: stretch;
-        margin-bottom: 3rem;
-      }
-      
-      .print-info {
-        height: auto;
-        max-width: 100%;
-        justify-content: flex-start;
-        width: 100%;
-      }
-      
       .print-media {
-        flex: 0 0 100%;
-        max-width: 100%;
-        width: 100%;
-        aspect-ratio: 1;
-        max-width: 288px;
+        max-width: 360px;
         margin: 0 auto;
       }
       
@@ -950,13 +930,8 @@
       }
       
       .model-viewer-container {
-        max-height: 250px;
         width: 100%;
         aspect-ratio: 1;
-      }
-      
-      .print-media {
-        max-height: 300px;
       }
       
       #stl-container {
@@ -1016,93 +991,95 @@
 
     <main class="container">
       <div class="print-gallery" id="print-gallery">
-        <div class="print-item" data-print-id="fidget-ball">
-          <div class="print-info">
-            <h2 class="print-title">Transforming Fidget Ball Mini</h2>
-            <div class="print-meta">PLA • Mechanical • Fidget</div>
-            <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
-            
-            <div class="print-media-row">
-              <div class="print-media-row-carousel">
-                <div class="print-media-row-slide active">
-                  <div class="print-image-section">
-                    <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini - Print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
-                  </div>
-                  <div class="print-video-section">
-                    <div class="video-container">
-                      <video controls autoplay loop muted>
-                        <source src="/prints/videos/fidget-ball-print.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                      </video>
+        <div class="print-item mb-5" data-print-id="fidget-ball">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6 print-info">
+              <h2 class="print-title">Transforming Fidget Ball Mini</h2>
+              <div class="print-meta">PLA • Mechanical • Fidget</div>
+              <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-media-row-carousel">
+                  <div class="print-media-row-slide active">
+                    <div class="print-image-section">
+                      <img src="/prints/images/fidget-ball-print.jpg" alt="Transforming Fidget Ball Mini - Print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                    </div>
+                    <div class="print-video-section">
+                      <div class="video-container">
+                        <video controls autoplay loop muted>
+                          <source src="/prints/videos/fidget-ball-print.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="print-media-row-slide centered">
-                  <video controls autoplay loop muted>
-                    <source src="/prints/videos/fidget-ball-display.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
+                  <div class="print-media-row-slide centered">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/fidget-ball-display.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 </div>
               </div>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" onclick="switchFidgetBallMedia(0)" aria-label="Page 1"></button>
+                <button class="carousel-dot" onclick="switchFidgetBallMedia(1)" aria-label="Page 2"></button>
+              </div>
             </div>
-            <div class="carousel-dots">
-              <button class="carousel-dot active" onclick="switchFidgetBallMedia(0)" aria-label="Page 1"></button>
-              <button class="carousel-dot" onclick="switchFidgetBallMedia(1)" aria-label="Page 2"></button>
-            </div>
-          </div>
-          <div class="print-media">
-            <div class="print-media-3d">
-              <div class="model-viewer-container">
-                <div class="stl-container" data-model="fidget-ball">
-                  <div class="loading-indicator">Loading Model...</div>
+            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="fidget-ball">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="print-tags">
+        <div class="print-tags mb-5">
           <span class="print-tag">PLA</span>
           <span class="print-tag">Mechanical</span>
           <span class="print-tag">Fidget</span>
           <span class="print-tag">Transforming</span>
         </div>
         
-        <div style="margin-bottom: 6rem;"></div>
-        
-        <div class="print-item" data-print-id="benchy">
-          <div class="print-info">
-            <h2 class="print-title">3D Benchy</h2>
-            <div class="print-meta">PLA • Test Print</div>
-            <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
-            
-            <div class="print-media-row">
-              <div class="print-image-section">
-                <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
-              </div>
+        <div class="print-item mb-5" data-print-id="benchy">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6 print-info">
+              <h2 class="print-title">3D Benchy</h2>
+              <div class="print-meta">PLA • Test Print</div>
+              <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
               
-              <div class="print-video-section">
-                <div class="video-container">
-                  <video controls autoplay loop muted>
-                    <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="print-media">
-            <div class="print-media-3d">
-              <div class="model-viewer-container">
-                <div class="stl-container" data-model="benchy">
-                  <div class="loading-indicator">Loading Model...</div>
+            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="benchy">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="print-tags">
+        <div class="print-tags mb-5">
           <span class="print-tag">PLA</span>
           <span class="print-tag">Test Print</span>
           <span class="print-tag">Benchmark</span>
@@ -1288,7 +1265,7 @@
             const size = new THREE.Vector3();
             geometry.boundingBox.getSize(size);
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 11.4 / maxDim;
+            const scale = 1.26 / maxDim;
             mesh.scale.multiplyScalar(scale);
             
             // Set mesh position to origin
@@ -1299,13 +1276,15 @@
             mesh.rotation.y = 0.4;
             mesh.rotation.z = 0;
             
-            // Adjust camera to fit the model
+            // Adjust camera to fit the model and center it vertically
             const box = new THREE.Box3().setFromObject(mesh);
             const boxSize = box.getSize(new THREE.Vector3());
+            const boxCenter = box.getCenter(new THREE.Vector3());
             const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
             const fov = camera.fov * (Math.PI / 180);
             let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
-            cameraZ *= 0.95;
+            cameraZ *= 1.4;
+            // Center camera on the model's center point (0,0,0 since we translated it)
             camera.position.set(0, 0, cameraZ);
             camera.lookAt(0, 0, 0);
             
@@ -1522,6 +1501,9 @@
       }
     });
   </script>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
