@@ -1,9 +1,9 @@
 # donnybadamo.com
 
-Static portfolio website built for speed, simplicity, and maintainability. Zero dependencies, maximum performance.
+Static portfolio website built for speed, simplicity, and maintainability. Minimal dependencies, maximum performance.
 
-> Professional portfolio showcasing work experience, projects, and practical Google Sheets templates
-> Built with vanilla web technologies for instant loading and easy maintenance
+> Professional portfolio showcasing work experience, projects, 3D prints gallery, and practical Google Sheets templates
+> Built with vanilla web technologies, Bootstrap for responsive design, and Three.js for 3D model viewing
 
 ## 🚀 What This Does
 
@@ -16,10 +16,10 @@ Transform a simple GitHub repo into a professional portfolio that loads instantl
 
 | Approach | Load Time | Bundle Size | Dependencies | Maintenance |
 |----------|-----------|-------------|--------------|-------------|
-| This Site | ~200ms | 15KB CSS | 0 | Minimal |
+| This Site | ~200ms | 15KB CSS + Bootstrap CDN | 2 (Bootstrap, Three.js) | Minimal |
 | React Portfolio | ~2-3s | 500KB+ | 50+ packages | Complex |
 | WordPress | ~3-5s | 1MB+ | Plugins/themes | High maintenance |
-| **Savings** | **90% faster** | **97% smaller** | **Zero deps** | **Just works** |
+| **Savings** | **90% faster** | **95% smaller** | **Minimal deps** | **Just works** |
 
 ## ⚡ Quick Start
 
@@ -60,14 +60,6 @@ netlify init
 
 ## 🎨 Live Experience
 
-**Navigation Structure**:
-- **About** (dropdown): Experience, Projects
-- **Templates**: Separate section for Google Sheets templates
-- **Thoughts**: Blog posts and articles
-- **3D Prints**: Interactive gallery with STL models
-- **Fun Stuff** (dropdown): Chess, Hotline, Paint, Galaga games
-- **Contact**: Far right positioning, separate from main nav
-
 **Responsive Design**:
 - Mobile: Hamburger menu, stacked cards, touch-friendly
 - Desktop: Full navigation, grid layouts, hover effects
@@ -75,9 +67,8 @@ netlify init
 
 **Contact Integration**:
 - Netlify Forms: Zero-config contact handling
-- JavaScript form handling with user feedback
-- Success/error message display
-- Form validation and spam protection
+- Cloudflare Function: Backup form processor
+- Calendly: Direct meeting scheduling
 
 **Template Gallery**:
 ```
@@ -88,14 +79,11 @@ PMP Study Plan → Project management certification tracker
 ```
 
 **3D Prints Gallery**:
-- Interactive STL model viewer with Three.js
-- Horizontal auto-rotation with centered pivot point
-- Side-by-side layout: description and image on left, 3D model on right
-- Square image containers optimized for square photos
-- Time-lapse videos of print process
-- Museum-style single-item focus display
-- Touch and mouse controls for model interaction
-- Proper model centering and scaling for optimal viewing
+- Interactive 3D model viewer using Three.js
+- STL file rendering with rotation controls
+- Image carousels and video integration
+- Responsive Bootstrap grid layout
+- Featured prints: Fidget Ball, Cute Knitted Elephant, 3D Benchy
 
 ## 🏗️ Architecture
 
@@ -112,7 +100,8 @@ Analytics → Google Analytics → Insights
 | Component | Function | Technology | Cost |
 |-----------|----------|------------|------|
 | 🌐 Portfolio Pages | Static HTML with semantic structure | HTML5 | Free |
-| 🎨 Responsive Design | Mobile-first CSS Grid + Flexbox | CSS3 | Free |
+| 🎨 Responsive Design | Bootstrap 5.3 grid system + custom CSS | Bootstrap + CSS3 | Free |
+| 🎭 3D Model Viewer | Interactive STL file rendering | Three.js | Free |
 | 🌙 Theme System | Dark/light mode with persistence | Vanilla JS | Free |
 | 📱 Contact Forms | Form handling + validation | Netlify Forms | Free tier |
 | ⚡ Deployment | Global CDN + instant builds | Netlify/Cloudflare | Free |
@@ -177,14 +166,20 @@ export async function onRequest(context) {
 publicwebsite/
 ├── index.html              # Main portfolio page
 ├── create/
-│   └── index.html         # Coming soon page
+│   └── index.html         # CREATE coming soon page
 ├── meeting/
 │   └── index.html         # Meeting booking page
 ├── prints/
-│   ├── index.html         # 3D prints gallery page
-│   ├── models/            # STL 3D model files
-│   ├── videos/            # Time-lapse videos
-│   └── images/            # Print photos
+│   ├── index.html         # 3D prints gallery
+│   ├── images/            # Print photos
+│   │   ├── benchy-print-bed.jpg
+│   │   ├── elephant-print.jpg
+│   │   └── fidget-ball-print.jpg
+│   ├── models/            # 3D STL files
+│   │   ├── benchy.stl
+│   │   ├── elephant.stl
+│   │   └── fidget-ball.stl
+│   └── videos/             # Print timelapse videos
 ├── functions/
 │   ├── contact.js         # Cloudflare form handler  
 │   └── placeholder.js     # Dynamic image service
@@ -192,6 +187,7 @@ publicwebsite/
 ├── package.json           # Minimal build config (optional)
 ├── donny-profile.jpg      # Profile image
 ├── favicon.png           # Site icon
+├── comingsoon.html       # Coming soon page
 └── README.md             # This file
 ```
 
@@ -236,6 +232,17 @@ Branch: main, folder: / (root)
 }
 ```
 
+### 🎭 Adding 3D Models
+1. Add STL file to `/prints/models/`
+2. Add image to `/prints/images/`
+3. Update `modelConfig` in `prints/index.html`:
+```javascript
+const modelConfig = {
+  'your-model': '/prints/models/your-model.stl'
+};
+```
+4. Add HTML structure following existing print item pattern
+
 ### 📝 Content Updates
 ```html
 <!-- Edit sections in index.html -->
@@ -259,16 +266,19 @@ Branch: main, folder: / (root)
 ## ⚡ Performance Features
 
 ### 🚀 Speed Optimizations
-- **No JavaScript frameworks**: Instant loading
-- **Minimal CSS**: 15KB compressed styles
+- **Minimal JavaScript**: Only Bootstrap and Three.js (CDN)
+- **Minimal CSS**: 15KB compressed styles + Bootstrap CDN
 - **Optimized images**: WebP with fallbacks
 - **CDN delivery**: Global edge distribution
+- **Lazy loading**: Images and videos load on demand
 
 ### 📱 Mobile Experience
+- **Bootstrap responsive grid**: Consistent mobile layout across all pages
 - **Touch-friendly**: 44px minimum touch targets
 - **Responsive images**: Proper sizing across devices
 - **Fast navigation**: CSS-only mobile menu
 - **Thumb-friendly**: Bottom navigation on mobile
+- **3D model optimization**: Scaled models for mobile performance
 
 ### 🔍 SEO Built-in
 ```html
@@ -296,45 +306,21 @@ Branch: main, folder: / (root)
 
 ## 🚀 Advanced Features
 
-### 🎨 3D Prints Gallery
+### 🎭 3D Model Viewer
+- **Three.js integration**: Interactive STL file rendering
+- **Auto-rotation**: Models rotate automatically
+- **Mouse/touch controls**: Drag to rotate, click to pause
+- **Responsive sizing**: Models scale appropriately for mobile
+- **Loading states**: Visual feedback during model load
 
-Interactive 3D model viewer using Three.js for STL file rendering:
-
-```html
-<!-- Three.js for STL rendering -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+```javascript
+// Model configuration example
+const modelConfig = {
+  'benchy': '/prints/models/benchy.stl',
+  'fidget-ball': '/prints/models/fidget-ball.stl',
+  'elephant': '/prints/models/elephant.stl'
+};
 ```
-
-**Features**:
-- **STL File Support**: Custom STLLoader implementation for reliable rendering (compatible with Three.js r128)
-- **Interactive Controls**: Mouse drag to rotate, horizontal auto-rotate when idle
-- **Centered Rotation**: Models rotate around their geometric center for smooth viewing
-- **Touch Support**: Mobile-friendly touch controls with gesture recognition
-- **Transparent Background**: Model renders with transparent background for seamless integration
-- **Layout Design**: 
-  - Left column: Title, description, square image (240x240px), and time-lapse video (240px height) arranged horizontally
-  - Right column: 3D model viewer (500x500px) - determines total entry height
-  - Compact layout with minimal white space, all content fits within model height
-- **Image Optimization**: Square containers with `object-fit: cover` for consistent presentation
-- **Model Scaling**: Dynamic scaling with precise size control (currently 11.4x scale factor)
-- **Media Integration**: 
-  - Time-lapse videos with autoplay, loop, and muted by default
-  - Photo galleries with lightbox functionality
-  - All media aligned to match model container height
-
-**File Structure**:
-```
-prints/
-├── models/benchy.stl      # 3D model files (STL format)
-├── videos/benchy-print.mp4 # Time-lapse videos (MP4 format)
-└── images/benchy-print-bed.jpg # Print photos (square format recommended)
-```
-
-**Technical Details**:
-- Geometry is centered at origin (0, 0, 0) for proper rotation pivot
-- Camera automatically adjusts to fit model with minimal padding
-- Auto-rotation pauses on user interaction and resumes after 3 seconds
-- Model scale dynamically calculated based on bounding box dimensions
 
 ### 📊 Analytics Integration
 ```html
@@ -346,8 +332,6 @@ prints/
 - Netlify: Built-in spam filtering
 - Honeypot fields for bot detection
 - Rate limiting via Cloudflare
-- JavaScript form handling with loading states
-- User feedback with success/error messages
 
 ### 🔄 Dynamic Content
 ```javascript
@@ -359,6 +343,13 @@ export async function onRequest(context) {
   }
 }
 ```
+
+### 🎨 Bootstrap Integration
+All pages use Bootstrap 5.3 for:
+- Responsive grid system
+- Mobile-first design
+- Consistent spacing and typography
+- Utility classes for rapid development
 
 ## 🤝 Contributing
 
@@ -557,8 +548,13 @@ a:hover { opacity: 0.9; }
 ---
 
 🎯 **Built for Speed**  
-Zero dependencies. Maximum performance. Professional results.
+Minimal dependencies (Bootstrap + Three.js via CDN). Maximum performance. Professional results.
 
 🚀 **Ready to deploy?** Just push to main branch or drag folder to Netlify.
 
 💰 **Cost**: $0/month hosting. Perfect uptime. Global CDN included.
+
+📦 **Dependencies**:
+- Bootstrap 5.3.0 (CDN) - Responsive grid and utilities
+- Three.js r128 (CDN) - 3D model rendering
+- Google Analytics (optional) - Analytics tracking
