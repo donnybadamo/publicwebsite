@@ -1194,20 +1194,23 @@
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
+          allowZRotation: true,
           initialRotation: { x: -0.3, y: 0.4, z: 0 }
         },
         'fidget-ball': {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
+          allowZRotation: true,
           initialRotation: { x: -0.3, y: 0.4, z: 0 }
         },
         elephant: {
-          // Keep feet pointing down and spin horizontally around the body
+          // Free rotation, facing right
           autoRotateAxis: 'y',
-          allowXRotation: false,
+          allowXRotation: true,
           allowYRotation: true,
-          initialRotation: { x: 0, y: 0.6, z: 0 }
+          allowZRotation: true,
+          initialRotation: { x: 0, y: -1.57, z: 0 } // Facing right (negative Y rotation)
         }
       };
       
@@ -1386,12 +1389,13 @@
                 const deltaX = e.clientX - previousMousePosition.x;
                 const deltaY = e.clientY - previousMousePosition.y;
                 
-                // Horizontal drag → spin around vertical axis (y)
+                // Free form rotation - allow all axes when enabled
+                // Horizontal drag rotates around Y axis (spin)
                 if (!settings || settings.allowYRotation !== false) {
                   mesh.rotation.y += deltaX * 0.01;
                 }
-                // Vertical drag → tilt only when allowed (keeps elephant feet down)
-                if (settings && settings.allowXRotation) {
+                // Vertical drag rotates around X axis (tilt)
+                if (!settings || settings.allowXRotation !== false) {
                   mesh.rotation.x += deltaY * 0.01;
                 }
                 
@@ -1428,10 +1432,11 @@
                 const deltaX = e.touches[0].clientX - touchStart.x;
                 const deltaY = e.touches[0].clientY - touchStart.y;
                 
+                // Free form rotation for touch
                 if (!settings || settings.allowYRotation !== false) {
                   mesh.rotation.y += deltaX * 0.01;
                 }
-                if (settings && settings.allowXRotation) {
+                if (!settings || settings.allowXRotation !== false) {
                   mesh.rotation.x += deltaY * 0.01;
                 }
                 
