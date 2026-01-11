@@ -991,6 +991,47 @@
 
     <main class="container">
       <div class="print-gallery" id="print-gallery">
+        <div class="print-item mb-5" data-print-id="dog">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6 print-info">
+              <h2 class="print-title">Dachshund Tray - Adorable Dog Organizer</h2>
+              <div class="print-meta">PLA • Functional • Decorative</div>
+              <p class="print-description">A charming dachshund-shaped tray that combines functionality with adorable design. This delightful organizer features the distinctive elongated body of a dachshund, creating a unique and practical storage solution. Perfect for holding small items, office supplies, or serving as an eye-catching decorative piece. The design showcases intricate details that capture the beloved breed's characteristic features. <a href="https://makerworld.com/en/models/2091553-dachshund-tray-adorable-dog-organizer#profileId-2262586" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/dog.jpg" alt="Dachshund Tray print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/dog.mov" type="video/quicktime">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="dog">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="print-tags mb-5">
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Functional</span>
+          <span class="print-tag">Decorative</span>
+          <span class="print-tag">Tray</span>
+        </div>
+        
         <div class="print-item mb-5" data-print-id="fidget-ball">
           <div class="row g-4 align-items-center">
             <div class="col-lg-6 print-info">
@@ -1183,6 +1224,7 @@
       
       // Model configuration - maps model IDs to their STL file paths
       const modelConfig = {
+        'dog': '/prints/models/dog.stl',
         'benchy': '/prints/models/benchy.stl',
         'fidget-ball': '/prints/models/fidget-ball.stl',
         'elephant': '/prints/models/elephant.stl'
@@ -1190,6 +1232,13 @@
 
       // Per-model behavior settings (orientation & interaction)
       const modelSettings = {
+        dog: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: -0.2, y: 0.5, z: 0 }
+        },
         benchy: {
           autoRotateAxis: 'y',
           allowXRotation: true,
