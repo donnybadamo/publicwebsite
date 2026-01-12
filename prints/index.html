@@ -37,6 +37,77 @@
   <meta property="twitter:description" content="A curated collection of 3D printing projects featuring time-lapse videos and detailed photography.">
   <meta property="twitter:image" content="https://donnybadamo.com/donny-profile.jpg">
   
+  <!-- Three.js for 3D STL files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Reliable STLLoader implementation for Three.js r128 (standalone, no inheritance)
+    if (typeof THREE !== 'undefined' && !THREE.STLLoader) {
+      THREE.STLLoader = function (manager) {
+        this.manager = manager || THREE.DefaultLoadingManager;
+        this.path = '';
+        this.requestHeader = {};
+        this.withCredentials = false;
+      };
+      
+      THREE.STLLoader.prototype.load = function (url, onLoad, onProgress, onError) {
+        const scope = this;
+        const loader = new THREE.FileLoader(scope.manager);
+        if (scope.path) loader.setPath(scope.path);
+        loader.setResponseType('arraybuffer');
+        if (scope.requestHeader) {
+          Object.keys(scope.requestHeader).forEach(function(key) {
+            loader.setRequestHeader(key, scope.requestHeader[key]);
+          });
+        }
+        loader.setWithCredentials(scope.withCredentials);
+        loader.load(url, function (buffer) {
+          try {
+            onLoad(scope.parse(buffer));
+          } catch (e) {
+            if (onError) {
+              onError(e);
+            } else {
+              console.error('STL Loader error:', e);
+            }
+            if (scope.manager && scope.manager.itemError) {
+              scope.manager.itemError(url);
+            }
+          }
+        }, onProgress, onError);
+      };
+      
+      THREE.STLLoader.prototype.parse = function (data) {
+        const geometry = new THREE.BufferGeometry();
+        const reader = new DataView(data);
+        let faces = reader.getUint32(80, true);
+        const dataOffset = 84;
+        const faceLength = 12 * 4 + 2;
+        const vertices = [];
+        const normals = [];
+        
+        for (let face = 0; face < faces; face++) {
+          const start = dataOffset + face * faceLength;
+          const normalX = reader.getFloat32(start, true);
+          const normalY = reader.getFloat32(start + 4, true);
+          const normalZ = reader.getFloat32(start + 8, true);
+          
+          for (let i = 1; i <= 3; i++) {
+            const vertexstart = start + i * 12;
+            vertices.push(reader.getFloat32(vertexstart, true));
+            vertices.push(reader.getFloat32(vertexstart + 4, true));
+            vertices.push(reader.getFloat32(vertexstart + 8, true));
+            normals.push(normalX, normalY, normalZ);
+          }
+        }
+        
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+        
+        return geometry;
+      };
+    }
+  </script>
+  
   
   <style>
     :root {
@@ -667,7 +738,9 @@
     .model-viewer-container {
       position: relative;
       width: 100%;
+      aspect-ratio: 1;
       background: var(--background);
+      border: 1px solid var(--border);
       border-radius: 0.5rem;
       overflow: hidden;
       display: flex;
@@ -678,15 +751,49 @@
     .print-media-3d {
       position: relative;
       width: 100%;
+      aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
       border: none;
     }
     
-    model-viewer {
+    #stl-container,
+    .stl-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #stl-container canvas,
+    .stl-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      background: var(--background) !important;
+      border-radius: 0.5rem;
+    }
+    
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* GLB model-viewer commented out - file size too large for Cloudflare */
+    /* model-viewer {
       width: 100%;
       height: 500px;
-    }
+    } */
     
     .media-section {
       margin-bottom: 4rem;
@@ -716,6 +823,8 @@
     
     /* Ensure no green backgrounds anywhere */
     .model-viewer-container,
+    #stl-container,
+    .stl-container,
     .print-media,
     .print-media-3d {
       background: var(--background) !important;
@@ -830,6 +939,12 @@
       
       .model-viewer-container {
         width: 100%;
+        aspect-ratio: 1;
+      }
+      
+      #stl-container {
+        width: 100%;
+        height: 100%;
       }
       
       .page-title-header {
@@ -909,7 +1024,8 @@
             <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
-                  <model-viewer
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
                     src="/prints/models/dog.glb"
                     camera-controls
                     auto-rotate
@@ -919,7 +1035,10 @@
                       height: 500px;
                       filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
                     "
-                  ></model-viewer>
+                  ></model-viewer> -->
+                  <div class="stl-container" data-model="dog">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -971,7 +1090,8 @@
             <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
-                  <model-viewer
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
                     src="/prints/models/fidget-ball.glb"
                     camera-controls
                     auto-rotate
@@ -981,7 +1101,10 @@
                       height: 500px;
                       filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
                     "
-                  ></model-viewer>
+                  ></model-viewer> -->
+                  <div class="stl-container" data-model="fidget-ball">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1020,7 +1143,8 @@
             <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
-                  <model-viewer
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
                     src="/prints/models/elephant.glb"
                     camera-controls
                     auto-rotate
@@ -1030,7 +1154,10 @@
                       height: 500px;
                       filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
                     "
-                  ></model-viewer>
+                  ></model-viewer> -->
+                  <div class="stl-container" data-model="elephant">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1069,7 +1196,8 @@
             <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
-                  <model-viewer
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
                     src="/prints/models/benchy.glb"
                     camera-controls
                     auto-rotate
@@ -1079,7 +1207,10 @@
                       height: 500px;
                       filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
                     "
-                  ></model-viewer>
+                  ></model-viewer> -->
+                  <div class="stl-container" data-model="benchy">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1139,6 +1270,333 @@
   </div>
 
   <script>
+    // Load and render STL files with Three.js - supports multiple models
+    document.addEventListener('DOMContentLoaded', function() {
+      const containers = document.querySelectorAll('.stl-container');
+      if (containers.length === 0) {
+        console.log('No STL containers found');
+        return;
+      }
+      
+      // Model configuration - maps model IDs to their STL file paths
+      const modelConfig = {
+        'dog': '/prints/models/dog.stl',
+        'benchy': '/prints/models/benchy.stl',
+        'fidget-ball': '/prints/models/fidget-ball.stl',
+        'elephant': '/prints/models/elephant.stl'
+      };
+
+      // Per-model behavior settings (orientation & interaction)
+      // NOTE: Rotation values are in RADIANS. To convert degrees to radians: degrees * (Math.PI / 180)
+      // Common conversions: 90° = 1.57, -90° = -1.57, 180° = 3.14, 45° = 0.785, -45° = -0.785
+      const modelSettings = {
+        dog: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90°, y: -90°, z: 0° (Lying flat sideways, facing right)
+        },
+        benchy: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90°, y: -90°, z: 0° (Lying flat sideways)
+        },
+        'fidget-ball': {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90°, y: -90°, z: 0° (Lying flat sideways)
+        },
+        elephant: {
+          // Lying flat sideways, facing right
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90°, y: -90°, z: 0° (Lying flat sideways)
+        }
+      };
+      
+      containers.forEach(container => {
+        const modelId = container.getAttribute('data-model');
+        if (!modelId || !modelConfig[modelId]) {
+          console.warn(`No model config found for: ${modelId}`);
+          return;
+        }
+        
+        initModelViewer(container, modelConfig[modelId], modelId, modelSettings[modelId] || modelSettings['benchy']);
+      });
+      
+      function initModelViewer(container, stlPath, modelId, settings) {
+        // Wait for container to have dimensions
+        const initRenderer = () => {
+          const width = container.clientWidth || 800;
+          const height = container.clientHeight || 800;
+          
+          if (width === 0 || height === 0) {
+            console.warn('Container has no dimensions, retrying...');
+            setTimeout(initRenderer, 100);
+            return;
+          }
+          
+          // Scene setup
+          const scene = new THREE.Scene();
+          scene.background = null; // Transparent background
+          
+          // Camera
+          const camera = new THREE.PerspectiveCamera(
+            45,
+            width / height,
+            0.1,
+            1000
+          );
+          camera.position.set(0, 0, 3);
+          
+          // Renderer
+          const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance"
+          });
+          renderer.setSize(width, height);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          renderer.setClearColor(0x000000, 0); // Transparent background
+          container.appendChild(renderer.domElement);
+          
+          loadSTLModel(scene, camera, renderer, container, stlPath, modelId, settings);
+        };
+        
+        initRenderer();
+      }
+      
+      function loadSTLModel(scene, camera, renderer, container, stlPath, modelId, settings) {
+        // Check if STLLoader is available
+        if (!THREE.STLLoader) {
+          const loadingIndicator = container.querySelector('.loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.textContent = 'Error: STL Loader not available';
+            loadingIndicator.style.color = 'var(--primary)';
+          }
+          console.error('THREE.STLLoader is not defined');
+          return;
+        }
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight1.position.set(5, 5, 5);
+        scene.add(directionalLight1);
+        
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+        directionalLight2.position.set(-5, -5, -5);
+        scene.add(directionalLight2);
+        
+        // Load STL
+        const loader = new THREE.STLLoader();
+        
+        // Show loading state
+        const loadingIndicator = container.querySelector('.loading-indicator');
+        if (loadingIndicator) {
+          loadingIndicator.textContent = 'Loading Model...';
+        }
+        
+        console.log(`Starting STL load from ${stlPath} for model: ${modelId}`);
+        
+        loader.load(
+          stlPath,
+          function(geometry) {
+            console.log(`STL loaded successfully for ${modelId}, vertices:`, geometry.attributes.position.count);
+            
+            // Remove loading indicator
+            if (loadingIndicator) {
+              loadingIndicator.style.display = 'none';
+            }
+            
+            // Create material
+            const material = new THREE.MeshPhongMaterial({
+              color: 0xe67a28,
+              shininess: 100,
+              specular: 0x222222
+            });
+            
+            // Create mesh
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            // Center the model geometry
+            geometry.computeBoundingBox();
+            const modelCenter = new THREE.Vector3();
+            geometry.boundingBox.getCenter(modelCenter);
+            
+            // Translate geometry to center it at origin
+            geometry.translate(-modelCenter.x, -modelCenter.y, -modelCenter.z);
+            
+            // Scale to fit
+            const size = new THREE.Vector3();
+            geometry.boundingBox.getSize(size);
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 1.26 / maxDim;
+            mesh.scale.multiplyScalar(scale);
+            
+            // Set mesh position to origin
+            mesh.position.set(0, 0, 0);
+            
+            // Set initial rotation (per-model where needed)
+            const rotation = (settings && settings.initialRotation) || { x: -0.3, y: 0.4, z: 0 };
+            mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+            
+            // Adjust camera to fit the model and center it vertically
+            const box = new THREE.Box3().setFromObject(mesh);
+            const boxSize = box.getSize(new THREE.Vector3());
+            const boxCenter = box.getCenter(new THREE.Vector3());
+            const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
+            cameraZ *= 1.4;
+            // Center camera on the model's center point (0,0,0 since we translated it)
+            camera.position.set(0, 0, cameraZ);
+            camera.lookAt(0, 0, 0);
+            
+            scene.add(mesh);
+            
+            // Auto-rotate
+            let rotationSpeed = 0.005;
+            let isRotating = true;
+            const autoAxis = (settings && settings.autoRotateAxis) || 'y';
+            
+            function animate() {
+              requestAnimationFrame(animate);
+              
+              if (isRotating) {
+                mesh.rotation[autoAxis] += rotationSpeed;
+              }
+              
+              renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Mouse controls
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            
+            container.addEventListener('mousedown', function(e) {
+              isDragging = true;
+              isRotating = false;
+              previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+            
+            container.addEventListener('mousemove', function(e) {
+              if (isDragging) {
+                const deltaX = e.clientX - previousMousePosition.x;
+                const deltaY = e.clientY - previousMousePosition.y;
+                
+                // Free form rotation - allow all axes when enabled
+                // Horizontal drag rotates around Y axis (spin)
+                if (!settings || settings.allowYRotation !== false) {
+                  mesh.rotation.y += deltaX * 0.01;
+                }
+                // Vertical drag rotates around X axis (tilt)
+                if (!settings || settings.allowXRotation !== false) {
+                  mesh.rotation.x += deltaY * 0.01;
+                }
+                
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+              }
+            });
+            
+            container.addEventListener('mouseup', function() {
+              isDragging = false;
+              setTimeout(() => {
+                if (!isDragging) {
+                  isRotating = true;
+                }
+              }, 3000);
+            });
+            
+            container.addEventListener('mouseleave', function() {
+              isDragging = false;
+              isRotating = true;
+            });
+            
+            // Touch controls for mobile
+            let touchStart = null;
+            
+            container.addEventListener('touchstart', function(e) {
+              isRotating = false;
+              if (e.touches.length === 1) {
+                touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+              }
+            });
+            
+            container.addEventListener('touchmove', function(e) {
+              if (e.touches.length === 1 && touchStart) {
+                const deltaX = e.touches[0].clientX - touchStart.x;
+                const deltaY = e.touches[0].clientY - touchStart.y;
+                
+                // Free form rotation for touch
+                if (!settings || settings.allowYRotation !== false) {
+                  mesh.rotation.y += deltaX * 0.01;
+                }
+                if (!settings || settings.allowXRotation !== false) {
+                  mesh.rotation.x += deltaY * 0.01;
+                }
+                
+                touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+              }
+            });
+            
+            container.addEventListener('touchend', function() {
+              touchStart = null;
+              setTimeout(() => {
+                isRotating = true;
+              }, 3000);
+            });
+            
+            // Handle window resize
+            const handleResize = () => {
+              const width = container.clientWidth;
+              const height = container.clientHeight;
+              if (width > 0 && height > 0) {
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+              }
+            };
+            window.addEventListener('resize', handleResize);
+          },
+          function(xhr) {
+            // Progress
+            if (xhr.lengthComputable) {
+              const percentComplete = (xhr.loaded / xhr.total) * 100;
+              if (loadingIndicator) {
+                loadingIndicator.textContent = `Loading Model... ${Math.round(percentComplete)}%`;
+              }
+            }
+          },
+          function(error) {
+            console.error(`Error loading STL for ${modelId}:`, error);
+            if (loadingIndicator) {
+              loadingIndicator.textContent = 'Model file not found. Add STL file to /prints/models/';
+              loadingIndicator.style.color = 'var(--muted-foreground)';
+            }
+          }
+        );
+        
+        // Add timeout to detect if loading is stuck
+        setTimeout(() => {
+          if (loadingIndicator && loadingIndicator.style.display !== 'none') {
+            console.warn(`STL loading taking longer than expected for ${modelId}...`);
+            loadingIndicator.textContent = 'Loading taking longer than expected...';
+          }
+        }, 10000);
+      }
+    });
     
     // Video toggle functionality
     function toggleVideo(button) {
@@ -1241,11 +1699,69 @@
     });
   </script>
   
-  <!-- Model Viewer Script -->
-  <script
+  <!-- GLB Model Viewer Script - Commented out due to file size limits -->
+  <!-- <script
     type="module"
     src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
   ></script>
+  
+  <script>
+    // Handle model-viewer errors gracefully
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for model-viewer to be defined
+      customElements.whenDefined('model-viewer').then(() => {
+        const modelViewers = document.querySelectorAll('model-viewer');
+        
+        modelViewers.forEach(viewer => {
+          // Add error handling for model loading failures
+          viewer.addEventListener('error', function(event) {
+            console.warn('Model loading error:', event.detail);
+            showModelError(viewer);
+          });
+          
+          // Also check for load failures after a timeout
+          const timeout = setTimeout(() => {
+            if (viewer.loaded === false) {
+              showModelError(viewer);
+            }
+          }, 5000);
+          
+          // Clear timeout if model loads successfully
+          viewer.addEventListener('load', function() {
+            clearTimeout(timeout);
+            console.log('Model loaded successfully:', viewer.src);
+          });
+        });
+      });
+      
+      function showModelError(viewer) {
+        const container = viewer.closest('.model-viewer-container');
+        if (container && !container.querySelector('.model-error-message')) {
+          const modelName = viewer.src.split('/').pop().replace('.glb', '');
+          container.innerHTML = `
+            <div class="model-error-message" style="
+              width: 100%;
+              height: 500px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              color: var(--muted-foreground);
+              text-align: center;
+              padding: 2rem;
+              background: var(--background);
+              border-radius: 0.5rem;
+              border: 1px solid var(--border);
+            ">
+              <p style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--foreground);">GLB model file not found</p>
+              <p style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 1rem;">${modelName}.glb is missing</p>
+              <p style="font-size: 0.7rem; opacity: 0.6;">Convert your STL files to GLB format using an online converter</p>
+            </div>
+          `;
+        }
+      }
+    });
+  </script> -->
   
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
