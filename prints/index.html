@@ -1302,11 +1302,7 @@
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-<<<<<<< HEAD
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (lying flat), y: 0° (facing straight ahead), z: 0°
-=======
           initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
->>>>>>> f0abdfb (Fix model orientation: use X: -1.57 Y: 0 for facing straight ahead)
         },
         'fidget-ball': {
           autoRotateAxis: 'y',
@@ -1317,22 +1313,12 @@
           initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (lying flat), y: 0° (facing straight ahead), z: 0°
         },
         elephant: {
-          // Facing straight ahead at start (lying flat)
-=======
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
-        },
-        elephant: {
           // Facing straight ahead at start - X: -1.57 rotates from down-facing orientation to forward
->>>>>>> f0abdfb (Fix model orientation: use X: -1.57 Y: 0 for facing straight ahead)
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-<<<<<<< HEAD
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (lying flat), y: 0° (facing straight ahead), z: 0°
-=======
           initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
->>>>>>> f0abdfb (Fix model orientation: use X: -1.57 Y: 0 for facing straight ahead)
         }
       };
       
@@ -1643,6 +1629,7 @@
           // Play videos in the active slide
           const videos = slide.querySelectorAll('video');
           videos.forEach(video => {
+            video.playbackRate = 2; // Set to 2x speed
             video.play().catch(e => console.log('Video autoplay prevented:', e));
           });
         } else {
@@ -1701,6 +1688,20 @@
       if (e.key === 'Escape') {
         closeLightbox();
       }
+    });
+
+    // Set all videos to 2x playback speed by default
+    document.addEventListener('DOMContentLoaded', function() {
+      const allVideos = document.querySelectorAll('video');
+      allVideos.forEach(video => {
+        // Set playback rate to 2x
+        video.playbackRate = 2.0;
+        
+        // Also set when video metadata loads (in case video loads later)
+        video.addEventListener('loadedmetadata', function() {
+          this.playbackRate = 2.0;
+        });
+      });
     });
 
     // Scroll page down slightly on load to show thumbnails better
