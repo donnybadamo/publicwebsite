@@ -1295,29 +1295,29 @@
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
         },
         benchy: {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
         },
         'fidget-ball': {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
         },
         elephant: {
-          // Facing straight ahead at start - X: -1.57 rotates from down-facing orientation to forward
+          // Facing right at start
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: 0, z: 0 } // x: -90° (rotate from down-facing to forward), y: 0° (facing straight ahead), z: 0°
+          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
         }
       };
       
@@ -1464,8 +1464,8 @@
             
             scene.add(mesh);
             
-            // Auto-rotate
-            let rotationSpeed = 0.005;
+            // Auto-rotate (slower speed)
+            let rotationSpeed = 0.002;
             let isRotating = true;
             const autoAxis = (settings && settings.autoRotateAxis) || 'y';
             
