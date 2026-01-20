@@ -335,6 +335,334 @@
       text-align: left;
     }
     
+    /* Buy Item Link */
+    .buy-item-link {
+      display: inline-block;
+      margin-left: 0.75rem;
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+    
+    .buy-item-link:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    
+    /* Buy Modal/Popup Styles */
+    .buy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    
+    .buy-modal.active {
+      display: flex;
+    }
+    
+    .buy-modal-content {
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalSlideIn 0.3s ease;
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .buy-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--muted-foreground);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+    
+    .buy-modal-close:hover {
+      color: var(--foreground);
+      background: var(--accent);
+    }
+    
+    .buy-modal-header {
+      margin-bottom: 1.5rem;
+      padding-right: 2rem;
+    }
+    
+    .buy-modal-title {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+    
+    /* Buy Component Styles (now inside modal) */
+    .buy-component {
+      margin: 0;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: rgba(42, 53, 48, 0.3);
+      border-radius: 0.5rem;
+      max-width: 100%;
+    }
+    
+    .buy-item-label {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .buy-component-price {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .buy-component-shipping {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .buy-component-payment {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .venmo-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      fill: #008CFF;
+    }
+    
+    .venmo-link {
+      color: #008CFF;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .venmo-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+    
+    .buy-component-quantity {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .buy-component-quantity-label {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      min-width: 80px;
+    }
+    
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      background: transparent;
+    }
+    
+    .quantity-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--foreground);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+    
+    .quantity-btn:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+    
+    .quantity-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    .quantity-input {
+      width: 60px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--foreground);
+      text-align: center;
+      font-size: 1rem;
+      padding: 0;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+    
+    .quantity-input::-webkit-outer-spin-button,
+    .quantity-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+    
+    .buy-component-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .buy-btn {
+      padding: 1rem 2rem;
+      border: 1px solid var(--primary);
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+    }
+    
+    .buy-btn:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(230, 122, 40, 0.3);
+    }
+    
+    .buy-btn.secondary {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--border);
+    }
+    
+    .buy-btn.secondary:hover {
+      background: var(--accent);
+      border-color: var(--primary);
+      color: var(--foreground);
+    }
+    
+    .buy-component-details {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .buy-detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    
+    .buy-detail-item:last-child {
+      border-bottom: none;
+    }
+    
+    .buy-detail-label {
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .buy-detail-value {
+      color: var(--foreground);
+      text-align: right;
+    }
+    
+    @media (max-width: 768px) {
+      .buy-modal-content {
+        padding: 1.5rem;
+        max-height: 95vh;
+      }
+      
+      .buy-modal-title {
+        font-size: 1.25rem;
+      }
+      
+      .buy-component-price {
+        font-size: 1.75rem;
+      }
+      
+      .buy-component-actions {
+        gap: 0.5rem;
+      }
+      
+      .buy-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+      }
+    }
+    
     .print-media-row {
       display: flex;
       gap: 1rem;
@@ -998,13 +1326,110 @@
     </header>
 
     <main class="container">
+      <div class="intro-section mb-5" style="max-width: 800px; margin: 4rem auto 0; text-align: center; padding: 2rem 0;">
+        <h1 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: -0.02em; color: var(--foreground);">I'm Donny</h1>
+        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted-foreground); margin-bottom: 2rem;">3D printing since Ender 3 in 2021. Buy my stuff.</p>
+        <a href="#general-items" class="buy-item-link" style="font-size: 1rem; margin: 0;">General Items / Costs →</a>
+      </div>
+      
       <div class="print-gallery" id="print-gallery">
+        <div class="print-item mb-5" data-print-id="slides">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6 print-info">
+              <h2 class="print-title">Slide Shoes (Adilette)</h2>
+              <div class="print-meta">PLA • Wearable • Fully 3D Printed</div>
+              <p class="print-description">Comfortable slide sandals that are fully 3D printed with durable PLA material. These Adilette-style slides feature a modern design perfect for casual wear. The one-piece construction ensures durability while maintaining flexibility for comfortable all-day use. Available in various sizes to fit your needs. <a href="https://makerworld.com/en/models/488792-slide-shoes-adilette-fully-3d-printed?from=search#profileId-401842" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('slides'); return false;">Buy Item</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/slides.jpg" alt="Slide Shoes (Adilette) print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/slides.m4v" type="video/mp4">
+                      <source src="/prints/videos/slides.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-slides" onclick="closeBuyModalOnBackdrop(event, 'slides')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('slides')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Slide Shoes (Adilette)</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$49.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('slides')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-slides" value="1" min="1" max="10" onchange="validateQuantity('slides')">
+                        <button class="quantity-btn" onclick="increaseQuantity('slides')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('slides')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('slides')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Material</span>
+                    <span class="buy-detail-value">PLA</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Print Time</span>
+                    <span class="buy-detail-value">12-16 hours</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Delivery</span>
+                    <span class="buy-detail-value">5-7 business days</span>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="slides">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="print-tags mb-5">
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Wearable</span>
+          <span class="print-tag">Footwear</span>
+          <span class="print-tag">Fully 3D Printed</span>
+        </div>
+        
         <div class="print-item mb-5" data-print-id="dog">
           <div class="row g-4 align-items-center">
             <div class="col-lg-6 print-info">
               <h2 class="print-title">Dachshund Tray - lil guy Organizer</h2>
               <div class="print-meta">PLA • Functional • Decorative</div>
-              <p class="print-description">A charming dachshund-shaped tray that combines functionality with adorable design. This delightful organizer features the distinctive elongated body of a dachshund, creating a unique and practical storage solution. Perfect for holding small items, office supplies, or serving as an eye-catching decorative piece. The design showcases intricate details that capture the beloved breed's characteristic features. <a href="https://makerworld.com/en/models/2091553-dachshund-tray-adorable-dog-organizer#profileId-2262586" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              <p class="print-description">A charming dachshund-shaped tray that combines functionality with adorable design. This delightful organizer features the distinctive elongated body of a dachshund, creating a unique and practical storage solution. Perfect for holding small items, office supplies, or serving as an eye-catching decorative piece. The design showcases intricate details that capture the beloved breed's characteristic features. <a href="https://makerworld.com/en/models/2091553-dachshund-tray-adorable-dog-organizer#profileId-2262586" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('dog'); return false;">Buy Item</a></p>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1017,6 +1442,56 @@
                       <source src="/prints/videos/dog.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-dog" onclick="closeBuyModalOnBackdrop(event, 'dog')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('dog')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Dachshund Tray - lil guy Organizer</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$24.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('dog')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-dog" value="1" min="1" max="10" onchange="validateQuantity('dog')">
+                        <button class="quantity-btn" onclick="increaseQuantity('dog')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('dog')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('dog')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">4-6 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1052,12 +1527,104 @@
           <span class="print-tag">Tray</span>
         </div>
         
+        <div class="print-item mb-5" data-print-id="sneakers">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6 print-info">
+              <h2 class="print-title">Formism Arc Package Sneaker</h2>
+              <div class="print-meta">PLA • Wearable • Athletic</div>
+              <p class="print-description">Premium 3D printed sneakers featuring an innovative arc design package. These athletic shoes combine style and functionality with a unique structural design that provides both support and flexibility. The Formism Arc Package features modern aesthetics with comfortable fit, making them perfect for everyday wear or light athletic activities. <a href="https://makerworld.com/en/models/2162375-formism-arc-package-sneaker?from=search#profileId-2344466" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('sneakers'); return false;">Buy Item</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/sneakers.jpg" alt="Formism Arc Package Sneaker print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/shoeflexible.mp4" type="video/mp4">
+                      <source src="/prints/videos/sneakers.m4v" type="video/mp4">
+                      <source src="/prints/videos/sneakers.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-sneakers" onclick="closeBuyModalOnBackdrop(event, 'sneakers')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('sneakers')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Formism Arc Package Sneaker</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$79.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('sneakers')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-sneakers" value="1" min="1" max="10" onchange="validateQuantity('sneakers')">
+                        <button class="quantity-btn" onclick="increaseQuantity('sneakers')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('sneakers')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('sneakers')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Material</span>
+                    <span class="buy-detail-value">PLA</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Print Time</span>
+                    <span class="buy-detail-value">16-20 hours</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Delivery</span>
+                    <span class="buy-detail-value">5-7 business days</span>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="sneakers">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="print-tags mb-5">
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Wearable</span>
+          <span class="print-tag">Athletic</span>
+          <span class="print-tag">Sneakers</span>
+        </div>
+        
         <div class="print-item mb-5" data-print-id="fidget-ball">
           <div class="row g-4 align-items-center">
             <div class="col-lg-6 print-info">
               <h2 class="print-title">Transforming Fidget Ball Mini</h2>
               <div class="print-meta">PLA • Mechanical • Fidget</div>
-              <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('fidget-ball'); return false;">Buy Item</a></p>
               
               <div class="print-media-row">
                 <div class="print-media-row-carousel">
@@ -1085,6 +1652,56 @@
               <div class="carousel-dots">
                 <button class="carousel-dot active" onclick="switchFidgetBallMedia(0)" aria-label="Page 1"></button>
                 <button class="carousel-dot" onclick="switchFidgetBallMedia(1)" aria-label="Page 2"></button>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-fidget-ball" onclick="closeBuyModalOnBackdrop(event, 'fidget-ball')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('fidget-ball')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Transforming Fidget Ball Mini</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$19.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('fidget-ball')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-fidget-ball" value="1" min="1" max="10" onchange="validateQuantity('fidget-ball')">
+                        <button class="quantity-btn" onclick="increaseQuantity('fidget-ball')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('fidget-ball')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('fidget-ball')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Material</span>
+                    <span class="buy-detail-value">PLA</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Print Time</span>
+                    <span class="buy-detail-value">3-4 hours</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Delivery</span>
+                    <span class="buy-detail-value">5-7 business days</span>
+                  </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
@@ -1123,7 +1740,71 @@
             <div class="col-lg-6 print-info">
               <h2 class="print-title">Cute Knitted Elephant</h2>
               <div class="print-meta">PLA • Decorative • No AMS</div>
-              <p class="print-description">An adorable knitted-style elephant with a charming textured appearance. This model creates a beautiful knitted effect without requiring an AMS (Automatic Material System), making it accessible for single-color printers. The intricate pattern gives it a cozy, hand-knitted look that's perfect as a decorative piece or a thoughtful gift. <a href="https://makerworld.com/en/models/972723-cute-knitted-elephant-no-ams#profileId-946927" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              <p class="print-description">An adorable knitted-style elephant with a charming textured appearance. This model creates a beautiful knitted effect without requiring an AMS (Automatic Material System), making it accessible for single-color printers. The intricate pattern gives it a cozy, hand-knitted look that's perfect as a decorative piece or a thoughtful gift. <a href="https://makerworld.com/en/models/972723-cute-knitted-elephant-no-ams#profileId-946927" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('elephant'); return false;">Buy Item</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/elephant-print.jpg" alt="Cute Knitted Elephant print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/elephant-print.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-elephant" onclick="closeBuyModalOnBackdrop(event, 'elephant')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('elephant')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Cute Knitted Elephant</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$22.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('elephant')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-elephant" value="1" min="1" max="10" onchange="validateQuantity('elephant')">
+                        <button class="quantity-btn" onclick="increaseQuantity('elephant')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('elephant')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('elephant')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Material</span>
+                    <span class="buy-detail-value">PLA</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Print Time</span>
+                    <span class="buy-detail-value">5-7 hours</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Delivery</span>
+                    <span class="buy-detail-value">5-7 business days</span>
+                  </div>
+                </div>
+                </div>
+              </div>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1176,7 +1857,71 @@
             <div class="col-lg-6 print-info">
               <h2 class="print-title">3D Benchy</h2>
               <div class="print-meta">PLA • Test Print</div>
-              <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
+              <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality. <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('benchy'); return false;">Buy Item</a></p>
+              
+              <div class="print-media-row">
+                <div class="print-image-section">
+                  <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
+                </div>
+                
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls autoplay loop muted>
+                      <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-benchy" onclick="closeBuyModalOnBackdrop(event, 'benchy')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('benchy')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">3D Benchy</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$12.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('benchy')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-benchy" value="1" min="1" max="10" onchange="validateQuantity('benchy')">
+                        <button class="quantity-btn" onclick="increaseQuantity('benchy')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('benchy')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('benchy')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Material</span>
+                    <span class="buy-detail-value">PLA</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Print Time</span>
+                    <span class="buy-detail-value">2-3 hours</span>
+                  </div>
+                  <div class="buy-detail-item">
+                    <span class="buy-detail-label">Delivery</span>
+                    <span class="buy-detail-value">5-7 business days</span>
+                  </div>
+                </div>
+                </div>
+              </div>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1221,6 +1966,33 @@
           <span class="print-tag">PLA</span>
           <span class="print-tag">Test Print</span>
           <span class="print-tag">Benchmark</span>
+        </div>
+      </div>
+      
+      <div id="general-items" class="general-items-section" style="max-width: 800px; margin: 6rem auto 4rem; padding: 2rem 0; border-top: 1px solid var(--border);">
+        <h2 style="font-size: 2rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.02em; color: var(--foreground); text-align: center;">General Items / Costs</h2>
+        <div style="color: var(--muted-foreground); line-height: 1.8;">
+          <p style="margin-bottom: 1.5rem; text-align: center;">Custom prints and general items available. Contact me for pricing on specific projects.</p>
+          <div style="display: grid; gap: 1.5rem; margin-top: 2rem;">
+            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Custom Prints</h3>
+              <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">Starting at $15 + material costs</p>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Bring your own STL file or work with me on a custom design.</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Material Options</h3>
+              <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">PLA: Standard colors available</p>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Other materials available upon request (TPU, PETG, etc.)</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Shipping</h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Free shipping on all items. 5-7 business days for standard prints.</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Payment</h3>
+              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Pay via Venmo <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">@donnybad</a></p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -1283,7 +2055,9 @@
         'dog': '/prints/models/dog.stl',
         'benchy': '/prints/models/benchy.stl',
         'fidget-ball': '/prints/models/fidget-ball.stl',
-        'elephant': '/prints/models/elephant.stl'
+        'elephant': '/prints/models/elephant.stl',
+        'slides': '/prints/models/slides.stl',
+        'sneakers': '/prints/models/sneakers.stl'
       };
 
       // Per-model behavior settings (orientation & interaction)
@@ -1295,29 +2069,43 @@
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
+          initialRotation: { x: 0, y: 0, z: 0 } // x: 0° (upright), y: 0° (facing forward/straight ahead), z: 0°
         },
         benchy: {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
+          initialRotation: { x: 0, y: 0, z: 0 } // x: 0° (upright), y: 0° (facing forward/straight ahead), z: 0°
         },
         'fidget-ball': {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
+          initialRotation: { x: 0, y: 0, z: 0 } // x: 0° (upright), y: 0° (facing forward/straight ahead), z: 0°
         },
         elephant: {
-          // Facing right at start
+          // Facing straight ahead at start
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
           allowZRotation: true,
-          initialRotation: { x: -1.57, y: -1.57, z: 0 } // x: -90° (flat), y: -90° (facing right), z: 0°
+          initialRotation: { x: 0, y: 0, z: 0 } // x: 0° (upright), y: 0° (facing forward/straight ahead), z: 0°
+        },
+        slides: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: 0, y: 0, z: 0 }
+        },
+        sneakers: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: 0, y: 0, z: 0 }
         }
       };
       
@@ -1464,8 +2252,8 @@
             
             scene.add(mesh);
             
-            // Auto-rotate (slower speed)
-            let rotationSpeed = 0.002;
+            // Auto-rotate
+            let rotationSpeed = 0.005;
             let isRotating = true;
             const autoAxis = (settings && settings.autoRotateAxis) || 'y';
             
@@ -1628,7 +2416,6 @@
           // Play videos in the active slide
           const videos = slide.querySelectorAll('video');
           videos.forEach(video => {
-            video.playbackRate = 2; // Set to 2x speed
             video.play().catch(e => console.log('Video autoplay prevented:', e));
           });
         } else {
@@ -1689,20 +2476,6 @@
       }
     });
 
-    // Set all videos to 2x playback speed by default
-    document.addEventListener('DOMContentLoaded', function() {
-      const allVideos = document.querySelectorAll('video');
-      allVideos.forEach(video => {
-        // Set playback rate to 2x
-        video.playbackRate = 2.0;
-        
-        // Also set when video metadata loads (in case video loads later)
-        video.addEventListener('loadedmetadata', function() {
-          this.playbackRate = 2.0;
-        });
-      });
-    });
-
     // Scroll page down slightly on load to show thumbnails better
     window.addEventListener('load', function() {
       setTimeout(function() {
@@ -1711,6 +2484,302 @@
           behavior: 'smooth'
         });
       }, 100);
+    });
+    
+    // Buy Component JavaScript
+    const productPrices = {
+      'dog': 24.99,
+      'fidget-ball': 19.99,
+      'elephant': 22.99,
+      'benchy': 12.99,
+      'slides': 49.99,
+      'sneakers': 79.99
+    };
+    
+    const productNames = {
+      'dog': 'Dachshund Tray - lil guy Organizer',
+      'fidget-ball': 'Transforming Fidget Ball Mini',
+      'elephant': 'Cute Knitted Elephant',
+      'benchy': '3D Benchy',
+      'slides': 'Slide Shoes (Adilette)',
+      'sneakers': 'Formism Arc Package Sneaker'
+    };
+    
+    function increaseQuantity(productId) {
+      const input = document.getElementById(`quantity-${productId}`);
+      const currentValue = parseInt(input.value) || 1;
+      const maxValue = parseInt(input.max) || 10;
+      if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+        updateQuantityButtons(productId);
+      }
+    }
+    
+    function decreaseQuantity(productId) {
+      const input = document.getElementById(`quantity-${productId}`);
+      const currentValue = parseInt(input.value) || 1;
+      const minValue = parseInt(input.min) || 1;
+      if (currentValue > minValue) {
+        input.value = currentValue - 1;
+        updateQuantityButtons(productId);
+      }
+    }
+    
+    function validateQuantity(productId) {
+      const input = document.getElementById(`quantity-${productId}`);
+      const value = parseInt(input.value) || 1;
+      const minValue = parseInt(input.min) || 1;
+      const maxValue = parseInt(input.max) || 10;
+      
+      if (value < minValue) {
+        input.value = minValue;
+      } else if (value > maxValue) {
+        input.value = maxValue;
+      }
+      
+      updateQuantityButtons(productId);
+    }
+    
+    function updateQuantityButtons(productId) {
+      const input = document.getElementById(`quantity-${productId}`);
+      const quantity = parseInt(input.value) || 1;
+      const minValue = parseInt(input.min) || 1;
+      const maxValue = parseInt(input.max) || 10;
+      
+      const buyComponent = input.closest('.buy-component');
+      const decreaseBtn = buyComponent.querySelector('.quantity-btn:first-of-type');
+      const increaseBtn = buyComponent.querySelector('.quantity-btn:last-of-type');
+      
+      decreaseBtn.disabled = quantity <= minValue;
+      increaseBtn.disabled = quantity >= maxValue;
+    }
+    
+    function addToCart(productId) {
+      const quantity = parseInt(document.getElementById(`quantity-${productId}`).value) || 1;
+      const price = productPrices[productId];
+      const name = productNames[productId];
+      
+      // Get existing cart from localStorage
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      
+      // Check if item already exists in cart
+      const existingItemIndex = cart.findIndex(item => item.productId === productId);
+      
+      if (existingItemIndex > -1) {
+        // Update quantity if item already exists
+        cart[existingItemIndex].quantity += quantity;
+      } else {
+        // Add new item to cart
+        cart.push({
+          productId: productId,
+          name: name,
+          price: price,
+          quantity: quantity
+        });
+      }
+      
+      // Save cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Show confirmation
+      showNotification(`Added ${quantity} × ${name} to cart`);
+      
+      // Close the modal
+      closeBuyModal(productId);
+      
+      // Track with Google Analytics if available
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'add_to_cart', {
+          currency: 'USD',
+          value: price * quantity,
+          items: [{
+            item_id: productId,
+            item_name: name,
+            price: price,
+            quantity: quantity
+          }]
+        });
+      }
+    }
+    
+    function buyNow(productId) {
+      const quantity = parseInt(document.getElementById(`quantity-${productId}`).value) || 1;
+      const price = productPrices[productId];
+      const name = productNames[productId];
+      const totalAmount = (price * quantity).toFixed(2);
+      
+      // Add to cart first
+      addToCart(productId);
+      
+      // Track with Google Analytics if available
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'begin_checkout', {
+          currency: 'USD',
+          value: price * quantity,
+          items: [{
+            item_id: productId,
+            item_name: name,
+            price: price,
+            quantity: quantity
+          }]
+        });
+      }
+      
+      // Create Venmo payment link
+      openVenmoPayment(productId, name, totalAmount, quantity);
+    }
+    
+    function openVenmoPayment(productId, productName, totalAmount, quantity) {
+      const venmoUsername = 'donnybad';
+      const note = `${quantity} × ${productName}`;
+      
+      // Create Venmo payment link
+      // Venmo deep link format (works on mobile if Venmo app is installed)
+      const venmoDeepLink = `venmo://paycharge?txn=pay&recipients=${venmoUsername}&amount=${totalAmount}&note=${encodeURIComponent(note)}`;
+      
+      // Venmo web link (fallback for desktop or if app not installed)
+      const venmoWebLink = `https://venmo.com/${venmoUsername}?txn=pay&amount=${totalAmount}&note=${encodeURIComponent(note)}`;
+      
+      // Try deep link first (mobile), fallback to web link
+      // On mobile, this will try to open Venmo app, on desktop it will open web
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Try deep link first
+        const link = document.createElement('a');
+        link.href = venmoDeepLink;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Fallback to web link after a short delay if deep link doesn't work
+        setTimeout(() => {
+          window.open(venmoWebLink, '_blank');
+        }, 500);
+      } else {
+        // Desktop - open web link directly
+        window.open(venmoWebLink, '_blank');
+      }
+      
+      // Show confirmation
+      showNotification(`Opening Venmo payment for $${totalAmount}`, 'info');
+    }
+    
+    function showNotification(message, type = 'success') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 5rem;
+        right: 2rem;
+        background: var(--background);
+        border: 1px solid var(--primary);
+        color: var(--foreground);
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+      `;
+      notification.textContent = message;
+      
+      // Add animation style if not exists
+      if (!document.getElementById('notification-style')) {
+        const style = document.createElement('style');
+        style.id = 'notification-style';
+        style.textContent = `
+          @keyframes slideIn {
+            from {
+              transform: translateX(400px);
+              opacity: 0;
+            }
+            to {
+              transform: translateX(0);
+              opacity: 1;
+            }
+          }
+          @keyframes slideOut {
+            from {
+              transform: translateX(0);
+              opacity: 1;
+            }
+            to {
+              transform: translateX(400px);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      document.body.appendChild(notification);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Initialize quantity buttons on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      Object.keys(productPrices).forEach(productId => {
+        const input = document.getElementById(`quantity-${productId}`);
+        if (input) {
+          updateQuantityButtons(productId);
+        }
+      });
+    });
+    
+    // Buy Modal Functions
+    function openBuyModal(productId) {
+      const modal = document.getElementById(`buy-modal-${productId}`);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Track with Google Analytics if available
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'view_item', {
+            currency: 'USD',
+            value: productPrices[productId],
+            items: [{
+              item_id: productId,
+              item_name: productNames[productId],
+              price: productPrices[productId],
+              quantity: 1
+            }]
+          });
+        }
+      }
+    }
+    
+    function closeBuyModal(productId) {
+      const modal = document.getElementById(`buy-modal-${productId}`);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    function closeBuyModalOnBackdrop(event, productId) {
+      // Close modal when clicking on the backdrop (not the content)
+      if (event.target.classList.contains('buy-modal')) {
+        closeBuyModal(productId);
+      }
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        Object.keys(productPrices).forEach(productId => {
+          closeBuyModal(productId);
+        });
+      }
     });
   </script>
   
