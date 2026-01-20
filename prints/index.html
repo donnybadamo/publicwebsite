@@ -1182,6 +1182,225 @@
       letter-spacing: 0.1em;
     }
     
+    /* Cart Icon & Drawer Styles */
+    .cart-icon-btn {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--foreground);
+      transition: color 0.3s ease;
+    }
+    
+    .cart-icon-btn:hover {
+      color: var(--primary);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-size: 0.7rem;
+      font-weight: 600;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(25%, -25%);
+    }
+    
+    .cart-count:empty,
+    .cart-count[data-count="0"] {
+      display: none;
+    }
+    
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .cart-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--background);
+      border-left: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .cart-drawer.active {
+      right: 0;
+    }
+    
+    .cart-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .cart-drawer-header h3 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--foreground);
+      margin: 0;
+    }
+    
+    .cart-close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--foreground);
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      transition: color 0.3s ease;
+    }
+    
+    .cart-close-btn:hover {
+      color: var(--primary);
+    }
+    
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+      background: rgba(42, 53, 48, 0.3);
+    }
+    
+    .cart-item-info {
+      flex: 1;
+    }
+    
+    .cart-item-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+    
+    .cart-item-price {
+      font-size: 0.875rem;
+      color: var(--primary);
+    }
+    
+    .cart-item-qty {
+      font-size: 0.8rem;
+      color: var(--muted-foreground);
+    }
+    
+    .cart-item-remove {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted-foreground);
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .cart-item-remove:hover {
+      border-color: #ff4444;
+      color: #ff4444;
+    }
+    
+    .cart-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted-foreground);
+    }
+    
+    .cart-footer {
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 1rem;
+    }
+    
+    .cart-total span:last-child {
+      color: var(--primary);
+    }
+    
+    .cart-checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 0.75rem;
+    }
+    
+    .cart-checkout-btn:hover {
+      background: var(--primary-hover);
+    }
+    
+    .cart-clear-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: transparent;
+      color: var(--muted-foreground);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .cart-clear-btn:hover {
+      border-color: #ff4444;
+      color: #ff4444;
+    }
+    
     /* Quick Add Grid Styles */
     .quick-add-grid {
       display: grid;
@@ -1494,9 +1713,39 @@
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </a>
-        <a href="#top" class="page-title-header" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); return false;">3D Prints Gallery</a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <a href="#top" class="page-title-header" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); return false;">3D Prints Gallery</a>
+          <button class="cart-icon-btn" onclick="toggleCart()" aria-label="View Cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="21" r="1"></circle>
+              <circle cx="19" cy="21" r="1"></circle>
+              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            </svg>
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
+        </div>
       </div>
     </header>
+    
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+      <div class="cart-drawer-header">
+        <h3>Your Cart</h3>
+        <button class="cart-close-btn" onclick="toggleCart()" aria-label="Close Cart">×</button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <!-- Cart items will be populated by JavaScript -->
+      </div>
+      <div class="cart-footer" id="cart-footer">
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cart-total-amount">$0.00</span>
+        </div>
+        <button class="cart-checkout-btn" onclick="checkoutCart()">Checkout via Venmo</button>
+        <button class="cart-clear-btn" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
 
     <main class="container">
       <div class="intro-section mb-5" style="max-width: 800px; margin: 4rem auto 0; padding: 2rem 0;">
@@ -2957,7 +3206,112 @@
           }]
         });
       }
+      
+      // Update cart UI
+      updateCartCount();
+      renderCart();
     }
+    
+    // Cart Drawer Functions
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      drawer.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+      renderCart();
+    }
+    
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const countEl = document.getElementById('cart-count');
+      countEl.textContent = totalItems;
+      countEl.setAttribute('data-count', totalItems);
+    }
+    
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartFooterEl = document.getElementById('cart-footer');
+      const cartTotalEl = document.getElementById('cart-total-amount');
+      
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        cartFooterEl.style.display = 'none';
+        return;
+      }
+      
+      cartFooterEl.style.display = 'block';
+      
+      let html = '';
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        html += `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">$${item.price.toFixed(2)} <span class="cart-item-qty">× ${item.quantity}</span></div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})" aria-label="Remove">×</button>
+          </div>
+        `;
+      });
+      
+      cartItemsEl.innerHTML = html;
+      cartTotalEl.textContent = '$' + total.toFixed(2);
+    }
+    
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+      showNotification('Item removed from cart');
+    }
+    
+    function clearCart() {
+      localStorage.removeItem('cart');
+      updateCartCount();
+      renderCart();
+      showNotification('Cart cleared');
+    }
+    
+    function checkoutCart() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      if (cart.length === 0) return;
+      
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const itemsList = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+      
+      // Create Venmo deep link
+      const venmoUsername = 'donnybad';
+      const note = encodeURIComponent(`3D Prints Order: ${itemsList}`);
+      const venmoUrl = `venmo://paycharge?txn=pay&recipients=${venmoUsername}&amount=${total.toFixed(2)}&note=${note}`;
+      const venmoWebUrl = `https://venmo.com/${venmoUsername}?txn=pay&amount=${total.toFixed(2)}&note=${note}`;
+      
+      // Try native app first, fallback to web
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = venmoUrl;
+        setTimeout(() => {
+          window.open(venmoWebUrl, '_blank');
+        }, 2000);
+      } else {
+        window.open(venmoWebUrl, '_blank');
+      }
+      
+      toggleCart();
+    }
+    
+    // Initialize cart count on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartCount();
+    });
     
     function buyNow(productId) {
       const quantity = parseInt(document.getElementById(`quantity-${productId}`).value) || 1;
