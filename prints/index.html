@@ -211,7 +211,13 @@
       font-size: 1.25rem;
       font-weight: bold;
       color: var(--foreground);
-      pointer-events: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .page-title-header:hover {
+      color: var(--primary);
     }
     
     main {
@@ -233,16 +239,23 @@
     
     .print-media {
       position: relative;
-      aspect-ratio: 1;
       overflow: hidden;
       background: var(--background);
+      align-self: stretch;
     }
     
     .print-info {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      box-sizing: border-box;
     }
+
+    .print-item .row {
+      align-items: stretch;
+      --bs-gutter-x: 1rem;
+    }
+    
     
     .print-image {
       width: 100%;
@@ -338,8 +351,7 @@
     /* Buy Item Link */
     .buy-item-link {
       display: inline-block;
-      margin-left: 0.75rem;
-      color: var(--muted-foreground);
+      color: var(--foreground);
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -352,6 +364,42 @@
     .buy-item-link:hover {
       color: var(--primary);
       border-bottom-color: var(--primary);
+    }
+    
+    .buy-item-price {
+      color: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+
+    .buy-item-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      padding: 0.9rem 1.5rem;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--foreground);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .buy-item-button .buy-item-price {
+      font-size: 1rem;
+      color: var(--primary);
+    }
+
+    .buy-item-button:hover {
+      background: var(--accent);
+      border-color: var(--primary);
+      color: var(--foreground);
     }
     
     /* Buy Modal/Popup Styles */
@@ -665,12 +713,13 @@
     
     .print-media-row {
       display: flex;
+      flex-direction: column;
       gap: 1rem;
-      margin: 1rem auto 0;
-      width: 500px;
+      margin: 1rem 0 0;
+      width: 100%;
       max-width: 100%;
-      height: 240px;
-      align-items: flex-start;
+      align-items: stretch;
+      justify-content: flex-start;
       position: relative;
     }
     
@@ -800,9 +849,9 @@
     }
     
     .print-image-section {
-      flex: 0 0 240px;
-      width: 240px;
-      height: 240px;
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
       border-radius: 0.5rem;
       border: 1px solid var(--border);
@@ -822,22 +871,38 @@
     }
     
     .print-video-section {
-      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
       display: flex;
       flex-direction: column;
-      height: 240px;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--background);
     }
     
     .print-video-section .video-container {
       flex: 1;
       width: 100%;
+      height: 100%;
       min-height: 0;
     }
     
     .print-video-section .video-container video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+    }
+
+    .print-media-3d,
+    .model-viewer-container {
+      height: 100%;
+      min-height: 0;
+    }
+
+    .model-viewer-container {
+      aspect-ratio: auto;
     }
     
     .print-main-image {
@@ -1117,6 +1182,118 @@
       letter-spacing: 0.1em;
     }
     
+    /* Quick Add Grid Styles */
+    .quick-add-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .quick-add-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(42, 53, 48, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0.5rem;
+    }
+    
+    .quick-add-item:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(230, 122, 40, 0.2);
+    }
+    
+    .quick-add-model {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin-bottom: 0.75rem;
+    }
+    
+    .mini-stl-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mini-stl-container canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      background: transparent !important;
+    }
+    
+    .quick-add-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .quick-add-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--foreground);
+      text-align: center;
+    }
+    
+    .quick-add-price {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .quick-add-btn {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+    
+    .quick-add-item:hover .quick-add-btn {
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+    
+    @media (max-width: 768px) {
+      .quick-add-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .quick-add-model {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .quick-add-name {
+        font-size: 0.75rem;
+      }
+      
+      .quick-add-price {
+        font-size: 0.875rem;
+      }
+    }
+    
     /* GLB model-viewer commented out - file size too large for Cloudflare */
     /* model-viewer {
       width: 100%;
@@ -1208,12 +1385,23 @@
       }
       
       .print-media-row {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         width: 100%;
         max-width: 100%;
-        height: auto;
-        gap: 1rem;
+        gap: 0.75rem;
         margin: 1rem 0 0;
+        justify-items: center;
+      }
+      
+      .print-info {
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .print-media {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 2rem;
       }
       
       .print-media-row-slide {
@@ -1227,33 +1415,18 @@
       .print-image-section {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-        flex: none;
+        aspect-ratio: 16 / 9;
       }
       
       .print-video-section {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        flex: none;
+        aspect-ratio: 16 / 9;
       }
       
       .print-video-section .video-container {
-        aspect-ratio: 16 / 9;
-        height: auto;
-      }
-      
-      .print-video-section {
         width: 100%;
-        max-width: 100%;
-        height: auto;
-        flex: none;
-      }
-      
-      .print-video-section .video-container {
-        aspect-ratio: 16 / 9;
-        height: auto;
+        height: 100%;
       }
       
       .print-title {
@@ -1310,7 +1483,7 @@
     }
   </style>
 </head>
-<body>
+<body id="top">
   <div class="min-h-screen">
     <header>
       <div class="container header-content">
@@ -1321,24 +1494,30 @@
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </a>
-        <div class="page-title-header">3D Prints Gallery</div>
+        <a href="#top" class="page-title-header" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); return false;">3D Prints Gallery</a>
       </div>
     </header>
 
     <main class="container">
       <div class="intro-section mb-5" style="max-width: 800px; margin: 4rem auto 0; text-align: center; padding: 2rem 0;">
+        <img src="/prints/images/donny.jpg" alt="Donny" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 1.5rem; box-shadow: 0 8px 32px rgba(230, 122, 40, 0.3);">
         <h1 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; letter-spacing: -0.02em; color: var(--foreground);">I'm Donny</h1>
-        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted-foreground); margin-bottom: 2rem;">3D printing since Ender 3 in 2021. Buy my stuff.</p>
+        <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted-foreground); margin-bottom: 1rem;">I've been 3D printing since 2018 when I tried, unsuccessfully, to print a glock. Now it's mostly organization, gadgets, and trinkets. Buy my stuff! Most colors / any customizations welcome.</p>
         <a href="#general-items" class="buy-item-link" style="font-size: 1rem; margin: 0;">General Items / Costs →</a>
       </div>
       
       <div class="print-gallery" id="print-gallery">
         <div class="print-item mb-5" data-print-id="slides">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">Slide Shoes (Adilette)</h2>
               <div class="print-meta">PLA • Wearable • Fully 3D Printed</div>
-              <p class="print-description">Comfortable slide sandals that are fully 3D printed with durable PLA material. These Adilette-style slides feature a modern design perfect for casual wear. The one-piece construction ensures durability while maintaining flexibility for comfortable all-day use. Available in various sizes to fit your needs. <a href="https://makerworld.com/en/models/488792-slide-shoes-adilette-fully-3d-printed?from=search#profileId-401842" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('slides'); return false;">Buy Item</a></p>
+              <p class="print-description">Comfortable slide sandals that are fully 3D printed with durable PLA material. These Adilette-style slides feature a modern design perfect for casual wear. The one-piece construction ensures durability while maintaining flexibility for comfortable all-day use. Available in various sizes to fit your needs. <a href="https://makerworld.com/en/models/488792-slide-shoes-adilette-fully-3d-printed?from=search#profileId-401842" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('slides'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$100</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1348,8 +1527,7 @@
                 <div class="print-video-section">
                   <div class="video-container">
                     <video controls autoplay loop muted>
-                      <source src="/prints/videos/slides.m4v" type="video/mp4">
-                      <source src="/prints/videos/slides.mp4" type="video/mp4">
+                      <source src="/prints/videos/shoeflexible.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -1364,7 +1542,7 @@
                     <div class="buy-modal-title">Slide Shoes (Adilette)</div>
                   </div>
                   <div class="buy-component">
-                    <div class="buy-component-price">$49.99</div>
+                    <div class="buy-component-price">$100</div>
                     <div class="buy-component-shipping">Free shipping</div>
                     <div class="buy-component-payment">
                       <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1389,25 +1567,38 @@
                     
                     <div class="buy-item-label">Buy Item</div>
                     <div class="buy-component-details">
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Material</span>
-                    <span class="buy-detail-value">PLA</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Print Time</span>
-                    <span class="buy-detail-value">12-16 hours</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Delivery</span>
-                    <span class="buy-detail-value">5-7 business days</span>
-                  </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">12-16 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
+                    src="/prints/models/slides.glb"
+                    camera-controls
+                    auto-rotate
+                    scale="2 2 2"
+                    style="
+                      width: 100%;
+                      height: 500px;
+                      filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+                    "
+                  ></model-viewer> -->
                   <div class="stl-container" data-model="slides">
                     <div class="loading-indicator">Loading Model...</div>
                   </div>
@@ -1425,11 +1616,16 @@
         </div>
         
         <div class="print-item mb-5" data-print-id="dog">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">Dachshund Tray - lil guy Organizer</h2>
               <div class="print-meta">PLA • Functional • Decorative</div>
-              <p class="print-description">A charming dachshund-shaped tray that combines functionality with adorable design. This delightful organizer features the distinctive elongated body of a dachshund, creating a unique and practical storage solution. Perfect for holding small items, office supplies, or serving as an eye-catching decorative piece. The design showcases intricate details that capture the beloved breed's characteristic features. <a href="https://makerworld.com/en/models/2091553-dachshund-tray-adorable-dog-organizer#profileId-2262586" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('dog'); return false;">Buy Item</a></p>
+              <p class="print-description">A charming dachshund-shaped tray that combines functionality with adorable design. This delightful organizer features the distinctive elongated body of a dachshund, creating a unique and practical storage solution. Perfect for holding small items, office supplies, or serving as an eye-catching decorative piece. The design showcases intricate details that capture the beloved breed's characteristic features. <a href="https://makerworld.com/en/models/2091553-dachshund-tray-adorable-dog-organizer#profileId-2262586" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('dog'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$24.99</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1496,7 +1692,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
                   <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
@@ -1528,11 +1724,16 @@
         </div>
         
         <div class="print-item mb-5" data-print-id="sneakers">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">Formism Arc Package Sneaker</h2>
               <div class="print-meta">PLA • Wearable • Athletic</div>
-              <p class="print-description">Premium 3D printed sneakers featuring an innovative arc design package. These athletic shoes combine style and functionality with a unique structural design that provides both support and flexibility. The Formism Arc Package features modern aesthetics with comfortable fit, making them perfect for everyday wear or light athletic activities. <a href="https://makerworld.com/en/models/2162375-formism-arc-package-sneaker?from=search#profileId-2344466" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('sneakers'); return false;">Buy Item</a></p>
+              <p class="print-description">Premium 3D printed sneakers featuring an innovative arc design package. These athletic shoes combine style and functionality with a unique structural design that provides both support and flexibility. The Formism Arc Package features modern aesthetics with comfortable fit, making them perfect for everyday wear or light athletic activities. <a href="https://makerworld.com/en/models/2162375-formism-arc-package-sneaker?from=search#profileId-2344466" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('sneakers'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$100</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1559,7 +1760,7 @@
                     <div class="buy-modal-title">Formism Arc Package Sneaker</div>
                   </div>
                   <div class="buy-component">
-                    <div class="buy-component-price">$79.99</div>
+                    <div class="buy-component-price">$100</div>
                     <div class="buy-component-shipping">Free shipping</div>
                     <div class="buy-component-payment">
                       <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1584,25 +1785,38 @@
                     
                     <div class="buy-item-label">Buy Item</div>
                     <div class="buy-component-details">
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Material</span>
-                    <span class="buy-detail-value">PLA</span>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">16-20 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Print Time</span>
-                    <span class="buy-detail-value">16-20 hours</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Delivery</span>
-                    <span class="buy-detail-value">5-7 business days</span>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
+                  <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
+                  <!-- <model-viewer
+                    src="/prints/models/sneakers.glb"
+                    camera-controls
+                    auto-rotate
+                    scale="2 2 2"
+                    style="
+                      width: 100%;
+                      height: 500px;
+                      filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+                    "
+                  ></model-viewer> -->
                   <div class="stl-container" data-model="sneakers">
                     <div class="loading-indicator">Loading Model...</div>
                   </div>
@@ -1620,11 +1834,16 @@
         </div>
         
         <div class="print-item mb-5" data-print-id="fidget-ball">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">Transforming Fidget Ball Mini</h2>
               <div class="print-meta">PLA • Mechanical • Fidget</div>
-              <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('fidget-ball'); return false;">Buy Item</a></p>
+              <p class="print-description">An incredible transforming fidget ball that morphs between different geometric shapes. This mechanical marvel features interlocking segments that smoothly transition between configurations, making it both a satisfying fidget toy and a fascinating display piece. The precision engineering required for the moving parts makes this a challenging but rewarding print. <a href="https://makerworld.com/en/models/482093-transforming-fidget-ball-mini#profileId-393997" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('fidget-ball'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$19.99</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-media-row-carousel">
@@ -1687,24 +1906,24 @@
                     
                     <div class="buy-item-label">Buy Item</div>
                     <div class="buy-component-details">
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Material</span>
-                    <span class="buy-detail-value">PLA</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Print Time</span>
-                    <span class="buy-detail-value">3-4 hours</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Delivery</span>
-                    <span class="buy-detail-value">5-7 business days</span>
-                  </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">3-4 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
                   <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
@@ -1736,11 +1955,16 @@
         </div>
         
         <div class="print-item mb-5" data-print-id="elephant">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">Cute Knitted Elephant</h2>
               <div class="print-meta">PLA • Decorative • No AMS</div>
-              <p class="print-description">An adorable knitted-style elephant with a charming textured appearance. This model creates a beautiful knitted effect without requiring an AMS (Automatic Material System), making it accessible for single-color printers. The intricate pattern gives it a cozy, hand-knitted look that's perfect as a decorative piece or a thoughtful gift. <a href="https://makerworld.com/en/models/972723-cute-knitted-elephant-no-ams#profileId-946927" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a> <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('elephant'); return false;">Buy Item</a></p>
+              <p class="print-description">An adorable knitted-style elephant with a charming textured appearance. This model creates a beautiful knitted effect without requiring an AMS (Automatic Material System), making it accessible for single-color printers. The intricate pattern gives it a cozy, hand-knitted look that's perfect as a decorative piece or a thoughtful gift. <a href="https://makerworld.com/en/models/972723-cute-knitted-elephant-no-ams#profileId-946927" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('elephant'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$22.99</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1790,38 +2014,24 @@
                     
                     <div class="buy-item-label">Buy Item</div>
                     <div class="buy-component-details">
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Material</span>
-                    <span class="buy-detail-value">PLA</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Print Time</span>
-                    <span class="buy-detail-value">5-7 hours</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Delivery</span>
-                    <span class="buy-detail-value">5-7 business days</span>
-                  </div>
-                </div>
-                </div>
-              </div>
-              
-              <div class="print-media-row">
-                <div class="print-image-section">
-                  <img src="/prints/images/elephant-print.jpg" alt="Cute Knitted Elephant print" class="print-main-image" onclick="openLightbox(this.src)" onerror="this.style.display='none'">
-                </div>
-                
-                <div class="print-video-section">
-                  <div class="video-container">
-                    <video controls autoplay loop muted>
-                      <source src="/prints/videos/elephant-print.mp4" type="video/mp4">
-                      Your browser does not support the video tag.
-                    </video>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">5-7 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
                   <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
@@ -1853,11 +2063,16 @@
         </div>
         
         <div class="print-item mb-5" data-print-id="benchy">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6 print-info">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
               <h2 class="print-title">3D Benchy</h2>
               <div class="print-meta">PLA • Test Print</div>
-              <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality. <a href="#" class="buy-item-link" onclick="event.preventDefault(); openBuyModal('benchy'); return false;">Buy Item</a></p>
+              <p class="print-description">The classic 3D printer torture test. Benchy is designed to test various aspects of a 3D printer's capabilities, including overhangs, bridges, dimensional accuracy, and surface quality. This little boat has become the standard benchmark for evaluating print quality.</p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('benchy'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$12.99</span>
+              </a>
               
               <div class="print-media-row">
                 <div class="print-image-section">
@@ -1907,38 +2122,24 @@
                     
                     <div class="buy-item-label">Buy Item</div>
                     <div class="buy-component-details">
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Material</span>
-                    <span class="buy-detail-value">PLA</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Print Time</span>
-                    <span class="buy-detail-value">2-3 hours</span>
-                  </div>
-                  <div class="buy-detail-item">
-                    <span class="buy-detail-label">Delivery</span>
-                    <span class="buy-detail-value">5-7 business days</span>
-                  </div>
-                </div>
-                </div>
-              </div>
-              
-              <div class="print-media-row">
-                <div class="print-image-section">
-                  <img src="/prints/images/benchy-print-bed.jpg" alt="Benchy print in progress" class="print-main-image" onclick="openLightbox(this.src)">
-                </div>
-                
-                <div class="print-video-section">
-                  <div class="video-container">
-                    <video controls autoplay loop muted>
-                      <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
-                      Your browser does not support the video tag.
-                    </video>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">2-3 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 print-media d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
               <div class="print-media-3d w-100">
                 <div class="model-viewer-container">
                   <!-- GLB model-viewer commented out - file size too large for Cloudflare -->
@@ -1969,29 +2170,94 @@
         </div>
       </div>
       
-      <div id="general-items" class="general-items-section" style="max-width: 800px; margin: 6rem auto 4rem; padding: 2rem 0; border-top: 1px solid var(--border);">
-        <h2 style="font-size: 2rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.02em; color: var(--foreground); text-align: center;">General Items / Costs</h2>
-        <div style="color: var(--muted-foreground); line-height: 1.8;">
-          <p style="margin-bottom: 1.5rem; text-align: center;">Custom prints and general items available. Contact me for pricing on specific projects.</p>
-          <div style="display: grid; gap: 1.5rem; margin-top: 2rem;">
-            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
-              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Custom Prints</h3>
-              <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">Starting at $15 + material costs</p>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Bring your own STL file or work with me on a custom design.</p>
+      <div id="general-items" class="general-items-section" style="max-width: 1200px; margin: 6rem auto 4rem; padding: 2rem 0; border-top: 1px solid var(--border);">
+        <h2 style="font-size: 2rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.02em; color: var(--foreground); text-align: center;">Quick Add</h2>
+        <p style="margin-bottom: 2rem; text-align: center; color: var(--muted-foreground);">Click any item to add to cart</p>
+        
+        <!-- Quick Add Grid with Mini 3D Models -->
+        <div class="quick-add-grid">
+          <div class="quick-add-item" onclick="addToCart('slides')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="slides-mini"></div>
             </div>
-            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
-              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Material Options</h3>
-              <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">PLA: Standard colors available</p>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Other materials available upon request (TPU, PETG, etc.)</p>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Slide Shoes</span>
+              <span class="quick-add-price">$100</span>
             </div>
-            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
-              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Shipping</h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Free shipping on all items. 5-7 business days for standard prints.</p>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('dog')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="dog-mini"></div>
             </div>
-            <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
-              <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Payment</h3>
-              <p style="font-size: 0.875rem; color: var(--muted-foreground);">Pay via Venmo <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">@donnybad</a></p>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Dachshund Tray</span>
+              <span class="quick-add-price">$24.99</span>
             </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('sneakers')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="sneakers-mini"></div>
+            </div>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Arc Sneakers</span>
+              <span class="quick-add-price">$100</span>
+            </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('fidget-ball')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="fidget-ball-mini"></div>
+            </div>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Fidget Ball</span>
+              <span class="quick-add-price">$19.99</span>
+            </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('elephant')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="elephant-mini"></div>
+            </div>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Knitted Elephant</span>
+              <span class="quick-add-price">$22.99</span>
+            </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('benchy')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="benchy-mini"></div>
+            </div>
+            <div class="quick-add-info">
+              <span class="quick-add-name">3D Benchy</span>
+              <span class="quick-add-price">$12.99</span>
+            </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+        </div>
+        
+        <!-- Info Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
+          <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+            <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Custom Prints</h3>
+            <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">Starting at $15 + material costs</p>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground);">Bring your own STL file or work with me on a custom design.</p>
+          </div>
+          <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+            <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Materials</h3>
+            <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">PLA: Standard colors available</p>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground);">TPU, PETG, and others on request.</p>
+          </div>
+          <div style="padding: 1.5rem; border: 1px solid var(--border); background: rgba(42, 53, 48, 0.3);">
+            <h3 style="font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--foreground);">Shipping & Payment</h3>
+            <p style="font-size: 0.875rem; color: var(--muted-foreground);">Free shipping, 5-7 days. Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">@donnybad</a></p>
           </div>
         </div>
       </div>
@@ -2386,6 +2652,104 @@
       }
     });
     
+    // Initialize mini 3D models for Quick Add section
+    document.addEventListener('DOMContentLoaded', function() {
+      const miniContainers = document.querySelectorAll('.mini-stl-container');
+      if (miniContainers.length === 0) return;
+      
+      // Map mini model IDs to their STL paths
+      const miniModelConfig = {
+        'slides-mini': '/prints/models/slides.stl',
+        'dog-mini': '/prints/models/dog.stl',
+        'sneakers-mini': '/prints/models/sneakers.stl',
+        'fidget-ball-mini': '/prints/models/fidget-ball.stl',
+        'elephant-mini': '/prints/models/elephant.stl',
+        'benchy-mini': '/prints/models/benchy.stl'
+      };
+      
+      miniContainers.forEach(container => {
+        const modelId = container.getAttribute('data-model');
+        if (!modelId || !miniModelConfig[modelId]) return;
+        
+        initMiniModelViewer(container, miniModelConfig[modelId]);
+      });
+      
+      function initMiniModelViewer(container, stlPath) {
+        const width = 120;
+        const height = 120;
+        
+        const scene = new THREE.Scene();
+        scene.background = null;
+        
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(0, 0, 3);
+        
+        const renderer = new THREE.WebGLRenderer({ 
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance"
+        });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+        container.appendChild(renderer.domElement);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+        
+        // Load STL
+        if (!THREE.STLLoader) return;
+        
+        const loader = new THREE.STLLoader();
+        loader.load(stlPath, function(geometry) {
+          const material = new THREE.MeshPhongMaterial({
+            color: 0xe67a28,
+            shininess: 100,
+            specular: 0x222222
+          });
+          
+          const mesh = new THREE.Mesh(geometry, material);
+          
+          // Center and scale
+          geometry.computeBoundingBox();
+          const center = new THREE.Vector3();
+          geometry.boundingBox.getCenter(center);
+          geometry.translate(-center.x, -center.y, -center.z);
+          
+          const size = new THREE.Vector3();
+          geometry.boundingBox.getSize(size);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 1.2 / maxDim;
+          mesh.scale.multiplyScalar(scale);
+          
+          // Adjust camera
+          const box = new THREE.Box3().setFromObject(mesh);
+          const boxSize = box.getSize(new THREE.Vector3());
+          const maxDim2 = Math.max(boxSize.x, boxSize.y, boxSize.z);
+          const fov = camera.fov * (Math.PI / 180);
+          let cameraZ = Math.abs(maxDim2 / 2 / Math.tan(fov / 2));
+          cameraZ *= 1.5;
+          camera.position.set(0, 0, cameraZ);
+          camera.lookAt(0, 0, 0);
+          
+          scene.add(mesh);
+          
+          // Auto-rotate (faster for mini)
+          function animate() {
+            requestAnimationFrame(animate);
+            mesh.rotation.y += 0.01;
+            renderer.render(scene, camera);
+          }
+          animate();
+        });
+      }
+    });
+    
     // Video toggle functionality
     function toggleVideo(button) {
       const printItem = button.closest('.print-item');
@@ -2492,8 +2856,8 @@
       'fidget-ball': 19.99,
       'elephant': 22.99,
       'benchy': 12.99,
-      'slides': 49.99,
-      'sneakers': 79.99
+      'slides': 100,
+      'sneakers': 100
     };
     
     const productNames = {
