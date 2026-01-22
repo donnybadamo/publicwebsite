@@ -2409,6 +2409,98 @@
           <span class="print-tag">Test Print</span>
           <span class="print-tag">Benchmark</span>
         </div>
+        
+        <div class="print-item mb-5" data-print-id="planter">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6 print-info">
+              <h2 class="print-title">Polygon Planter</h2>
+              <div class="print-meta">PLA • Functional • Home & Garden</div>
+              <p class="print-description">Modern geometric planters featuring a beautiful wrap-around plate design. These polygon planters combine style with functionality, perfect for succulents, small plants, or herbs. The integrated drainage plate wraps around the base for a seamless look. <strong>I can print any pot or planter size you need — just ask!</strong> Custom sizes, colors, and designs available. <a href="https://makerworld.com/en/models/474831-polygon-planter-wrap-around-plate?from=search#profileId-385432" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">View on MakerWorld →</a></p>
+              
+              <a href="#" class="buy-item-button" onclick="event.preventDefault(); openBuyModal('planter'); return false;">
+                <span>Buy Item</span>
+                <span class="buy-item-price">$18.99</span>
+              </a>
+              
+              <div class="print-media-row">
+                <div class="print-video-section">
+                  <div class="video-container">
+                    <video controls loop muted playsinline>
+                      <source src="/prints/videos/planter.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Buy Modal -->
+              <div class="buy-modal" id="buy-modal-planter" onclick="closeBuyModalOnBackdrop(event, 'planter')">
+                <div class="buy-modal-content" onclick="event.stopPropagation()">
+                  <button class="buy-modal-close" onclick="closeBuyModal('planter')" aria-label="Close">×</button>
+                  <div class="buy-modal-header">
+                    <div class="buy-modal-title">Polygon Planter</div>
+                  </div>
+                  <div class="buy-component">
+                    <div class="buy-component-price">$18.99</div>
+                    <div class="buy-component-shipping">Free shipping</div>
+                    <div class="buy-component-payment">
+                      <svg class="venmo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                      </svg>
+                      Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="buy-component-quantity">
+                      <span class="buy-component-quantity-label">Quantity</span>
+                      <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity('planter')" aria-label="Decrease quantity">−</button>
+                        <input type="number" class="quantity-input" id="quantity-planter" value="1" min="1" max="10" onchange="validateQuantity('planter')">
+                        <button class="quantity-btn" onclick="increaseQuantity('planter')" aria-label="Increase quantity">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="buy-component-actions">
+                      <button class="buy-btn" onclick="addToCart('planter')">Add to Cart</button>
+                      <button class="buy-btn secondary" onclick="buyNow('planter')">Buy Now</button>
+                    </div>
+                    
+                    <div class="buy-item-label">Buy Item</div>
+                    <div class="buy-component-details">
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Material</span>
+                        <span class="buy-detail-value">PLA</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Print Time</span>
+                        <span class="buy-detail-value">3-5 hours</span>
+                      </div>
+                      <div class="buy-detail-item">
+                        <span class="buy-detail-label">Delivery</span>
+                        <span class="buy-detail-value">5-7 business days</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 print-media d-flex align-items-center justify-content-center">
+              <div class="print-media-3d w-100">
+                <div class="model-viewer-container">
+                  <div class="stl-container" data-model="planter">
+                    <div class="loading-indicator">Loading Model...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="print-tags mb-5">
+          <span class="print-tag">PLA</span>
+          <span class="print-tag">Functional</span>
+          <span class="print-tag">Home & Garden</span>
+          <span class="print-tag">Custom Sizes</span>
+        </div>
       </div>
       
       <div id="general-items" class="general-items-section" style="max-width: 1200px; margin: 6rem auto 4rem; padding: 2rem 0; border-top: 1px solid var(--border);">
@@ -2479,6 +2571,17 @@
             <div class="quick-add-info">
               <span class="quick-add-name">3D Benchy</span>
               <span class="quick-add-price">$12.99</span>
+            </div>
+            <button class="quick-add-btn">+ Add</button>
+          </div>
+          
+          <div class="quick-add-item" onclick="addToCart('planter')">
+            <div class="quick-add-model">
+              <div class="mini-stl-container" data-model="planter-mini"></div>
+            </div>
+            <div class="quick-add-info">
+              <span class="quick-add-name">Polygon Planter</span>
+              <span class="quick-add-price">$18.99</span>
             </div>
             <button class="quick-add-btn">+ Add</button>
           </div>
@@ -2564,7 +2667,8 @@
         'fidget-ball': '/prints/models/fidget-ball.stl',
         'elephant': '/prints/models/elephant.stl',
         'slides': '/prints/models/slides.stl',
-        'sneakers': '/prints/models/sneakers.stl'
+        'sneakers': '/prints/models/sneakers.stl',
+        'planter': '/prints/models/planter.stl'
       };
 
       // Per-model behavior settings (orientation & interaction)
@@ -2608,6 +2712,13 @@
           initialRotation: { x: 0, y: 0, z: 0 }
         },
         sneakers: {
+          autoRotateAxis: 'y',
+          allowXRotation: true,
+          allowYRotation: true,
+          allowZRotation: true,
+          initialRotation: { x: 0, y: 0, z: 0 }
+        },
+        planter: {
           autoRotateAxis: 'y',
           allowXRotation: true,
           allowYRotation: true,
@@ -2905,7 +3016,8 @@
         'sneakers-mini': '/prints/models/sneakers.stl',
         'fidget-ball-mini': '/prints/models/fidget-ball.stl',
         'elephant-mini': '/prints/models/elephant.stl',
-        'benchy-mini': '/prints/models/benchy.stl'
+        'benchy-mini': '/prints/models/benchy.stl',
+        'planter-mini': '/prints/models/planter.stl'
       };
       
       miniContainers.forEach(container => {
@@ -3101,7 +3213,8 @@
       'elephant': 22.99,
       'benchy': 12.99,
       'slides': 29.99,
-      'sneakers': 99.99
+      'sneakers': 99.99,
+      'planter': 18.99
     };
     
     const productNames = {
@@ -3110,7 +3223,8 @@
       'elephant': 'Cute Knitted Elephant',
       'benchy': '3D Benchy',
       'slides': 'Slides',
-      'sneakers': 'Formism Arc Package Sneaker'
+      'sneakers': 'Formism Arc Package Sneaker',
+      'planter': 'Polygon Planter'
     };
     
     function increaseQuantity(productId) {
