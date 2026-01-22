@@ -1778,7 +1778,7 @@
                 
                 <div class="print-video-section">
                   <div class="video-container">
-                    <video controls autoplay loop muted>
+                    <video controls loop muted playsinline>
                       <source src="/prints/videos/shoeflexible.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
@@ -1886,7 +1886,7 @@
                 
                 <div class="print-video-section">
                   <div class="video-container">
-                    <video controls autoplay loop muted>
+                    <video controls loop muted playsinline>
                       <source src="/prints/videos/dog.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
@@ -2094,7 +2094,7 @@
                     </div>
                     <div class="print-video-section">
                       <div class="video-container">
-                        <video controls autoplay loop muted>
+                        <video controls loop muted playsinline>
                           <source src="/prints/videos/fidget-ball-print.mp4" type="video/mp4">
                           Your browser does not support the video tag.
                         </video>
@@ -2102,7 +2102,7 @@
                     </div>
                   </div>
                   <div class="print-media-row-slide centered">
-                    <video controls autoplay loop muted>
+                    <video controls loop muted playsinline>
                       <source src="/prints/videos/fidget-ball-display.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
@@ -2214,7 +2214,7 @@
                 
                 <div class="print-video-section">
                   <div class="video-container">
-                    <video controls autoplay loop muted>
+                    <video controls loop muted playsinline>
                       <source src="/prints/videos/elephant-print.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
@@ -2322,7 +2322,7 @@
                 
                 <div class="print-video-section">
                   <div class="video-container">
-                    <video controls autoplay loop muted>
+                    <video controls loop muted playsinline>
                       <source src="/prints/videos/benchy-print.mp4" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
@@ -3018,11 +3018,14 @@
       slides.forEach((slide, i) => {
         if (i === index) {
           slide.classList.add('active');
-          // Play videos in the active slide
-          const videos = slide.querySelectorAll('video');
-          videos.forEach(video => {
-            video.play().catch(e => console.log('Video autoplay prevented:', e));
-          });
+          // Play videos in the active slide (only on desktop)
+          const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+          if (!isMobile) {
+            const videos = slide.querySelectorAll('video');
+            videos.forEach(video => {
+              video.play().catch(e => console.log('Video autoplay prevented:', e));
+            });
+          }
         } else {
           slide.classList.remove('active');
           // Pause videos in inactive slides
@@ -3310,6 +3313,18 @@
     // Initialize cart count on page load
     document.addEventListener('DOMContentLoaded', function() {
       updateCartCount();
+    });
+    
+    // Only autoplay videos on desktop, not mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      
+      if (!isMobile) {
+        const videos = document.querySelectorAll('video[loop][muted]');
+        videos.forEach(video => {
+          video.play().catch(e => console.log('Video autoplay prevented:', e));
+        });
+      }
     });
     
     function buyNow(productId) {
