@@ -553,6 +553,65 @@
       margin-bottom: 1.5rem;
     }
     
+    /* Color Selector Styles */
+    .color-selector-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .color-selector-label {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    
+    .color-selector-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .color-option {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .color-option:hover {
+      transform: scale(1.1);
+      border-color: var(--muted-foreground);
+    }
+    
+    .color-option.selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    
+    .color-option[data-color="white"] { background: #f5f5f5; }
+    .color-option[data-color="black"] { background: #1a1a1a; }
+    .color-option[data-color="beige"] { background: #d4b896; }
+    .color-option[data-color="marble"] { background: linear-gradient(135deg, #e8e8e8 0%, #c9c9c9 50%, #e8e8e8 100%); }
+    .color-option[data-color="brick"] { background: #8b4513; }
+    .color-option[data-color="olive-green"] { background: #556b2f; }
+    .color-option[data-color="matte"] { background: #4a4a4a; }
+    .color-option[data-color="wood"] { background: linear-gradient(135deg, #8b7355 0%, #a0826d 50%, #8b7355 100%); }
+    .color-option[data-color="blue"] { background: #4169e1; }
+    .color-option[data-color="red"] { background: #dc143c; }
+    .color-option[data-color="purple"] { background: #8b008b; }
+    
+    .color-selected-name {
+      font-size: 0.75rem;
+      color: var(--foreground);
+      margin-top: 0.5rem;
+      text-transform: capitalize;
+    }
+    
     .buy-component-quantity-label {
       font-size: 0.875rem;
       color: var(--muted-foreground);
@@ -1804,6 +1863,23 @@
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
                     </div>
                     
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="planter" data-part="main">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="planter-main-color">White</div>
+                    </div>
+                    
                     <div class="buy-component-quantity">
                       <span class="buy-component-quantity-label">Quantity</span>
                       <div class="quantity-controls">
@@ -1898,6 +1974,108 @@
                         <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
                       </svg>
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Cover Outside</span>
+                      <div class="color-selector-options" data-product="chess" data-part="cover-outside">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-cover-outside-color">White</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Cover Inside</span>
+                      <div class="color-selector-options" data-product="chess" data-part="cover-inside">
+                        <div class="color-option selected" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-cover-inside-color">Black</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Pieces Set 1</span>
+                      <div class="color-selector-options" data-product="chess" data-part="piece-1">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-piece-1-color">White</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Pieces Set 2</span>
+                      <div class="color-selector-options" data-product="chess" data-part="piece-2">
+                        <div class="color-option selected" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-piece-2-color">Black</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Board Color 1</span>
+                      <div class="color-selector-options" data-product="chess" data-part="board-1">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-board-1-color">White</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Board Color 2</span>
+                      <div class="color-selector-options" data-product="chess" data-part="board-2">
+                        <div class="color-option selected" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="chess-board-2-color">Black</div>
                     </div>
                     
                     <div class="buy-component-quantity">
@@ -1996,6 +2174,16 @@
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
                     </div>
                     
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="slides" data-part="main">
+                        <div class="color-option selected" data-color="beige" title="Beige" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="slides-main-color">Beige</div>
+                    </div>
+                    
                     <div class="buy-component-quantity">
                       <span class="buy-component-quantity-label">Quantity</span>
                       <div class="quantity-controls">
@@ -2014,7 +2202,7 @@
                     <div class="buy-component-details">
                       <div class="buy-detail-item">
                         <span class="buy-detail-label">Material</span>
-                        <span class="buy-detail-value">PLA</span>
+                        <span class="buy-detail-value">TPU</span>
                       </div>
                       <div class="buy-detail-item">
                         <span class="buy-detail-label">Print Time</span>
@@ -2102,6 +2290,23 @@
                         <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
                       </svg>
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="dog" data-part="main">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="dog-main-color">White</div>
                     </div>
                     
                     <div class="buy-component-quantity">
@@ -2201,6 +2406,16 @@
                         <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
                       </svg>
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="sneakers" data-part="main">
+                        <div class="color-option selected" data-color="beige" title="Beige" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="sneakers-main-color">Beige</div>
                     </div>
                     
                     <div class="buy-component-quantity">
@@ -2324,6 +2539,23 @@
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
                     </div>
                     
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="fidget-ball" data-part="main">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="fidget-ball-main-color">White</div>
+                    </div>
+                    
                     <div class="buy-component-quantity">
                       <span class="buy-component-quantity-label">Quantity</span>
                       <div class="quantity-controls">
@@ -2432,6 +2664,40 @@
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
                     </div>
                     
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Body Color</span>
+                      <div class="color-selector-options" data-product="elephant" data-part="body">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="elephant-body-color">White</div>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Eyes Color</span>
+                      <div class="color-selector-options" data-product="elephant" data-part="eyes">
+                        <div class="color-option selected" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="elephant-eyes-color">Black</div>
+                    </div>
+                    
                     <div class="buy-component-quantity">
                       <span class="buy-component-quantity-label">Quantity</span>
                       <div class="quantity-controls">
@@ -2538,6 +2804,23 @@
                         <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
                       </svg>
                       Pay via <a href="https://venmo.com/donnybad" target="_blank" rel="noopener noreferrer" class="venmo-link">@donnybad</a>
+                    </div>
+                    
+                    <div class="color-selector-group">
+                      <span class="color-selector-label">Color</span>
+                      <div class="color-selector-options" data-product="benchy" data-part="main">
+                        <div class="color-option selected" data-color="white" title="White" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="black" title="Black" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="marble" title="Marble" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="brick" title="Brick" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="olive-green" title="Olive Green" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="matte" title="Matte" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="wood" title="Wood" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="blue" title="Blue" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="red" title="Red" onclick="selectColor(this)"></div>
+                        <div class="color-option" data-color="purple" title="Purple" onclick="selectColor(this)"></div>
+                      </div>
+                      <div class="color-selected-name" id="benchy-main-color">White</div>
                     </div>
                     
                     <div class="buy-component-quantity">
@@ -3399,16 +3682,57 @@
       increaseBtn.disabled = quantity >= maxValue;
     }
     
+    // Color selection function
+    function selectColor(element) {
+      const container = element.closest('.color-selector-options');
+      const product = container.dataset.product;
+      const part = container.dataset.part;
+      const color = element.dataset.color;
+      
+      // Remove selected class from all options in this group
+      container.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+      
+      // Add selected class to clicked option
+      element.classList.add('selected');
+      
+      // Update the color name display
+      const colorNameEl = document.getElementById(`${product}-${part}-color`);
+      if (colorNameEl) {
+        colorNameEl.textContent = color.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+      }
+    }
+    
+    // Get selected colors for a product
+    function getSelectedColors(productId) {
+      const modal = document.getElementById(`buy-modal-${productId}`);
+      if (!modal) return {};
+      
+      const colors = {};
+      modal.querySelectorAll('.color-selector-options').forEach(container => {
+        const part = container.dataset.part;
+        const selected = container.querySelector('.color-option.selected');
+        if (selected) {
+          colors[part] = selected.dataset.color;
+        }
+      });
+      return colors;
+    }
+    
     function addToCart(productId) {
       const quantity = parseInt(document.getElementById(`quantity-${productId}`).value) || 1;
       const price = productPrices[productId];
       const name = productNames[productId];
+      const colors = getSelectedColors(productId);
+      
+      // Create a unique key based on product and colors
+      const colorKey = Object.entries(colors).map(([k, v]) => `${k}:${v}`).sort().join('|');
+      const cartItemId = `${productId}-${colorKey}`;
       
       // Get existing cart from localStorage
       let cart = JSON.parse(localStorage.getItem('cart') || '[]');
       
-      // Check if item already exists in cart
-      const existingItemIndex = cart.findIndex(item => item.productId === productId);
+      // Check if item with same colors already exists in cart
+      const existingItemIndex = cart.findIndex(item => item.cartItemId === cartItemId);
       
       if (existingItemIndex > -1) {
         // Update quantity if item already exists
@@ -3416,10 +3740,12 @@
       } else {
         // Add new item to cart
         cart.push({
+          cartItemId: cartItemId,
           productId: productId,
           name: name,
           price: price,
-          quantity: quantity
+          quantity: quantity,
+          colors: colors
         });
       }
       
@@ -3489,10 +3815,23 @@
       cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
+        
+        // Format colors for display
+        let colorHtml = '';
+        if (item.colors && Object.keys(item.colors).length > 0) {
+          const colorParts = Object.entries(item.colors).map(([part, color]) => {
+            const partName = part.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const colorName = color.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            return `${partName}: ${colorName}`;
+          });
+          colorHtml = `<div class="cart-item-colors" style="font-size: 0.75rem; color: var(--muted-foreground); margin-top: 0.25rem;">${colorParts.join(' • ')}</div>`;
+        }
+        
         html += `
           <div class="cart-item">
             <div class="cart-item-info">
               <div class="cart-item-name">${item.name}</div>
+              ${colorHtml}
               <div class="cart-item-price">$${item.price.toFixed(2)} <span class="cart-item-qty">× ${item.quantity}</span></div>
             </div>
             <button class="cart-item-remove" onclick="removeFromCart(${index})" aria-label="Remove">×</button>
@@ -3525,7 +3864,14 @@
       if (cart.length === 0) return;
       
       const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const itemsList = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+      const itemsList = cart.map(item => {
+        let itemDesc = `${item.quantity}x ${item.name}`;
+        if (item.colors && Object.keys(item.colors).length > 0) {
+          const colorList = Object.entries(item.colors).map(([part, color]) => `${part}:${color}`).join(',');
+          itemDesc += ` (${colorList})`;
+        }
+        return itemDesc;
+      }).join(', ');
       
       // Create Venmo deep link
       const venmoUsername = 'donnybad';
